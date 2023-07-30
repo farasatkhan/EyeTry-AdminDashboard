@@ -23,10 +23,10 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
         {/* Profile Details */}
         <div className="flex justify-between p-3 sm:mr-7">
           {/* Bell Icon */}
-          <div className="h-6 w-6 mt-2 mr-4 cursor-pointer">
+          <div className="h-6 w-6 mt-2 mr-12 cursor-pointer">
             <BsBell size={25} />
           </div>
-          <div className="flex">
+          <div className="flex cursor-pointer">
             <div className="h-10 w-10 rounded-full overflow-hidden mr-2">
               <img
                 src={Person}

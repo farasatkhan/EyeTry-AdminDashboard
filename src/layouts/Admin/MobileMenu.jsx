@@ -10,6 +10,7 @@ import { BsShieldCheck } from "react-icons/bs";
 import { BsBasket } from "react-icons/bs";
 import { BsGear } from "react-icons/bs";
 import { BiMessageDetail } from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 
 const MobileMenu = ({ onSidebarToggle }) => {
   return (
@@ -55,6 +56,10 @@ const MobileMenu = ({ onSidebarToggle }) => {
           <div className="flex justify-start items-center cursor-pointer mt-8">
             <BsGear size={25} />
             <p className={`ml-7 text-lg font-semibold`}>Settings</p>
+          </div>
+          <div className="flex justify-start items-center cursor-pointer mt-8">
+            <BiLogOut size={25} />
+            <p className={`ml-7 text-lg font-semibold`}>Logout</p>
           </div>
         </div>
       </div>
