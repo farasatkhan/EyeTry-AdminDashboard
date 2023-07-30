@@ -1,4 +1,5 @@
 import React from "react";
+import NavbarStyles from "./Navbar.module.css";
 
 import Person from "../../assets/images/test/person.jpg";
 
@@ -23,8 +24,11 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
         {/* Profile Details */}
         <div className="flex justify-between p-3 sm:mr-7">
           {/* Bell Icon */}
-          <div className="h-6 w-6 mt-2 mr-12 cursor-pointer">
+          <div className="flex h-6 w-6 mt-2 mr-12 cursor-pointer relative">
             <BsBell size={25} />
+            <div
+              className={`${NavbarStyles["bell-icon-dot-color"]} w-2 h-2 rounded-full absolute ml-4`}
+            ></div>
           </div>
           <div className="flex cursor-pointer">
             <div className="h-10 w-10 rounded-full overflow-hidden mr-2">

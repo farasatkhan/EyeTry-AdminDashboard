@@ -1,7 +1,6 @@
 import React from "react";
 
 import { BsXLg } from "react-icons/bs";
-
 import { BsPeople } from "react-icons/bs";
 import { BsBox } from "react-icons/bs";
 import { BiLineChart } from "react-icons/bi";
