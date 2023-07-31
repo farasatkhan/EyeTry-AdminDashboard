@@ -1,7 +1,7 @@
 import React from "react";
 import NavbarStyles from "./Navbar.module.css";
 
-import Person from "../../assets/images/test/person.jpg";
+import Person from "../../../assets/images/test/person.jpg";
 
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";

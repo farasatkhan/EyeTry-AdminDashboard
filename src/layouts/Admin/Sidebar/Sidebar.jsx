@@ -14,7 +14,7 @@ import { BsGear } from "react-icons/bs";
 import { BiMessageDetail } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
 
-import Logo from "../../assets/images/logo_placeholder.png";
+import Logo from "../../../assets/images/logo_placeholder.png";
 
 const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
   return (

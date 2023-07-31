@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 
-import Navbar from "../../layouts/Admin/Navbar";
-import Sidebar from "../../layouts/Admin/Sidebar";
-import MobileMenu from "../../layouts/Admin/MobileMenu";
+import Navbar from "../../../layouts/Admin/Navbar";
+import Sidebar from "../../../layouts/Admin/Sidebar";
+import MobileMenu from "../../../layouts/Admin/MobileMenu";
 
 const UsersPage = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);

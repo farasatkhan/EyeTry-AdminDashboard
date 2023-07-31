@@ -8,8 +8,12 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
+      },
+      screens: {
+        'custom-sm': '450px',
+        'custom-md': '600px'
       }
-    },
+    }
   },
   plugins: [],
 }
