@@ -10,13 +10,12 @@ const UsersPage = () => {
 
   const handleToggleSidebar = () => {
     setToggleSidebar((toggleSidebar) => !toggleSidebar);
-    console.log(toggleSidebar);
   };
 
   return (
     <>
       {toggleSidebar && <MobileMenu onSidebarToggle={handleToggleSidebar} />}
-      <div className="flex">
+      <div className="hidden sm:flex">
         <div className={`hidden sm:block`}>
           <Sidebar
             toggleSidebar={toggleSidebar}
