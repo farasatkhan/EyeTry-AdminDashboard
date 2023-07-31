@@ -4,7 +4,7 @@ import { BiLineChart } from "react-icons/bi";
 
 import CardStyles from "./Card.module.css";
 
-const Card = () => {
+const Card = ({ total, percentage, change }) => {
   return (
     <>
       <div className="border border-slate-100 m-3 rounded-lg">
@@ -14,7 +14,7 @@ const Card = () => {
             <p
               className={`${CardStyles["primary-green-color"]} font-bold text-2xl`}
             >
-              29400
+              {total}
             </p>
           </div>
           <div className="flex-1 p-2">
@@ -32,12 +32,12 @@ const Card = () => {
               />
             </div>
             <p className={`${CardStyles["primary-green-color"]} font-body`}>
-              1.7%
+              {percentage}%
             </p>
           </div>
           <div>
             <p className={`text-base md:text-lg font-light whitespace-nowrap`}>
-              from 29.1%
+              from {change}%
             </p>
           </div>
         </div>

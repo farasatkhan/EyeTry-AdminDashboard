@@ -53,19 +53,11 @@ const UsersPage = () => {
             <div
               className={`${UserPageStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
             ></div>
-            <div className="flex flex-wrap">
-              <div className="flex-1 max-w-xs">
-                <Card />
-              </div>
-              <div className="flex-1 max-w-xs">
-                <Card />
-              </div>
-              <div className="flex-1 max-w-xs">
-                <Card />
-              </div>
-              <div className="flex-1 max-w-xs">
-                <Card />
-              </div>
+            <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4">
+              <Card total={2900} percentage={1.7} change={29.1} />
+              <Card total={2900} percentage={1.7} change={29.1} />
+              <Card total={2900} percentage={1.7} change={29.1} />
+              <Card total={2900} percentage={1.7} change={29.1} />
             </div>
           </div>
         </div>
