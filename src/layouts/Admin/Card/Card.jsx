@@ -31,12 +31,12 @@ const Card = ({ total, percentage, change }) => {
                 className={`${CardStyles["primary-green-color"]}`}
               />
             </div>
-            <p className={`${CardStyles["primary-green-color"]} font-body`}>
+            <p className={`${CardStyles["primary-green-color"]}`}>
               {percentage}%
             </p>
           </div>
           <div>
-            <p className={`text-base md:text-lg font-light whitespace-nowrap`}>
+            <p className={`mt-1 font-light whitespace-nowrap`}>
               from {change}%
             </p>
           </div>

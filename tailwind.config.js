@@ -12,6 +12,20 @@ export default {
       screens: {
         'custom-sm': '450px',
         'custom-md': '600px'
+      },
+      colors: {
+        primary: {
+          100: '#e5f9f6',
+          900: '#00c9a7',
+        },
+        danger: {
+          100: '#fdedf1',
+          900: '#ef5978',
+        },
+        warning: {
+          100: '#fff1e2',
+          900: '#f3a04b',
+        },
       }
     }
   },

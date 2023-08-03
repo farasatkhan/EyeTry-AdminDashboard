@@ -5,16 +5,25 @@ import Person from "../../../assets/images/test/person.jpg";
 
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
+import { BiSearch } from "react-icons/bi";
 
 const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
   return (
     <>
-      <nav className="bg-white border-b-2 border-slate-100 flex justify-evenly sm:justify-between">
+      <nav className="bg-white border-b-2 border-slate-100 flex justify-between">
         <div className="sm:hidden flex justify-center place-items-center cursor-pointer">
-          <AiOutlineMenuUnfold size={25} onClick={onSidebarToggle} />
+          <AiOutlineMenuUnfold
+            size={25}
+            onClick={onSidebarToggle}
+            className="ml-3 mr-3"
+          />
+          <BiSearch size={25} className="ml-3  sm:hidden" />
         </div>
         {/* Search Box */}
-        <div className="flex bg-slate-100 rounded-md my-3 sm:ml-7">
+        <div className="hidden sm:flex bg-slate-100 rounded-md my-3 sm:ml-7">
+          <div className="flex justify-center items-center p-3">
+            <BiSearch size={20} />
+          </div>
           <input
             type="text"
             placeholder="Search"
@@ -24,7 +33,7 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
         {/* Profile Details */}
         <div className="flex justify-between p-3 sm:mr-7">
           {/* Bell Icon */}
-          <div className="flex h-6 w-6 mt-2 mr-12 cursor-pointer relative">
+          <div className="flex h-6 w-6 mt-2 mr-4 sm:mr-12 cursor-pointer relative">
             <BsBell size={25} />
             <div
               className={`${NavbarStyles["bell-icon-dot-color"]} w-2 h-2 rounded-full absolute ml-4`}

@@ -6,7 +6,9 @@ import { Fragment } from "react";
 export default function App() {
   return (
     <Fragment>
-      <UsersPage />
+      <div className="font-body">
+        <UsersPage />
+      </div>
     </Fragment>
   );
 }
