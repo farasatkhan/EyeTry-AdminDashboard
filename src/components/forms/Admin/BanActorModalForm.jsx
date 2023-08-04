@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import ModalButtons from "../../../components/ui/Admin/ModalButtons";
+import ModalButtons from "../../ui/Admin/ModalButtons";
 
 const BanUserModalForm = () => {
   const [selectedOption, setSelectedOption] = useState("Forever");
