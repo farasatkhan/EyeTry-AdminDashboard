@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import ModalButtons from "../../ui/Admin/ModalButtons";
 
-const BanUserModalForm = () => {
+const BanUserModalForm = ({ onChangeModal }) => {
   const [selectedOption, setSelectedOption] = useState("Forever");
 
   const options = [
@@ -57,7 +57,7 @@ const BanUserModalForm = () => {
           onChange={handleBanReasonChange}
         />
       </div>
-      <ModalButtons type="ban" />
+      <ModalButtons type="ban" onClick={onChangeModal} />
     </>
   );
 };

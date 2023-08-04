@@ -5,7 +5,7 @@ import { BsFillPersonFill, BsPencil } from "react-icons/bs";
 import Person from "../../../assets/images/test/person.jpg";
 import ModalButtons from "../../ui/Admin/ModalButtons";
 
-const AddActorModalForm = ({ onClose }) => {
+const AddActorModalForm = ({ onChangeModal }) => {
   return (
     <>
       <div className="mt-5">
@@ -76,7 +76,7 @@ const AddActorModalForm = ({ onClose }) => {
                 className="border h-8 outline-none md:w-4/5 rounded-sm p-2"
               />
             </div>
-            <ModalButtons type="add" onClick={onClose} />
+            <ModalButtons type="add" onClick={onChangeModal} />
           </form>
         </div>
       </div>

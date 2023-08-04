@@ -13,7 +13,7 @@ import AddActorModalForm from "../../../components/forms/Admin/AddActorModalForm
   action: ban, unban
 */
 
-const ActorModal = ({ title, action, onCloseModal }) => {
+const ActorModal = ({ title, action, onChangeModal }) => {
   const [modalAction, setModalAction] = useState("");
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const ActorModal = ({ title, action, onCloseModal }) => {
           <div className="">
             <p>{title}</p>
           </div>
-          <div className="cursor-pointer" onClick={onCloseModal}>
+          <div className="cursor-pointer" onClick={onChangeModal}>
             <BsXLg size={25} />
           </div>
         </div>
@@ -36,11 +36,11 @@ const ActorModal = ({ title, action, onCloseModal }) => {
         ></div>
         <div className="mx-5 mb-5">
           {modalAction === "ban" ? (
-            <BanActorModalForm onClose={onCloseModal} />
+            <BanActorModalForm onChangeModal={onChangeModal} />
           ) : modalAction === "unban" ? (
-            <UnBanActorModalForm />
+            <UnBanActorModalForm onChangeModal={onChangeModal} />
           ) : (
-            <AddActorModalForm onClose={onCloseModal} />
+            <AddActorModalForm onChangeModal={onChangeModal} />
           )}
         </div>
       </div>

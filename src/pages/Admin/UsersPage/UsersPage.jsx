@@ -21,6 +21,10 @@ const UsersPage = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [closeModal, setCloseModal] = useState(false);
+  const [modalType, setModalType] = useState({
+    title: "",
+    action: "",
+  });
 
   const handleToggleSidebar = () => {
     setToggleSidebar((toggleSidebar) => !toggleSidebar);
@@ -30,9 +34,9 @@ const UsersPage = () => {
     setSearchQuery(event.target.value);
   };
 
-  const closeModalHandle = () => {
-    console.log(closeModal);
+  const changeModalHandle = (title, action) => {
     setCloseModal(!closeModal);
+    setModalType({ ...modalType, title: title, action: action });
   };
 
   return (
@@ -66,7 +70,7 @@ const UsersPage = () => {
               <div className="flex">
                 <button
                   className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
-                  onClick={closeModalHandle}
+                  onClick={() => changeModalHandle("Add new user", "add")}
                 >
                   <p className="">Add User</p>
                 </button>
@@ -116,7 +120,11 @@ const UsersPage = () => {
               </div>
               {/* table */}
               <div className="mx-4">
-                <InformationTable data={data} query={searchQuery} />
+                <InformationTable
+                  data={data}
+                  query={searchQuery}
+                  onCloseModal={changeModalHandle}
+                />
               </div>
             </div>
           </div>
@@ -124,9 +132,9 @@ const UsersPage = () => {
       </div>
       {closeModal && (
         <ActorModal
-          title="Add New User?"
-          action="add"
-          onCloseModal={closeModalHandle}
+          title={modalType.title}
+          action={modalType.action}
+          onChangeModal={changeModalHandle}
         />
       )}
     </div>

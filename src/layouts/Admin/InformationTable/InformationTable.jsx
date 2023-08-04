@@ -4,7 +4,7 @@ import Person from "../../../assets/images/test/person.jpg";
 import StatusPill from "../../../components/ui/Admin/StatusPill";
 import BanControl from "../../../components/ui/Admin/BanControl";
 
-const InformationTable = ({ data, query }) => {
+const InformationTable = ({ data, query, onCloseModal }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -104,9 +104,13 @@ const InformationTable = ({ data, query }) => {
 
   const checkBanControl = (status) => {
     if (status === "Banned") {
-      return <BanControl text="Lift Ban" type="primary" />;
+      return (
+        <BanControl text="Lift Ban" type="primary" onClick={onCloseModal} />
+      );
     } else {
-      return <BanControl text="Ban User" type="danger" />;
+      return (
+        <BanControl text="Ban User" type="danger" onClick={onCloseModal} />
+      );
     }
   };
 
