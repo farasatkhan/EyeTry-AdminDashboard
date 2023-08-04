@@ -4,6 +4,8 @@ import Person from "../../../assets/images/test/person.jpg";
 import StatusPill from "../../../components/ui/Admin/StatusPill";
 import BanControl from "../../../components/ui/Admin/BanControl";
 
+import InformationTableStyles from "./InformationTable.module.css";
+
 const InformationTable = ({ data, query, onCloseModal }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
@@ -116,7 +118,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
 
   return (
     <>
-      <div className="relative overflow-x-auto">
+      <div className={`relative overflow-x-auto`}>
         <table className="w-full text-left text-sm">
           <thead className="text-sm bg-slate-100">
             <tr>

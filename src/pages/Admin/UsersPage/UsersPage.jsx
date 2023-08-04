@@ -88,7 +88,7 @@ const UsersPage = () => {
             <div className="border border-slate-100 m-3 rounded-lg">
               <div className="flex justify-between m-3">
                 <div className="mt-3">
-                  <div className="flex bg-slate-100 rounded-md">
+                  <div className="hidden sm:flex bg-slate-100 rounded-md">
                     <div className="flex justify-center items-center p-3">
                       <BiSearch size={20} />
                     </div>
@@ -99,6 +99,9 @@ const UsersPage = () => {
                       onChange={handleSearchQuery}
                       className="w-30 sm:w-60 md:w-80 p-2 bg-transparent focus:outline-none"
                     />
+                  </div>
+                  <div className="sm:hidden p-3">
+                    <BiSearch size={25} />
                   </div>
                 </div>
                 <div className="flex">
