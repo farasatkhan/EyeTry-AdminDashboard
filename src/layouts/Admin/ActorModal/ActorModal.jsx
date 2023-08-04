@@ -6,8 +6,14 @@ import ActorModalStyles from "./ActorModal.module.css";
 
 import BanActorModalForm from "../../../components/forms/Admin/BanActorModalForm";
 import UnBanActorModalForm from "../../../components/forms/Admin/UnBanActorModalForm";
+import AddActorModalForm from "../../../components/forms/Admin/AddActorModalForm";
 
-const ActorModal = ({ title, action }) => {
+/*
+  title: <anything>
+  action: ban, unban
+*/
+
+const ActorModal = ({ title, action, onCloseModal }) => {
   const [modalAction, setModalAction] = useState("");
 
   useEffect(() => {
@@ -21,7 +27,7 @@ const ActorModal = ({ title, action }) => {
           <div className="">
             <p>{title}</p>
           </div>
-          <div className="cursor-pointer">
+          <div className="cursor-pointer" onClick={onCloseModal}>
             <BsXLg size={25} />
           </div>
         </div>
@@ -30,10 +36,12 @@ const ActorModal = ({ title, action }) => {
         ></div>
         <div className="mx-5 mb-5">
           {modalAction === "ban" ? (
-            <BanActorModalForm />
+            <BanActorModalForm onClose={onCloseModal} />
           ) : modalAction === "unban" ? (
             <UnBanActorModalForm />
-          ) : null}
+          ) : (
+            <AddActorModalForm onClose={onCloseModal} />
+          )}
         </div>
       </div>
     </div>

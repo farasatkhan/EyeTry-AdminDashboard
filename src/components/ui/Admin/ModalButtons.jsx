@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 /*
     ban, unban, add
 */
-const ModalButtons = ({ type }) => {
+const ModalButtons = ({ type, onClick }) => {
   const [properties, setProperties] = useState({
     color: "",
     cancelText: "",
@@ -37,7 +37,10 @@ const ModalButtons = ({ type }) => {
 
   return (
     <div className="flex justify-end gap-4 mt-4">
-      <button className="text-white font-bold px-2 py-1 sm:py-2 sm:px-4 rounded border">
+      <button
+        className="text-white font-bold px-2 py-1 sm:py-2 sm:px-4 rounded border"
+        onClick={onClick}
+      >
         <p className="text-tertiary-100 text-sm font-light">
           {properties.cancelText}
         </p>

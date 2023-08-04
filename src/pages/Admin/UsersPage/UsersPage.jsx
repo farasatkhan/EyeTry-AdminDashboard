@@ -13,11 +13,14 @@ import Card from "../../../layouts/Admin/Card";
 import UserPageStyles from "./UsersPage.module.css";
 import InformationTable from "../../../layouts/Admin/InformationTable/InformationTable";
 
+import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
+
 import data from "../../../data/Admin/informationTableData";
 
 const UsersPage = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [closeModal, setCloseModal] = useState(false);
 
   const handleToggleSidebar = () => {
     setToggleSidebar((toggleSidebar) => !toggleSidebar);
@@ -25,6 +28,11 @@ const UsersPage = () => {
 
   const handleSearchQuery = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const closeModalHandle = () => {
+    console.log(closeModal);
+    setCloseModal(!closeModal);
   };
 
   return (
@@ -56,7 +64,10 @@ const UsersPage = () => {
                 </div>
               </div>
               <div className="flex">
-                <button className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
+                <button
+                  className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
+                  onClick={closeModalHandle}
+                >
                   <p className="">Add User</p>
                 </button>
               </div>
@@ -111,6 +122,13 @@ const UsersPage = () => {
           </div>
         </div>
       </div>
+      {closeModal && (
+        <ActorModal
+          title="Add New User?"
+          action="add"
+          onCloseModal={closeModalHandle}
+        />
+      )}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Navbar from "../../../layouts/Admin/Navbar";
 import Sidebar from "../../../layouts/Admin/Sidebar";
 import MobileMenu from "../../../layouts/Admin/MobileMenu";
-import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
 const Dashboard = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
@@ -31,7 +30,6 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <ActorModal title="Ban this user?" action="ban" />
     </div>
   );
 };
