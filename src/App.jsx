@@ -1,4 +1,5 @@
 import UsersPage from "./pages/Admin/UsersPage";
+import Dashboard from "./pages/Admin/Dashboard";
 
 import "./index.css";
 import { Fragment } from "react";
@@ -6,9 +7,7 @@ import { Fragment } from "react";
 export default function App() {
   return (
     <Fragment>
-      <div className="font-body">
-        <UsersPage />
-      </div>
+      <Dashboard />
     </Fragment>
   );
 }

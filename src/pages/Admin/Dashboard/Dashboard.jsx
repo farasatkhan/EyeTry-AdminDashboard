@@ -1,11 +1,11 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import Navbar from "../../../layouts/Admin/Navbar";
 import Sidebar from "../../../layouts/Admin/Sidebar";
 import MobileMenu from "../../../layouts/Admin/MobileMenu";
+import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
-const UsersPage = () => {
+const Dashboard = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
 
   const handleToggleSidebar = () => {
@@ -13,9 +13,9 @@ const UsersPage = () => {
   };
 
   return (
-    <>
+    <div className="font-body">
       {toggleSidebar && <MobileMenu onSidebarToggle={handleToggleSidebar} />}
-      <div className="hidden sm:flex">
+      <div className={`${toggleSidebar ? "hidden" : "block"} sm:flex`}>
         <div className={`hidden sm:block`}>
           <Sidebar
             toggleSidebar={toggleSidebar}
@@ -29,11 +29,11 @@ const UsersPage = () => {
             toggleSidebar={toggleSidebar}
             onSidebarToggle={handleToggleSidebar}
           />
-          <div className=""></div>
         </div>
       </div>
-    </>
+      <ActorModal title="Ban this user?" action="ban" />
+    </div>
   );
 };
 
-export default UsersPage;
+export default Dashboard;

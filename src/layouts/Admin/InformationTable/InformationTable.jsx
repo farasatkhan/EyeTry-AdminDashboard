@@ -42,7 +42,6 @@ const InformationTable = ({ data, query }) => {
   }, [pages]);
 
   useEffect(() => {
-    console.log(query);
     !!query
       ? setModifiedData(
           data
@@ -53,6 +52,7 @@ const InformationTable = ({ data, query }) => {
                 user.phone.toLowerCase().includes(query.toLowerCase())
             )
             .slice(0, 10)
+          // Max Items to be displayed will be 10.
         )
       : setModifiedData(
           data.slice(
@@ -116,33 +116,57 @@ const InformationTable = ({ data, query }) => {
         <table className="w-full text-left text-sm">
           <thead className="text-sm bg-slate-100">
             <tr>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 User
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Email
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Phone
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Status
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Last Active
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Amount Spent
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Country
               </th>
-              <th scope="col" className="px-2 py-3 font-normal">
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Ban User
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="">
             {modifiedData.map((user, index) => {
               return (
                 <tr key={index}>
@@ -156,17 +180,27 @@ const InformationTable = ({ data, query }) => {
                         />
                       </div>
                       <div className="mt-1">
-                        <p>{user.name}</p>
+                        <p className="whitespace-nowrap">{user.name}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-2 py-3">{user.email}</td>
-                  <td className="px-2 py-3">{user.phone}</td>
-                  <td className="px-2 py-3">{checkStatus(user.status)}</td>
-                  <td className="px-2 py-3">{user.last_active}</td>
-                  <td className="px-2 py-3">{user.amount_spent}</td>
-                  <td className="px-2 py-3">{user.country}</td>
-                  <td className="px-2 py-3">{checkBanControl(user.status)}</td>
+                  <td className="px-2 py-3 whitespace-nowrap">{user.email}</td>
+                  <td className="px-2 py-3 whitespace-nowrap">{user.phone}</td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    {checkStatus(user.status)}
+                  </td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    {user.last_active}
+                  </td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    {user.amount_spent}
+                  </td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    {user.country}
+                  </td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    {checkBanControl(user.status)}
+                  </td>
                 </tr>
               );
             })}

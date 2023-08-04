@@ -28,7 +28,7 @@ const UsersPage = () => {
   };
 
   return (
-    <>
+    <div className="font-body">
       {toggleSidebar && <MobileMenu onSidebarToggle={handleToggleSidebar} />}
       <div className={`${toggleSidebar ? "hidden" : "block"} sm:flex`}>
         <div className={`hidden sm:block`}>
@@ -111,7 +111,7 @@ const UsersPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

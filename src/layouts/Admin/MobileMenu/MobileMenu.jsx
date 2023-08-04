@@ -1,15 +1,19 @@
 import React from "react";
 
-import { BsXLg } from "react-icons/bs";
-import { BsPeople } from "react-icons/bs";
-import { BsBox } from "react-icons/bs";
-import { BiLineChart } from "react-icons/bi";
-import { BiHomeAlt2 } from "react-icons/bi";
-import { BsShieldCheck } from "react-icons/bs";
-import { BsBasket } from "react-icons/bs";
-import { BsGear } from "react-icons/bs";
-import { BiMessageDetail } from "react-icons/bi";
-import { BiLogOut } from "react-icons/bi";
+import {
+  BsXLg,
+  BsPeople,
+  BsBox,
+  BsShieldCheck,
+  BsBasket,
+  BsGear,
+} from "react-icons/bs";
+import {
+  BiLineChart,
+  BiHomeAlt2,
+  BiMessageDetail,
+  BiLogOut,
+} from "react-icons/bi";
 
 const MobileMenu = ({ onSidebarToggle }) => {
   return (

@@ -26,6 +26,9 @@ export default {
           100: '#fff1e2',
           900: '#f3a04b',
         },
+        tertiary: {
+          100: '#818181'
+        }
       }
     }
   },
