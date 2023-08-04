@@ -118,8 +118,9 @@ const InformationTable = ({ data, query, onCloseModal }) => {
 
   return (
     <>
-      <div className={`relative overflow-x-auto`}>
-        <table className="w-full text-left text-sm">
+      {/* relative overflow-x-auto */}
+      <div className={`flex-grow relative overflow-x-auto`}>
+        <table className="w-full text-left text-sm table-auto">
           <thead className="text-sm bg-slate-100">
             <tr>
               <th
