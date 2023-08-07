@@ -32,6 +32,13 @@ const ModalButtons = ({ type, onClick }) => {
         cancelText: "Discard",
         actionText: "Add User",
       });
+    } else if (type === "delete_account") {
+      setProperties({
+        ...properties,
+        color: "bg-danger-900",
+        cancelText: "Cancel",
+        actionText: "Delete account",
+      });
     }
   }, [type]);
 

@@ -28,6 +28,9 @@ export default {
         },
         tertiary: {
           100: '#818181'
+        },
+        offwhite: {
+          100: '#677788'
         }
       }
     }

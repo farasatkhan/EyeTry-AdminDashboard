@@ -7,10 +7,11 @@ import ActorModalStyles from "./ActorModal.module.css";
 import BanActorModalForm from "../../../components/forms/Admin/BanActorModalForm";
 import UnBanActorModalForm from "../../../components/forms/Admin/UnBanActorModalForm";
 import AddActorModalForm from "../../../components/forms/Admin/AddActorModalForm";
+import DeleteAccountModalForm from "../../../components/forms/Admin/DeleteAccountModalForm";
 
 /*
   title: <anything>
-  action: ban, unban
+  action: ban, unban, delete_account
 */
 
 const ActorModal = ({ title, action, onChangeModal }) => {
@@ -39,8 +40,12 @@ const ActorModal = ({ title, action, onChangeModal }) => {
             <BanActorModalForm onChangeModal={onChangeModal} />
           ) : modalAction === "unban" ? (
             <UnBanActorModalForm onChangeModal={onChangeModal} />
-          ) : (
+          ) : modalAction === "add" ? (
             <AddActorModalForm onChangeModal={onChangeModal} />
+          ) : (
+            modalAction === "delete_account" && (
+              <DeleteAccountModalForm onChangeModal={onChangeModal} />
+            )
           )}
         </div>
       </div>
