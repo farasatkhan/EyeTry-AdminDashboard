@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   BsXLg,
@@ -28,18 +29,24 @@ const MobileMenu = ({ onSidebarToggle }) => {
           </div>
         </div>
         <div className="flex flex-col mt-10 ml-7 mr-7">
-          <div className="flex justify-start items-center cursor-pointer mt-8">
-            <BiHomeAlt2 size={25} />
-            <p className={`ml-7 text-lg font-semibold`}>Dashboard</p>
-          </div>
-          <div className="flex justify-start items-center cursor-pointer mt-8">
-            <BsPeople size={25} />
-            <p className={`ml-7 text-lg font-semibold`}>Management</p>
-          </div>
-          <div className="flex justify-start items-center cursor-pointer mt-8">
-            <BsBox size={25} />
-            <p className={`ml-7 text-lg font-semibold`}>Products</p>
-          </div>
+          <NavLink to="/">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BiHomeAlt2 size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Dashboard</p>
+            </div>
+          </NavLink>
+          <NavLink to="/users">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BsPeople size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Management</p>
+            </div>
+          </NavLink>
+          <NavLink to="/products">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BsBox size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Products</p>
+            </div>
+          </NavLink>
           <div className="flex justify-start items-center cursor-pointer mt-8">
             <BsBasket size={25} />
             <p className={`ml-7 text-lg font-semibold`}>Orders</p>
@@ -56,10 +63,12 @@ const MobileMenu = ({ onSidebarToggle }) => {
             <BiMessageDetail size={25} />
             <p className={`ml-7 text-lg font-semibold`}>FAQs & Guides</p>
           </div>
-          <div className="flex justify-start items-center cursor-pointer mt-8">
-            <BsGear size={25} />
-            <p className={`ml-7 text-lg font-semibold`}>Settings</p>
-          </div>
+          <NavLink to="/settings">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BsGear size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Settings</p>
+            </div>
+          </NavLink>
           <div className="flex justify-start items-center cursor-pointer mt-8">
             <BiLogOut size={25} />
             <p className={`ml-7 text-lg font-semibold`}>Logout</p>
