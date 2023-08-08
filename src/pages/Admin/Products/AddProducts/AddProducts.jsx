@@ -168,7 +168,7 @@ const AddProducts = () => {
                         alt="product"
                       />
                     </div>
-                    <div className="flex justify-between items-center mx-4 h-1/5 py-2">
+                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
                       <AiOutlineEye size={20} className="cursor-pointer" />
                       <BsTrash
                         size={20}
@@ -186,7 +186,7 @@ const AddProducts = () => {
                         alt="product"
                       />
                     </div>
-                    <div className="flex justify-between items-center mx-4 h-1/5 py-2">
+                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
                       <AiOutlineEye size={20} className="cursor-pointer" />
                       <BsTrash
                         size={20}
@@ -204,7 +204,7 @@ const AddProducts = () => {
                         alt="product"
                       />
                     </div>
-                    <div className="flex justify-between items-center mx-4 h-1/5 py-2">
+                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
                       <AiOutlineEye size={20} className="cursor-pointer" />
                       <BsTrash
                         size={20}
@@ -222,7 +222,7 @@ const AddProducts = () => {
                         alt="product"
                       />
                     </div>
-                    <div className="flex justify-between items-center mx-4 h-1/5 py-2">
+                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
                       <AiOutlineEye size={20} className="cursor-pointer" />
                       <BsTrash
                         size={20}
