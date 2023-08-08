@@ -49,30 +49,27 @@ const AddProducts = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row flex-grow justify-between ml-7 mr-7 mt-7">
-        <div className="flex flex-col mb-5 md:mb-0 ">
+        <div className="flex flex-col mb-5 md:mb-0">
           <div className="flex gap-1">
             <p className="font-light text-slate-500">Products /</p>
-            <p className="">Add Products</p>
+            <p className="">Products</p>
           </div>
           <div className="mt-2">
-            <p className="text-2xl">Add Products</p>
+            <p className="text-2xl">Products</p>
           </div>
         </div>
-        <div className="flex flex-grow gap-4 ">
-          <div className="flex">
+        <div className="flex flex-grow md:flex-grow-0 gap-4">
+          <div className="flex w-full">
+            <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
+              <p className="">Add Products</p>
+            </button>
+          </div>
+          <div className="flex w-full">
             <button
               className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border"
               onClick={() => changeModalHandle("Add new user", "add")}
             >
               <p className="text-black">Import</p>
-            </button>
-          </div>
-          <div className="flex">
-            <button
-              className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
-              onClick={() => changeModalHandle("Add new user", "add")}
-            >
-              <p className="">Add Products</p>
             </button>
           </div>
         </div>
