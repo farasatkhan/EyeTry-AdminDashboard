@@ -157,8 +157,8 @@ const AddProducts = () => {
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
               ></div>
               <div className="px-5 pt-5">
-                <div className="flex flex-wrap justify-between md:justify-start md:gap-10">
-                  <div className="flex flex-col flex-shrink-0 border rounded-md w-5/12 md:1/3 lg:w-1/5 mb-4">
+                <div className="flex flex-wrap md:justify-start gap-2 md:gap-10">
+                  <div className="flex flex-col flex-grow md:flex-grow-0 flex-shrink-0 border rounded-md w-5/12 md:1/3 lg:w-1/5 mb-4">
                     <div className="border-b cursor-pointer">
                       <img
                         className="object-contain"
@@ -174,7 +174,7 @@ const AddProducts = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col flex-shrink-0 border rounded-md w-5/12 md:1/3 lg:w-1/5 mb-4">
+                  <div className="flex flex-col flex-grow md:flex-grow-0 flex-shrink-0 border rounded-md w-5/12 md:1/3 lg:w-1/5 mb-4">
                     <div className="border-b cursor-pointer">
                       <img
                         className="object-contain"
