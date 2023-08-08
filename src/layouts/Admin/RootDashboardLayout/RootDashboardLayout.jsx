@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 import Navbar from "../../../layouts/Admin/Navbar";
 import Sidebar from "../../../layouts/Admin/Sidebar";
 import MobileMenu from "../../../layouts/Admin/MobileMenu";
 
-const Dashboard = () => {
+const RootDashboardLayout = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
 
   const handleToggleSidebar = () => {
@@ -28,10 +29,11 @@ const Dashboard = () => {
             toggleSidebar={toggleSidebar}
             onSidebarToggle={handleToggleSidebar}
           />
+          <Outlet />
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default RootDashboardLayout;

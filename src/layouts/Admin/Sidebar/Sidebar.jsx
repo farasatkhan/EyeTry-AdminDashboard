@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import { TbArrowBarLeft } from "react-icons/tb";
 import { TbArrowBarRight } from "react-icons/tb";
@@ -44,75 +44,49 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           />
         </div>
         <div className="mt-10">
-          <div className="flex justify-start items-center cursor-pointer mt-7">
-            <div className="h-7 pt-1">
-              <BiHomeAlt2 size={20} className="" />
+          <NavLink to="/">
+            <div className="flex justify-start items-center cursor-pointer mt-7">
+              <div className="h-7 pt-1">
+                <BiHomeAlt2 size={20} className="" />
+              </div>
+              <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
+                Dashboard
+              </p>
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Dashboard
-            </p>
-          </div>
-          <div className="flex justify-start items-center cursor-pointer mt-7">
-            <div className="h-7 pt-1">
-              <BsPeople size={20} />
+          </NavLink>
+          <NavLink to="/users">
+            <div className="flex justify-start items-center cursor-pointer mt-7">
+              <div className="h-7 pt-1">
+                <BsPeople size={20} />
+              </div>
+              <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
+                Management
+              </p>
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Management
-            </p>
-          </div>
+          </NavLink>
           <div className="flex justify-start items-center cursor-pointer mt-7">
             <div className="h-7 pt-1">
               <BsBox size={20} />
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Products
-            </p>
+            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Products</p>
           </div>
           <div className="flex justify-start items-center cursor-pointer mt-7">
             <div className="h-7 pt-1">
               <BsBasket size={20} />
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Orders
-            </p>
+            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Orders</p>
           </div>
           <div className="flex justify-start items-center cursor-pointer mt-7">
             <div className="h-7 pt-1">
               <BiLineChart size={20} />
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Analytics
-            </p>
+            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Analytics</p>
           </div>
           <div className="flex justify-start items-center cursor-pointer mt-7">
             <div className="h-7 pt-1">
               <BsShieldCheck size={20} />
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
+            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
               Moderation
             </p>
           </div>
@@ -120,37 +94,25 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
             <div className="h-7 pt-1">
               <BiMessageDetail size={20} />
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
+            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
               Assistance
             </p>
           </div>
-          <div className="flex justify-start items-center cursor-pointer mt-7">
-            <div className="h-7 pt-1">
-              <BsGear size={20} />
+          <NavLink to="/settings">
+            <div className="flex justify-start items-center cursor-pointer mt-7">
+              <div className="h-7 pt-1">
+                <BsGear size={20} />
+              </div>
+              <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
+                Settings
+              </p>
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Settings
-            </p>
-          </div>
+          </NavLink>
           <div className="flex justify-start items-center cursor-pointer mt-7">
             <div className="h-7 pt-1">
               <BiLogOut size={20} />
             </div>
-            <p
-              className={`${
-                toggleSidebar ? "" : "hidden"
-              } ml-3 text-lg font-semibold`}
-            >
-              Logout
-            </p>
+            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Logout</p>
           </div>
         </div>
       </div>
