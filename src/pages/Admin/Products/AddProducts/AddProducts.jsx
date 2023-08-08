@@ -48,8 +48,8 @@ const AddProducts = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-grow justify-between ml-7 mr-7 mt-7">
-        <div className="flex flex-col">
+      <div className="flex flex-col md:flex-row flex-grow justify-between ml-7 mr-7 mt-7">
+        <div className="flex flex-col mb-5 md:mb-0 ">
           <div className="flex gap-1">
             <p className="font-light text-slate-500">Products /</p>
             <p className="">Add Products</p>
@@ -58,10 +58,10 @@ const AddProducts = () => {
             <p className="text-2xl">Add Products</p>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-grow gap-4 ">
           <div className="flex">
             <button
-              className="w-36 h-10 rounded-md text-white focus:outline-none bg-white border"
+              className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border"
               onClick={() => changeModalHandle("Add new user", "add")}
             >
               <p className="text-black">Import</p>
@@ -69,7 +69,7 @@ const AddProducts = () => {
           </div>
           <div className="flex">
             <button
-              className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
+              className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
               onClick={() => changeModalHandle("Add new user", "add")}
             >
               <p className="">Add Products</p>
@@ -81,9 +81,9 @@ const AddProducts = () => {
         className={`${AddProductsStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
       ></div>
       <div className="flex mx-5 mt-5">
-        <form action="/" className="flex flex-grow gap-2">
+        <form action="/" className="flex flex-col md:flex-row flex-grow gap-2">
           {/* this is left side */}
-          <div className="flex flex-col w-4/6">
+          <div className="flex flex-col w-full md:w-4/6">
             <div className="shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Product Information</p>
@@ -123,7 +123,7 @@ const AddProducts = () => {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <button className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
+                  <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Save Changes</p>
                   </button>
                 </div>
@@ -146,7 +146,7 @@ const AddProducts = () => {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <button className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
+                  <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Save Changes</p>
                   </button>
                 </div>
@@ -160,8 +160,24 @@ const AddProducts = () => {
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
               ></div>
               <div className="px-5 pt-5">
-                <div className="flex flex-wrap gap-10">
-                  <div className="flex flex-col flex-shrink-0 border rounded-md w-1/5">
+                <div className="flex flex-wrap justify-between md:justify-start md:gap-10">
+                  <div className="flex flex-col flex-shrink-0 border rounded-md w-5/12 md:w-1/5 mb-4">
+                    <div className="border-b cursor-pointer">
+                      <img
+                        className="object-contain"
+                        src={ProductImage}
+                        alt="product"
+                      />
+                    </div>
+                    <div className="flex justify-between items-center mx-4 h-1/5 py-2">
+                      <AiOutlineEye size={20} className="cursor-pointer" />
+                      <BsTrash
+                        size={20}
+                        className="text-danger-900 cursor-pointer"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col flex-shrink-0 border rounded-md w-5/12 md:w-1/5 mb-4">
                     <div className="border-b cursor-pointer">
                       <img
                         className="object-contain"
@@ -202,7 +218,7 @@ const AddProducts = () => {
             </div>
           </div>
           {/* this is right side */}
-          <div className="flex flex-col w-2/6">
+          <div className="flex flex-col w-full md:w-2/6">
             <div className="shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Pricing</p>
@@ -394,7 +410,7 @@ const AddProducts = () => {
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <button className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
+                  <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Add</p>
                   </button>
                 </div>
