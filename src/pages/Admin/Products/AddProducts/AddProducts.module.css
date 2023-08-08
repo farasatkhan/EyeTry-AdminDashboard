@@ -9,3 +9,7 @@
 .border-width {
   borderwidth: "2px";
 }
+
+.custom-width-percentage {
+  width: 49%;
+}
