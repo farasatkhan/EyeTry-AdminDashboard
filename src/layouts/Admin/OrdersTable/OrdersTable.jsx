@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { NavLink } from "react-router-dom";
+
 import StatusPill from "../../../components/ui/Admin/StatusPill";
 import Person from "../../../assets/images/test/person.jpg";
 
@@ -161,18 +163,20 @@ const InformationTable = ({ data, query }) => {
                     </div>
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    <div className="flex cursor-pointer">
-                      <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
-                        <img
-                          src={Person}
-                          alt="Person"
-                          className="object-cover h-full w-full"
-                        />
+                    <NavLink to="/orders/customer">
+                      <div className="flex cursor-pointer">
+                        <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
+                          <img
+                            src={Person}
+                            alt="Person"
+                            className="object-cover h-full w-full"
+                          />
+                        </div>
+                        <div className="mt-1">
+                          <p className="whitespace-nowrap">{order.user}</p>
+                        </div>
                       </div>
-                      <div className="mt-1">
-                        <p className="whitespace-nowrap">{order.user}</p>
-                      </div>
-                    </div>
+                    </NavLink>
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">{order.date}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
