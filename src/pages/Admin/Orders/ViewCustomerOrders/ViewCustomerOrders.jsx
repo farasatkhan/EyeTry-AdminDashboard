@@ -32,7 +32,7 @@ const ViewParticularCustomerOrder = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row flex-grow justify-between ml-7 mr-7 mt-7">
-        <div className="flex flex-col mb-5 md:mb-0">
+        <div className="flex flex-col mb-5 md:mb-0 w-full">
           <div className="flex gap-1">
             <p className="font-light text-slate-500">Management /</p>
             <p className="">Customer Orders</p>
@@ -42,8 +42,8 @@ const ViewParticularCustomerOrder = () => {
           </div>
         </div>
         <div className="flex">
-          <div className="flex">
-            <div className="flex justify-center items-center border-s border-t border-b border-e-0 h-10 rounded-s-md px-3">
+          <div className="flex flex-grow md:flex-grow-0">
+            <div className="flex w-full md:w-fit items-center border-s border-t border-b border-e-0 h-10 rounded-s-md px-3">
               <BiSearch size={20} className="cursor-pointer text-slate-500" />
               <input
                 type="text"
