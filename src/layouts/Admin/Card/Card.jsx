@@ -4,13 +4,13 @@ import { BiLineChart } from "react-icons/bi";
 
 import CardStyles from "./Card.module.css";
 
-const Card = ({ total, percentage, change }) => {
+const Card = ({ title, total, percentage, change }) => {
   return (
     <>
       <div className="border border-slate-100 m-3 rounded-lg">
         <div className="flex m-1">
           <div className="flex flex-1 flex-col gap-2 p-2">
-            <p className="font-bold">Total Users</p>
+            <p className="font-bold">{title}</p>
             <p
               className={`${CardStyles["primary-green-color"]} font-bold text-2xl`}
             >
