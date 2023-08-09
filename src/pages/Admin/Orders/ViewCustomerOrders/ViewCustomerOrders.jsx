@@ -80,7 +80,7 @@ const ViewParticularCustomerOrder = () => {
             </div>
             <div className="mx-5">
               <div className="flex flex-col md:flex-row gap-5 mb-5">
-                <div className="flex gap-2 w-1/2">
+                <div className="flex gap-2 w-full md:w-1/2">
                   <MdOutlineMail size={20} className="w-1/6" />
                   <div className="flex flex-col w-5/6">
                     <p className="text-slate-400 text-base md:text-sm mb-2">
@@ -89,7 +89,7 @@ const ViewParticularCustomerOrder = () => {
                     <p className="text-base md:text-sm">roger@gmail.com</p>
                   </div>
                 </div>
-                <div className="flex gap-2 w-1/2">
+                <div className="flex gap-2 w-full md:w-1/2">
                   <BsTelephone size={15} className="w-1/6" />
                   <div className="flex flex-col w-5/6">
                     <p className="text-slate-400 text-base md:text-sm mb-2">
@@ -100,7 +100,7 @@ const ViewParticularCustomerOrder = () => {
                 </div>
               </div>
               <div className="flex flex-col md:flex-row gap-5 mb-5">
-                <div className="flex gap-2 w-1/2">
+                <div className="flex gap-2 w-full md:w-1/2">
                   <MdPayment size={20} className="w-1/6" />
                   <div className="flex flex-col w-5/6">
                     <p className="text-slate-400 text-base md:text-sm mb-2">
@@ -109,9 +109,9 @@ const ViewParticularCustomerOrder = () => {
                     <p className="text-base md:text-sm">Paypal</p>
                   </div>
                 </div>
-                <div className="flex gap-2 w-1/2">
+                <div className="flex gap-2 w-full md:w-1/2">
                   <BiHomeAlt2 size={20} className="w-1/6" />
-                  <div className="flex flex-col w-5/6">
+                  <div className="flex flex-col w-full md:w-5/6">
                     <p className="text-slate-400 text-base md:text-sm mb-2">
                       Shipping adderss
                     </p>
@@ -125,23 +125,27 @@ const ViewParticularCustomerOrder = () => {
           </div>
         </div>
         {/* right side */}
-        <div className="flex flex-col md:flex-row w-full mb-10 md:mb-0 md:w-1/2 p-5">
-          <div className="flex flex-col w-1/2 justify-center items-center mb-10 md:mb-0">
+        <div className="flex flex-col lg:flex-row justify-center items-center w-full mb-10 md:mb-0 md:w-1/2 p-5">
+          <div className="flex flex-col justify-center items-center w-full lg:w-1/2 mb-5 lg:mb-0">
             <div className="flex gap-2 mb-5">
               <BsFillCartCheckFill size={25} className="text-slate-700" />
-              <p className="text-slate-700">Total Orders Placed</p>
+              <p className="text-slate-700 whitespace-nowrap">
+                Total Orders Placed
+              </p>
             </div>
             <div>
-              <p className="text-4xl">87</p>
+              <p className="text-4xl text-center">87</p>
             </div>
           </div>
-          <div className="flex flex-col w-1/2 justify-center items-center mb-10 md:mb-0">
+          <div className="flex flex-col justify-center items-center w-full lg:w-1/2 mb-5 lg:mb-0">
             <div className="flex gap-2 mb-5">
               <BiDollarCircle size={25} className="text-slate-700" />
-              <p className="text-slate-700">Total Amount Spent</p>
+              <p className="text-slate-700 whitespace-nowrap">
+                Total Amount Spent
+              </p>
             </div>
-            <div>
-              <p className="text-4xl">$13,217</p>
+            <div className="">
+              <p className="text-4xl text-center">$13,217</p>
             </div>
           </div>
         </div>
