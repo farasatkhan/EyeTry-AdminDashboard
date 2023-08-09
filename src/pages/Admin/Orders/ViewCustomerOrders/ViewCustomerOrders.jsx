@@ -53,9 +53,9 @@ const ViewParticularCustomerOrder = () => {
                 placeholder="Search Customer"
               />
             </div>
-            <button className="border h-10 rounded-e-md p-2 cursor-pointer text-sm">
+            <div className="border h-10 rounded-e-md p-2 cursor-pointer text-sm">
               <p className="text-slate-500">Search</p>
-            </button>
+            </div>
           </div>
         </div>
       </div>
