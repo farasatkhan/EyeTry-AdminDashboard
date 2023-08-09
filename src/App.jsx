@@ -4,8 +4,13 @@ import Home from "./pages/Admin/Home";
 import UsersPage from "./pages/Admin/UsersPage";
 import Settings from "./pages/Admin/Settings";
 import ErrorPage from "./pages/Admin/ErrorPage";
-import AddProducts from "./pages/Admin/Products/AddProducts/AddProducts";
-import ViewProducts from "./pages/Admin/Products/ViewProducts/ViewProducts";
+
+import AddProducts from "./pages/Admin/Products/AddProducts";
+import ViewProducts from "./pages/Admin/Products/ViewProducts";
+
+import ViewAllOrders from "./pages/Admin/Orders/ViewAllOrders";
+import ViewCustomerOrders from "./pages/Admin/Orders/ViewCustomerOrders";
+import ViewParticularCustomerOrder from "./pages/Admin/Orders/ViewParticularCustomerOrder";
 
 import {
   createBrowserRouter,
@@ -27,6 +32,11 @@ const router = createBrowserRouter(
       <Route path="products">
         <Route index element={<ViewProducts />} />
         <Route index path="new" element={<AddProducts />} />
+      </Route>
+      <Route path="orders">
+        <Route index element={<ViewAllOrders />} />
+        <Route path="customer" element={<ViewCustomerOrders />} />
+        <Route path="order" element={<ViewParticularCustomerOrder />} />
       </Route>
     </Route>
   )
