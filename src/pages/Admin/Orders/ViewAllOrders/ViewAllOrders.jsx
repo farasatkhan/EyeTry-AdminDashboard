@@ -7,7 +7,7 @@ import { BsDownload, BsFilter } from "react-icons/bs";
 import Card from "../../../../layouts/Admin/Card";
 
 import ViewAllOrdersStyle from "./ViewAllOrders.module.css";
-import OrdersTable from "../../../../layouts/Admin/OrdersTable";
+import OrdersTable from "../../../../layouts/Admin/Orders/OrdersTable";
 
 import data from "../../../../data/Admin/viewAllOrdersData";
 

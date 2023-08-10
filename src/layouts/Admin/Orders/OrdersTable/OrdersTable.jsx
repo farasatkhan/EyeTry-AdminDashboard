@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { NavLink } from "react-router-dom";
 
-import StatusPill from "../../../components/ui/Admin/StatusPill";
-import Person from "../../../assets/images/test/person.jpg";
+import StatusPill from "../../../../components/ui/Admin/StatusPill";
+import Person from "../../../../assets/images/test/person.jpg";
 
 import OrdersTableStyles from "./OrdersTable.module.css";
 
@@ -154,13 +154,15 @@ const InformationTable = ({ data, query }) => {
               return (
                 <tr key={index}>
                   <td className="px-2 py-3">
-                    <div className="flex">
-                      <div className="mt-1">
-                        <p className="whitespace-nowrap text-blue-500 cursor-pointer">
-                          #{order.order_no}
-                        </p>
+                    <NavLink to="/orders/order">
+                      <div className="flex">
+                        <div className="mt-1">
+                          <p className="whitespace-nowrap text-blue-500 cursor-pointer">
+                            #{order.order_no}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    </NavLink>
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
                     <NavLink to="/orders/customer">
