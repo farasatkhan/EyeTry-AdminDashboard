@@ -43,7 +43,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="moderation">
         <Route index element={<PublishedReviews />}></Route>
-        <Route path="/pending" element={<PendingReviews />}></Route>
+        <Route path="pending" element={<PendingReviews />}></Route>
       </Route>
     </Route>
   )
