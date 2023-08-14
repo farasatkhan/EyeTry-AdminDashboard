@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 
 import { NavLink } from "react-router-dom";
 
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+
 import StatusPill from "../../../../components/ui/Admin/StatusPill";
 import Person from "../../../../assets/images/test/person.jpg";
 
-const OrdersTable = ({ data, query }) => {
+import StarFilled from "../../../../assets/icons/star_filled.svg";
+import StarHalfFilled from "../../../../assets/icons/star_halffilled.svg";
+import StarUnFilled from "../../../../assets/icons/star_unfilled.svg";
+
+const ReviewsTable = ({ data, query }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -125,30 +131,24 @@ const OrdersTable = ({ data, query }) => {
                 scope="col"
                 className="px-2 py-3 font-normal whitespace-nowrap"
               >
+                Review
+              </th>
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Date
               </th>
               <th
                 scope="col"
                 className="px-2 py-3 font-normal whitespace-nowrap"
               >
-                Delivery Status
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
-                Payment Status
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
-                Order Amount
+                Action
               </th>
             </tr>
           </thead>
           <tbody className="">
-            {modifiedData.map((order, index) => {
+            {modifiedData.map((review, index) => {
               return (
                 <tr key={index}>
                   <td className="px-2 py-3">
@@ -156,7 +156,7 @@ const OrdersTable = ({ data, query }) => {
                       <div className="flex">
                         <div className="mt-1">
                           <p className="whitespace-nowrap text-blue-500 cursor-pointer">
-                            #{order.order_no}
+                            #{review.order_no}
                           </p>
                         </div>
                       </div>
@@ -164,7 +164,7 @@ const OrdersTable = ({ data, query }) => {
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
                     <NavLink to="/orders/customer">
-                      <div className="flex cursor-pointer">
+                      <div className="flex items-center cursor-pointer">
                         <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                           <img
                             src={Person}
@@ -173,20 +173,64 @@ const OrdersTable = ({ data, query }) => {
                           />
                         </div>
                         <div className="mt-1">
-                          <p className="whitespace-nowrap">{order.user}</p>
+                          <p className="whitespace-nowrap">{review.name}</p>
+                          <p className="whitespace-nowrap">{review.email}</p>
                         </div>
                       </div>
                     </NavLink>
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">{order.date}</td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {order.delivery_status}
+                  <td className="px-2 py-3">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex gap-1">
+                        <div className="h-4 w-4 shrink-0">
+                          <img
+                            src={StarFilled}
+                            alt="star"
+                            className="object-contain h-full w-full"
+                          />
+                        </div>
+                        <div className="h-4 w-4 shrink-0">
+                          <img
+                            src={StarFilled}
+                            alt="star"
+                            className="object-contain h-full w-full"
+                          />
+                        </div>
+                        <div className="h-4 w-4 shrink-0">
+                          <img
+                            src={StarFilled}
+                            alt="star"
+                            className="object-contain h-full w-full"
+                          />
+                        </div>
+                        <div className="h-4 w-4 shrink-0">
+                          <img
+                            src={StarHalfFilled}
+                            alt="star"
+                            className="object-contain h-full w-full"
+                          />
+                        </div>
+                        <div className="h-4 w-4 shrink-0">
+                          <img
+                            src={StarUnFilled}
+                            alt="star"
+                            className="object-contain h-full w-full"
+                          />
+                        </div>
+                      </div>
+                      <div className="font-semibold text-base">
+                        {review.review_title}
+                      </div>
+                      <div>{review.review_description}</div>
+                    </div>
                   </td>
+                  <td className="px-2 py-3 whitespace-nowrap">{review.date}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {checkStatus(order.payment_status)}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {order.order_amount}
+                    <div className="flex justify-center items-center gap-1 bg-slate-200 rounded-xl h-5 w-12 cursor-pointer">
+                      <span className="w-1 h-1 rounded-full bg-slate-900"></span>
+                      <span className="w-1 h-1 rounded-full bg-slate-900"></span>
+                      <span className="w-1 h-1 rounded-full bg-slate-900"></span>
+                    </div>
                   </td>
                 </tr>
               );
@@ -236,4 +280,4 @@ const OrdersTable = ({ data, query }) => {
   );
 };
 
-export default OrdersTable;
+export default ReviewsTable;

@@ -1,12 +1,7 @@
 import React from "react";
 
-import { BiDollarCircle, BiHomeAlt2 } from "react-icons/bi";
-import { BsFillCartCheckFill, BsTelephone, BsGraphUp } from "react-icons/bs";
-import { SlLocationPin, SlCalender } from "react-icons/sl";
-import { MdOutlineMail, MdPayment } from "react-icons/md";
+import { BsGraphUp } from "react-icons/bs";
 import { GoHorizontalRule } from "react-icons/go";
-
-import Person from "../../../../assets/images/test/person.jpg";
 
 const ReviewsInformation = () => {
   return (
