@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
 body > #root > div {
   height: 100vh;
 }
+*/

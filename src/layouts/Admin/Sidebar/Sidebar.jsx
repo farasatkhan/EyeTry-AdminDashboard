@@ -98,14 +98,14 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
               </p>
             </div>
           </NavLink>
-          <div className="flex justify-start items-center cursor-pointer mt-7">
-            <div className="h-7 pt-1">
-              <BiMessageDetail size={20} />
+          <NavLink to="/guides/faqs">
+            <div className="flex justify-start items-center cursor-pointer mt-7">
+              <div className="h-7 pt-1">
+                <BiMessageDetail size={20} />
+              </div>
+              <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Guides</p>
             </div>
-            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
-              Assistance
-            </p>
-          </div>
+          </NavLink>
           <NavLink to="/settings">
             <div className="flex justify-start items-center cursor-pointer mt-7">
               <div className="h-7 pt-1">

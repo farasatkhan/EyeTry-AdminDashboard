@@ -15,6 +15,13 @@ import ViewParticularCustomerOrder from "./pages/Admin/Orders/ViewParticularCust
 import PublishedReviews from "./pages/Admin/Moderation/PublishedReviews";
 import PendingReviews from "./pages/Admin/Moderation/PendingReviews";
 
+import CreateBlog from "./pages/Admin/Guides/Blog/CreateBlog";
+import ViewBlog from "./pages/Admin/Guides/Blog/ViewBlog";
+import ViewParticularBlog from "./pages/Admin/Guides/Blog/ViewParticularBlog/ViewParticularBlog";
+
+import CreateFAQ from "./pages/Admin/Guides/FAQ/CreateFAQ";
+import ViewFAQ from "./pages/Admin/Guides/FAQ/ViewFAQ";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -42,8 +49,17 @@ const router = createBrowserRouter(
         <Route path="order" element={<ViewParticularCustomerOrder />} />
       </Route>
       <Route path="moderation">
-        <Route index element={<PublishedReviews />}></Route>
-        <Route path="pending" element={<PendingReviews />}></Route>
+        <Route index element={<PublishedReviews />} />
+        <Route path="pending" element={<PendingReviews />} />
+      </Route>
+      <Route path="guides">
+        <Route path="blogs">
+          <Route index element={<CreateBlog />} />
+        </Route>
+        <Route path="faqs">
+          <Route index element={<CreateFAQ />} />
+          <Route path="view" element={<ViewFAQ />} />
+        </Route>
       </Route>
     </Route>
   )
