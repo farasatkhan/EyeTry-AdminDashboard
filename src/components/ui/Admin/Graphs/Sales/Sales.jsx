@@ -25,7 +25,7 @@ const Sales = () => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="99%" height="100%">
       <AreaChart data={data}>
         <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.1} />
         <XAxis

@@ -31,15 +31,15 @@ const CustomLegend = ({ payload }) => {
 
 const Traffic = () => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="99%" height="100%">
       <PieChart>
         <Pie
           data={TrafficData}
           dataKey="value"
           cx="50%"
           cy="50%"
-          innerRadius={80}
-          outerRadius={120}
+          innerRadius={60}
+          outerRadius={100}
           fill="#8884d8"
           label={false}
         >
