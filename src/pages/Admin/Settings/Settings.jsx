@@ -46,7 +46,7 @@ const Settings = () => {
         ></div>
       </div>
       <div className="flex gap-5 m-5">
-        <div className="hidden md:block shadow w-1/4 p-5 h-fit">
+        <div className="border shadow-sm rounded-lg hidden md:block  w-1/4 p-5 h-fit">
           <ul>
             <li className="li my-5 cursor-pointer">Basic Information</li>
             <li className="li my-5 cursor-pointer">Email</li>

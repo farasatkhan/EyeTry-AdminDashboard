@@ -45,7 +45,7 @@ const ViewAllOrders = () => {
         <div
           className={`${ViewAllOrdersStyle["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
         ></div>
-        <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
           <Card
             title="Total Orders"
             total={106301}
@@ -71,7 +71,7 @@ const ViewAllOrders = () => {
             change={29.1}
           />
         </div>
-        <div className="border border-slate-100 m-3 rounded-lg">
+        <div className="border shadow-sm m-3 rounded-lg mx-7 mt-7">
           <div className="flex justify-between m-3">
             <div className="mt-3">
               <div className="hidden md:flex bg-slate-100 rounded-md">

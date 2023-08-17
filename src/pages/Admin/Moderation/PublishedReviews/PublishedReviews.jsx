@@ -29,10 +29,10 @@ const PublishedReviews = () => {
           </div>
         </div>
       </div>
-      <div className="mx-5 my-5">
+      <div className="mx-7 mt-5">
         <ReviewsInformation />
       </div>
-      <div className="border border-slate-100 m-3 rounded-lg">
+      <div className="border shadow-sm mx-7 my-7 rounded-lg">
         <div className="flex justify-between m-3">
           <div className="mt-3">
             <div className="hidden md:flex bg-slate-100 rounded-md">

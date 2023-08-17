@@ -38,7 +38,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
         <Card title="Revenue" total={2900} percentage={1.7} change={29.1} />
         <Card
           title="Transactions"

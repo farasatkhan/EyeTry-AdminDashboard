@@ -55,7 +55,7 @@ const UsersPage = () => {
         <div
           className={`${UserPageStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
         ></div>
-        <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
           <Card
             title="Total Users"
             total={2900}
