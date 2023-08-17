@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 import Navbar from "../../../layouts/Admin/Navbar";
@@ -11,6 +11,10 @@ const RootDashboardLayout = () => {
   const handleToggleSidebar = () => {
     setToggleSidebar((toggleSidebar) => !toggleSidebar);
   };
+
+  useEffect(() => {
+    setToggleSidebar(window.innerWidth > 640);
+  }, []);
 
   return (
     <div className="font-body">
