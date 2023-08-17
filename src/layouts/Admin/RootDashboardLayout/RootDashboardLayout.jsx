@@ -6,7 +6,7 @@ import Sidebar from "../../../layouts/Admin/Sidebar";
 import MobileMenu from "../../../layouts/Admin/MobileMenu";
 
 const RootDashboardLayout = () => {
-  const [toggleSidebar, setToggleSidebar] = useState(true);
+  const [toggleSidebar, setToggleSidebar] = useState(false);
 
   const handleToggleSidebar = () => {
     setToggleSidebar((toggleSidebar) => !toggleSidebar);
