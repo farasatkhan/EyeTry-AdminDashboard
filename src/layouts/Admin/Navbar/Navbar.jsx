@@ -11,16 +11,16 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
   return (
     <>
       <nav className="bg-white border-b-2 border-slate-100 flex justify-between">
-        <div className="sm:hidden flex justify-center place-items-center cursor-pointer">
+        <div className="md:hidden flex justify-center place-items-center cursor-pointer">
           <AiOutlineMenuUnfold
             size={25}
             onClick={onSidebarToggle}
             className="ml-3 mr-3"
           />
-          <BiSearch size={25} className="ml-3  sm:hidden" />
+          <BiSearch size={25} className="ml-3  md:hidden" />
         </div>
         {/* Search Box */}
-        <div className="hidden sm:flex bg-slate-100 rounded-md my-3 sm:ml-7">
+        <div className="hidden md:flex bg-slate-100 rounded-md my-3 md:ml-7">
           <div className="flex justify-center items-center p-3">
             <BiSearch size={20} />
           </div>

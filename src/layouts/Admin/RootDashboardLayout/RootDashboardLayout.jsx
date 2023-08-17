@@ -15,23 +15,39 @@ const RootDashboardLayout = () => {
   return (
     <div className="font-body">
       {toggleSidebar && <MobileMenu onSidebarToggle={handleToggleSidebar} />}
-      <div className={`${toggleSidebar ? "hidden" : "block"} sm:flex`}>
+      <div className={`hidden md:block`}>
+        <Sidebar
+          toggleSidebar={toggleSidebar}
+          onSidebarToggle={handleToggleSidebar}
+        />
+      </div>
+      <div
+        className={`${toggleSidebar ? "hidden sm:block md:pl-60" : "md:pl-20"}`}
+      >
+        <Navbar
+          toggleSidebar={toggleSidebar}
+          onSidebarToggle={handleToggleSidebar}
+        />
+        <Outlet />
+      </div>
+      {/* <div className={`${toggleSidebar ? "hidden" : "block"} sm:flex`}>
         <div className={`hidden sm:block`}>
           <Sidebar
             toggleSidebar={toggleSidebar}
             onSidebarToggle={handleToggleSidebar}
           />
         </div>
-        <div
-          className={`${toggleSidebar ? "hidden sm:block" : "block"} flex-grow`}
-        >
-          <Navbar
-            toggleSidebar={toggleSidebar}
-            onSidebarToggle={handleToggleSidebar}
-          />
-          <Outlet />
+        <div className={`flex`}>
+          <div className="sm:w-20"></div>
+          <div>
+            <Navbar
+              toggleSidebar={toggleSidebar}
+              onSidebarToggle={handleToggleSidebar}
+            />
+            <Outlet />
+          </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

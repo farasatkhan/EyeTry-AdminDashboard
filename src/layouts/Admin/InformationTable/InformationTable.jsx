@@ -119,7 +119,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
   return (
     <>
       {/* relative overflow-x-auto */}
-      <div className={`flex-grow relative overflow-x-auto`}>
+      <div className={`flex-grow relative w-full overflow-x-auto`}>
         <table className="w-full text-left text-sm table-auto">
           <thead className="text-sm bg-slate-100">
             <tr>
@@ -177,7 +177,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
             {modifiedData.map((user, index) => {
               return (
                 <tr key={index}>
-                  <td className="px-2 py-3">
+                  <td className="px-2 py-3" whitespace-nowrap>
                     <div className="flex">
                       <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                         <img
@@ -187,7 +187,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                         />
                       </div>
                       <div className="mt-1">
-                        <p className="whitespace-nowrap">{user.name}</p>
+                        <p className="">{user.name}</p>
                       </div>
                     </div>
                   </td>

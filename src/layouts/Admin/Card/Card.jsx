@@ -10,7 +10,7 @@ const Card = ({ title, total, percentage, change }) => {
     <>
       <div className="border shadow-sm rounded-lg">
         <div className="flex m-1">
-          <div className="flex w-1/3 flex-col gap-2 p-2">
+          <div className="flex w-full flex-col gap-2 p-2">
             <p className="font-bold">{title}</p>
             <p
               className={`${CardStyles["primary-green-color"]} font-bold text-2xl`}
@@ -18,9 +18,9 @@ const Card = ({ title, total, percentage, change }) => {
               {total}
             </p>
           </div>
-          <div className="flex w-2/3 pt-5">
+          <div className="flex w-1/2 pt-5">
             <div>
-              <div className="flex gap-3 p-2">
+              <div className="flex">
                 <div
                   className={`${CardStyles["secondary-background-green-color"]} flex gap-2 pl-1 pr-1 sm:pl-3 sm:pr-3 pt-1 rounded-sm`}
                 >
@@ -34,11 +34,11 @@ const Card = ({ title, total, percentage, change }) => {
                     {percentage}%
                   </p>
                 </div>
-                <div>
+                {/* <div>
                   <p className={`mt-1 font-light whitespace-nowrap`}>
                     from {change}%
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

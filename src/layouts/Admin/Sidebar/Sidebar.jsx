@@ -22,7 +22,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
       <div
         className={`${
           toggleSidebar ? "w-60" : "sm:w-20"
-        } duration-300 bg-white h-full p-5 pt-8 relative border-2 border-slate-100`}
+        } duration-300 bg-white h-full p-5 pt-8 border-2 border-slate-100 fixed z-10`}
       >
         <div
           onClick={onSidebarToggle}

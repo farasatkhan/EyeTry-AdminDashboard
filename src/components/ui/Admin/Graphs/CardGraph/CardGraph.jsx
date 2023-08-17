@@ -20,13 +20,7 @@ const CardGraph = () => {
   return (
     <ResponsiveContainer width="99%" height="100%">
       <LineChart data={data}>
-        <Line
-          dataKey="value"
-          type="monotone"
-          opacity={0.7}
-          stroke="#00c9a7"
-          strokeWidth={2}
-        />
+        <Line dataKey="value" opacity={0.7} stroke="#00c9a7" strokeWidth={2} />
         <XAxis dataKey="name" hide />
         <YAxis hide />
         <Tooltip />

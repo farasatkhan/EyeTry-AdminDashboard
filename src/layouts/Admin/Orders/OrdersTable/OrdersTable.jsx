@@ -106,43 +106,25 @@ const OrdersTable = ({ data, query }) => {
     <>
       {/* relative overflow-x-auto */}
       <div className={`flex-grow relative overflow-x-auto`}>
-        <table className="w-full text-left text-sm table-auto">
+        <table className="table-auto w-full text-left text-sm">
           <thead className="text-sm bg-slate-100">
             <tr>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
+              <th scope="col" className="px-2 py-3 font-normal ">
                 Order
               </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
+              <th scope="col" className="px-2 py-3 font-normal ">
                 User
               </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
+              <th scope="col" className="px-2 py-3 font-normal">
                 Date
               </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
+              <th scope="col" className="px-2 py-3 font-normal ">
                 Delivery Status
               </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
+              <th scope="col" className="px-2 py-3 font-normal ">
                 Payment Status
               </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
+              <th scope="col" className="px-2 py-3 font-normal ">
                 Order Amount
               </th>
             </tr>
@@ -155,14 +137,14 @@ const OrdersTable = ({ data, query }) => {
                     <NavLink to="/orders/order">
                       <div className="flex">
                         <div className="mt-1">
-                          <p className="whitespace-nowrap text-blue-500 cursor-pointer">
+                          <p className=" text-blue-500 cursor-pointer">
                             #{order.order_no}
                           </p>
                         </div>
                       </div>
                     </NavLink>
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
+                  <td className="px-2 py-3 ">
                     <NavLink to="/orders/customer">
                       <div className="flex cursor-pointer">
                         <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
@@ -173,21 +155,17 @@ const OrdersTable = ({ data, query }) => {
                           />
                         </div>
                         <div className="mt-1">
-                          <p className="whitespace-nowrap">{order.user}</p>
+                          <p className="">{order.user}</p>
                         </div>
                       </div>
                     </NavLink>
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">{order.date}</td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {order.delivery_status}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
+                  <td className="px-2 py-3 ">{order.date}</td>
+                  <td className="px-2 py-3 ">{order.delivery_status}</td>
+                  <td className="px-2 py-3 ">
                     {checkStatus(order.payment_status)}
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {order.order_amount}
-                  </td>
+                  <td className="px-2 py-3 ">{order.order_amount}</td>
                 </tr>
               );
             })}

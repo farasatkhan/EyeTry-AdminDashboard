@@ -30,6 +30,7 @@ import {
 } from "react-router-dom";
 
 import RootDashboardLayout from "./layouts/Admin/RootDashboardLayout";
+import BlankLayout from "./layouts/Admin/BlankLayout";
 
 import "./index.css";
 
@@ -63,6 +64,10 @@ const router = createBrowserRouter(
       </Route>
     </Route>
   )
+);
+
+const routerTest = createBrowserRouter(
+  createRoutesFromElements(<Route path="/" element={<BlankLayout />}></Route>)
 );
 
 export default function App() {

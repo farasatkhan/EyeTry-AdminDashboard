@@ -1,3 +1,9 @@
 .custom-x-overflow {
   overflow-x: auto;
 }
+
+.container-x-overflow {
+  width: 20em;
+  overflow-x: auto;
+  white-space: nowrap;
+}
