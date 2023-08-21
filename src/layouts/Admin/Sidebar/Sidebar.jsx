@@ -82,12 +82,16 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Orders</p>
             </div>
           </NavLink>
-          <div className="flex justify-start items-center cursor-pointer mt-7">
-            <div className="h-7 pt-1">
-              <BiLineChart size={20} />
+          <NavLink to="/analytics">
+            <div className="flex justify-start items-center cursor-pointer mt-7">
+              <div className="h-7 pt-1">
+                <BiLineChart size={20} />
+              </div>
+              <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
+                Analytics
+              </p>
             </div>
-            <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Analytics</p>
-          </div>
+          </NavLink>
           <NavLink to="/moderation/">
             <div className="flex justify-start items-center cursor-pointer mt-7">
               <div className="h-7 pt-1">

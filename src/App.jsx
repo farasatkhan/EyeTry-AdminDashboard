@@ -22,6 +22,8 @@ import ViewParticularBlog from "./pages/Admin/Guides/Blog/ViewParticularBlog/Vie
 import CreateFAQ from "./pages/Admin/Guides/FAQ/CreateFAQ";
 import ViewFAQ from "./pages/Admin/Guides/FAQ/ViewFAQ";
 
+import Analytics from "./pages/Admin/Analytics";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -40,6 +42,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="settings" element={<Settings />} />
       <Route path="users" element={<UsersPage />} />
+      <Route path="analytics" element={<Analytics />} />
       <Route path="products">
         <Route index element={<ViewProducts />} />
         <Route index path="new" element={<AddProducts />} />
