@@ -7,6 +7,10 @@ import ErrorPage from "./pages/Admin/ErrorPage";
 
 import AddProducts from "./pages/Admin/Products/AddProducts";
 import ViewProducts from "./pages/Admin/Products/ViewProducts";
+import ProductsHome from "./pages/Admin/Products/ProductsHome/ProductsHome";
+
+import GiftcardsHome from "./pages/Admin/Giftcards/GiftcardsHome";
+import IssueGiftcard from "./pages/Admin/Giftcards/IssueGiftcard/IssueGiftcard";
 
 import ViewAllOrders from "./pages/Admin/Orders/ViewAllOrders";
 import ViewCustomerOrders from "./pages/Admin/Orders/ViewCustomerOrders";
@@ -44,8 +48,13 @@ const router = createBrowserRouter(
       <Route path="users" element={<UsersPage />} />
       <Route path="analytics" element={<Analytics />} />
       <Route path="products">
-        <Route index element={<ViewProducts />} />
-        <Route index path="new" element={<AddProducts />} />
+        <Route index element={<ProductsHome />} />
+        <Route path="new" element={<AddProducts />} />
+        <Route path="view" element={<ViewProducts />} />
+      </Route>
+      <Route path="giftcards">
+        <Route index element={<GiftcardsHome />} />
+        <Route path="issue" element={<IssueGiftcard />} />
       </Route>
       <Route path="orders">
         <Route index element={<ViewAllOrders />} />
