@@ -11,6 +11,7 @@ import ProductsHome from "./pages/Admin/Products/ProductsHome/ProductsHome";
 
 import GiftcardsHome from "./pages/Admin/Giftcards/GiftcardsHome";
 import IssueGiftcard from "./pages/Admin/Giftcards/IssueGiftcard/IssueGiftcard";
+import ViewGiftcards from "./pages/Admin/Giftcards/ViewGiftcards/ViewGiftcards";
 
 import ViewAllOrders from "./pages/Admin/Orders/ViewAllOrders";
 import ViewCustomerOrders from "./pages/Admin/Orders/ViewCustomerOrders";
@@ -55,6 +56,7 @@ const router = createBrowserRouter(
       <Route path="giftcards">
         <Route index element={<GiftcardsHome />} />
         <Route path="issue" element={<IssueGiftcard />} />
+        <Route path="view" element={<ViewGiftcards />} />
       </Route>
       <Route path="orders">
         <Route index element={<ViewAllOrders />} />

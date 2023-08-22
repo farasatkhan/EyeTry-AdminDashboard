@@ -74,7 +74,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
               </p>
             </div>
           </NavLink>
-          <NavLink to="/giftcards">
+          <NavLink to="/giftcards/view">
             <div className="flex justify-start items-center cursor-pointer mt-7">
               <div className="h-7 pt-1">
                 <BsBox size={20} />
