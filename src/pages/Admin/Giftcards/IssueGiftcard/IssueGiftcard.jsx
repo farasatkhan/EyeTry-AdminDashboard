@@ -2,7 +2,7 @@ import React from "react";
 
 const IssueGiftcard = () => {
   return (
-    <div className="mx-5 md:mx-10 lg:mx-40 my-10">
+    <div className="mx-5 md:mx-10 lg:mx-28 my-10">
       <div className="mb-10">
         <span className="text-lg">Issue Gift card</span>
       </div>
