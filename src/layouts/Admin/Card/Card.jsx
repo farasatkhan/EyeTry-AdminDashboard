@@ -8,7 +8,7 @@ import CardGraph from "../../../components/ui/Admin/Graphs/CardGraph";
 const Card = ({ title, total, percentage, change }) => {
   return (
     <>
-      <div className="border shadow-sm rounded-lg">
+      <div className="border shadow-sm rounded-lg bg-white">
         <div className="flex m-1">
           <div className="flex w-full flex-col gap-2 p-2">
             <p className="font-bold">{title}</p>

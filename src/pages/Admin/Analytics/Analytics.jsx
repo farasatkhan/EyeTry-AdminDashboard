@@ -6,7 +6,7 @@ import Traffic from "../../../components/ui/Admin/Graphs/Traffic";
 const Analytics = () => {
   return (
     <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-7 mt-10 mb-10">
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Total Sales</div>
           <div className="flex justify-between">
@@ -34,7 +34,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Total online store visits</div>
           <div className="flex justify-between">
@@ -55,7 +55,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Average order value</div>
           <div className="flex justify-between">
@@ -67,7 +67,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Online store conversion rate</div>
           <div className="flex justify-between">
@@ -102,7 +102,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Orders Risputes</div>
           <div className="flex justify-between">
@@ -123,7 +123,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Online store sessions</div>
           <div className="flex justify-between">
@@ -144,7 +144,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Returning customer rate</div>
           <div className="flex justify-between">
@@ -156,7 +156,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Sales by category</div>
           <div className="flex justify-between">
@@ -168,7 +168,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="px-5 py-5">
           <h1 className="text-xl font-bold">Traffic</h1>
         </div>
@@ -177,7 +177,7 @@ const Analytics = () => {
           <Traffic />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="px-5 py-5">
           <h1 className="text-xl font-bold">Sales by Category</h1>
         </div>
@@ -186,7 +186,7 @@ const Analytics = () => {
           <Traffic />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Revenue Growth</div>
           <div className="flex justify-between">
@@ -198,7 +198,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Refunded</div>
           <div className="flex justify-between">
@@ -210,7 +210,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Customers Growth</div>
           <div className="flex justify-between">
@@ -222,7 +222,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Customer Support Growth</div>
           <div className="flex justify-between">
@@ -234,7 +234,7 @@ const Analytics = () => {
           <SalesOverview />
         </div>
       </div>
-      <div className="border shadow-sm rounded-md">
+      <div className="border shadow-sm rounded-md bg-white">
         <div className="p-5">
           <div className="font-semibold mb-5">Grography Summary</div>
           <div className="flex justify-between">

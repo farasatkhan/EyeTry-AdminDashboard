@@ -71,7 +71,7 @@ const ViewAllOrders = () => {
             change={29.1}
           />
         </div>
-        <div className="border shadow-sm m-3 rounded-lg mx-7 mt-7">
+        <div className="border shadow-sm m-3 rounded-lg mx-7 mt-7 bg-white">
           <div className="flex justify-between m-3">
             <div className="mt-3">
               <div className="hidden md:flex bg-slate-100 rounded-md">

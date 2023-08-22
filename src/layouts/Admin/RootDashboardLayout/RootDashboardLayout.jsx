@@ -17,7 +17,7 @@ const RootDashboardLayout = () => {
   }, []);
 
   return (
-    <div className="font-body">
+    <div className="font-body bg-gray-50">
       {toggleSidebar && <MobileMenu onSidebarToggle={handleToggleSidebar} />}
       <div className={`hidden md:block`}>
         <Sidebar

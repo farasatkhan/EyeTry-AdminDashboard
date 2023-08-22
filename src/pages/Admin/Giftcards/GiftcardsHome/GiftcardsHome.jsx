@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const GiftcardsHome = () => {
   return (
@@ -6,7 +7,7 @@ const GiftcardsHome = () => {
       <div className="mb-5">
         <span className="text-lg">Gift cards</span>
       </div>
-      <div className="flex flex-col justify-between items-center border rounded-md py-44">
+      <div className="flex flex-col justify-between items-center border rounded-md py-44 bg-white">
         <div>
           <p className="text-center">Start selling gift cards</p>
           <p className="text-center text-sm mt-2">
@@ -15,9 +16,11 @@ const GiftcardsHome = () => {
           </p>
         </div>
         <div className="flex gap-5 pt-8">
-          <button className="border px-4 py-1 rounded-lg shadow-sm">
-            <span className="text-xs">Issue gift card</span>
-          </button>
+          <NavLink to="/giftcards/issue">
+            <button className="border px-4 py-1 rounded-lg shadow-sm">
+              <span className="text-xs">Issue gift card</span>
+            </button>
+          </NavLink>
         </div>
       </div>
     </div>

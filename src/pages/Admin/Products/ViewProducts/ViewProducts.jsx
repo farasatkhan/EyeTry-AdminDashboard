@@ -24,20 +24,20 @@ const ViewProducts = () => {
           <span className="text-lg">Products</span>
         </div>
         <div className="flex gap-5">
-          <button className="border px-3 py-0.5 rounded-lg shadow-sm">
+          <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
             <span className="text-xs">Export</span>
           </button>
-          <button className="border px-3 py-0.5 rounded-lg shadow-sm">
+          <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
             <span className="text-xs">Import</span>
           </button>
           <NavLink to="/products/new">
-            <button className="border px-3 py-0.5 rounded-lg shadow-sm">
+            <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
               <span className="text-xs">Add Product</span>
             </button>
           </NavLink>
         </div>
       </div>
-      <div className="border shadow-sm rounded-lg">
+      <div className="border shadow-sm rounded-lg bg-white">
         <div className="flex justify-between m-3">
           <div className="mt-3">
             <div className="hidden md:flex bg-slate-100 rounded-md">

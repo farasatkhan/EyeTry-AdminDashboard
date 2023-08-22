@@ -76,7 +76,7 @@ const UsersPage = () => {
           />
           <Card title="ARPU" total={2900} percentage={1.7} change={29.1} />
         </div>
-        <div className="border border-slate-100 m-3 rounded-lg">
+        <div className="border border-slate-100 m-3 rounded-lg bg-white">
           <div className="flex justify-between m-3">
             <div className="mt-3">
               <div className="hidden md:flex bg-slate-100 rounded-md">
