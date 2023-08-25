@@ -1,6 +1,17 @@
 import React, { useState } from "react";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+
+const modules = {
+  toolbar: [
+    ["bold", "italic", "underline", "strike"],
+    [{ list: "bullet" }, { list: "ordered" }],
+    ["link", "image", "blockquote"],
+  ],
+};
+
+import { newProduct } from "../../../../services/Products/glasses";
 
 import AddProductsStyles from "./AddProducts.module.css";
 
@@ -11,7 +22,6 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
 
 const AddProducts = () => {
-  const currencies = ["USD", "PKR", "IND"];
   const categories = ["Men", "Women", "Kids"];
   const subcategories = ["Sub Category 1", "Sub Category 2", "Sub Category 3"];
 
@@ -22,29 +32,33 @@ const AddProducts = () => {
 
   const [value, setValue] = useState("");
 
-  const handleCurrencyChange = (event) => {
-    setSelectedCurrency(event.target.value);
+  // Submitting Product //
+
+  const [productBasicInformation, setProductBasicInformation] = useState({
+    name: "",
+    sku: "",
+    description: "",
+    price: 0,
+    currency: "USD",
+    discount: 0,
+  });
+
+  const handleSubmittedProducts = async (e) => {
+    e.preventDefault();
+
+    const productInformation = { ...productBasicInformation };
+
+    console.log(productInformation);
+
+    try {
+      const addNewProduct = await newProduct(productInformation);
+      console.log("Product added successfully!", addNewProduct);
+    } catch (error) {
+      console.error("Failed to add product:", error);
+    }
   };
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  const handleSubCategoryChange = (event) => {
-    setSelectedSubCategory(event.target.value);
-  };
-
-  const handleStockStatusChange = (event) => {
-    setStockStatus(event.target.value);
-  };
-
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "bullet" }, { list: "ordered" }],
-      ["link", "image", "blockquote"],
-    ],
-  };
+  ////////////////////////
 
   return (
     <div className="flex flex-col">
@@ -59,11 +73,11 @@ const AddProducts = () => {
           </div>
         </div>
         <div className="flex flex-grow md:flex-grow-0 gap-4">
-          <div className="flex w-full">
+          {/* <div className="flex w-full">
             <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
               <p className="">Add Products</p>
             </button>
-          </div>
+          </div> */}
           <div className="flex w-full">
             <button
               className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border"
@@ -78,7 +92,10 @@ const AddProducts = () => {
         className={`${AddProductsStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
       ></div>
       <div className="flex mx-5 mt-5">
-        <form action="/" className="flex flex-col md:flex-row flex-grow gap-2">
+        <form
+          onSubmit={handleSubmittedProducts}
+          className="flex flex-col md:flex-row flex-grow gap-2"
+        >
           {/* this is left side */}
           <div className="flex flex-col w-full md:w-4/6">
             <div className="shadow mb-10">
@@ -97,6 +114,12 @@ const AddProducts = () => {
                     id="product_name"
                     type="text"
                     className="border p-2 rounded-md w-full outline-none text-sm"
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        name: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="mb-3">
@@ -107,20 +130,35 @@ const AddProducts = () => {
                     id="sku"
                     type="text"
                     className="border p-2 rounded-md w-full outline-none text-sm"
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        sku: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="summary" className="text-sm">
-                    Product Summary
+                  <label htmlFor="description" className="text-sm">
+                    Product Description
                   </label>
                   <textarea
-                    id="summary"
+                    id="description"
                     rows={3}
                     className="border p-2 rounded-md w-full outline-none text-sm"
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        description: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="flex justify-end">
-                  <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
+                  <button
+                    type="submit"
+                    className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
+                  >
                     <p className="">Save Changes</p>
                   </button>
                 </div>
@@ -142,11 +180,11 @@ const AddProducts = () => {
                     modules={modules}
                   />
                 </div>
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Save Changes</p>
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="shadow mb-10">
@@ -272,21 +310,30 @@ const AddProducts = () => {
                       type="text"
                       className="border p-2 rounded-s-md w-full outline-none text-sm"
                       placeholder="0.00"
+                      onChange={(e) =>
+                        setProductBasicInformation({
+                          ...productBasicInformation,
+                          price: e.target.value,
+                        })
+                      }
                     />
                     <select
-                      value={selectedCurrency}
-                      onChange={handleCurrencyChange}
+                      id="currency"
+                      value={productBasicInformation.currency}
+                      onChange={(e) =>
+                        setProductBasicInformation({
+                          ...productBasicInformation,
+                          currency: e.target.value,
+                        })
+                      }
                       className="border px-1 sm:px-3 py-1 rounded-e-md outline-none text-sm cursor-pointer"
                     >
-                      {currencies.map((option) => (
-                        <option
-                          key={option}
-                          value={option}
-                          className="cursor-pointer"
-                        >
-                          {option}
-                        </option>
-                      ))}
+                      <option key="USD" value="USD" className="cursor-pointer">
+                        USD
+                      </option>
+                      <option key="PKR" value="PKR" className="cursor-pointer">
+                        PKR
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -298,10 +345,16 @@ const AddProducts = () => {
                       type="text"
                       className="border p-2 rounded-md w-full outline-none text-sm"
                       placeholder="0%"
+                      onChange={(e) =>
+                        setProductBasicInformation({
+                          ...productBasicInformation,
+                          discount: e.target.value,
+                        })
+                      }
                     />
                   </div>
                 </div>
-                <div className="flex flex-col mb-4">
+                {/* <div className="flex flex-col mb-4">
                   <label htmlFor="finalprice">Final Price</label>
                   <div className="flex">
                     <input
@@ -312,7 +365,7 @@ const AddProducts = () => {
                       disabled
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="shadow mb-10">
@@ -322,7 +375,7 @@ const AddProducts = () => {
               <div
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
               ></div>
-              <div className="px-5 py-5">
+              {/* <div className="px-5 py-5">
                 <div className="flex flex-col mb-4">
                   <label htmlFor="category" className="text-sm mb-1">
                     Select Category
@@ -331,7 +384,7 @@ const AddProducts = () => {
                     <select
                       placeholder="Select"
                       value={selectedCategory}
-                      onChange={handleCategoryChange}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
                       className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
                     >
                       <option value="" disabled selected>
@@ -356,7 +409,7 @@ const AddProducts = () => {
                   <div className="flex flex-grow">
                     <select
                       value={selectedSubCategory}
-                      onChange={handleSubCategoryChange}
+                      onChange={(e) => setSelectedSubCategory(e.target.value)}
                       className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
                     >
                       <option value="" disabled selected>
@@ -374,7 +427,7 @@ const AddProducts = () => {
                     </select>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="shadow mb-10">
               <div className="pl-4 py-4">
@@ -390,7 +443,7 @@ const AddProducts = () => {
                     id="instock"
                     value="instock"
                     checked={stockStatus === "instock"}
-                    onChange={handleStockStatusChange}
+                    onChange={(e) => setStockStatus(e.target.value)}
                     className="mr-4 cursor-pointer"
                   />
                   <label htmlFor="instock" className="mr-4 cursor-pointer">
@@ -403,7 +456,7 @@ const AddProducts = () => {
                     id="unavailable"
                     value="unavailable"
                     checked={stockStatus === "unavailable"}
-                    onChange={handleStockStatusChange}
+                    onChange={(e) => setStockStatus(e.target.value)}
                     className="mr-4 cursor-pointer"
                   />
                   <label htmlFor="unavailable" className="mr-4 cursor-pointer">
@@ -416,7 +469,7 @@ const AddProducts = () => {
                     id="tobe_announced"
                     value="tobe_announced"
                     checked={stockStatus === "tobe_announced"}
-                    onChange={handleStockStatusChange}
+                    onChange={(e) => setStockStatus(e.target.value)}
                     className="mr-4 cursor-pointer"
                   />
                   <label
@@ -446,11 +499,11 @@ const AddProducts = () => {
                     />
                   </div>
                 </div>
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Add</p>
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
