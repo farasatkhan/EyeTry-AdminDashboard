@@ -98,7 +98,7 @@ const AddProducts = () => {
         >
           {/* this is left side */}
           <div className="flex flex-col w-full md:w-4/6">
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Product Information</p>
               </div>
@@ -164,7 +164,7 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Details</p>
               </div>
@@ -187,7 +187,7 @@ const AddProducts = () => {
                 </div> */}
               </div>
             </div>
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Images</p>
               </div>
@@ -294,7 +294,7 @@ const AddProducts = () => {
           </div>
           {/* this is right side */}
           <div className="flex flex-col w-full md:w-2/6">
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Pricing</p>
               </div>
@@ -368,7 +368,7 @@ const AddProducts = () => {
                 </div> */}
               </div>
             </div>
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Type</p>
               </div>
@@ -429,7 +429,7 @@ const AddProducts = () => {
                 </div>
               </div> */}
             </div>
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Stock Status</p>
               </div>
@@ -481,7 +481,7 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white shadow mb-10">
+            <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Tags</p>
               </div>
