@@ -61,7 +61,7 @@ const AddProducts = () => {
   ////////////////////////
 
   return (
-    <div className="flex flex-col">
+    <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col">
       <div className="flex flex-col md:flex-row flex-grow justify-between ml-7 mr-7 mt-7">
         <div className="flex flex-col mb-5 md:mb-0">
           <div className="flex gap-1">
@@ -94,11 +94,11 @@ const AddProducts = () => {
       <div className="flex mx-5 mt-5">
         <form
           onSubmit={handleSubmittedProducts}
-          className="flex flex-col md:flex-row flex-grow gap-2"
+          className="flex flex-col md:flex-row flex-grow gap-10"
         >
           {/* this is left side */}
           <div className="flex flex-col w-full md:w-4/6">
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Product Information</p>
               </div>
@@ -164,7 +164,7 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Details</p>
               </div>
@@ -187,7 +187,7 @@ const AddProducts = () => {
                 </div> */}
               </div>
             </div>
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Images</p>
               </div>
@@ -294,7 +294,7 @@ const AddProducts = () => {
           </div>
           {/* this is right side */}
           <div className="flex flex-col w-full md:w-2/6">
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Pricing</p>
               </div>
@@ -368,7 +368,7 @@ const AddProducts = () => {
                 </div> */}
               </div>
             </div>
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Type</p>
               </div>
@@ -429,7 +429,7 @@ const AddProducts = () => {
                 </div>
               </div> */}
             </div>
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Stock Status</p>
               </div>
@@ -481,7 +481,7 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            <div className="shadow mb-10">
+            <div className="bg-white shadow mb-10">
               <div className="pl-4 py-4">
                 <p>Tags</p>
               </div>
