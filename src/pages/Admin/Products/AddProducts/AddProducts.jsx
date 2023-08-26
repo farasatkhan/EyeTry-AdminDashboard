@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 
 const modules = {
   toolbar: [
@@ -22,8 +22,21 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
 
 const AddProducts = () => {
-  const categories = ["Men", "Women", "Kids"];
-  const subcategories = ["Sub Category 1", "Sub Category 2", "Sub Category 3"];
+  const categories = [
+    "Men",
+    "Women",
+    "Kids",
+    "Rock",
+    "Pant",
+    "Arrival",
+    "New",
+    "Old",
+    "Navy",
+  ];
+
+  const [categoryViewToggle, setCategoryViewToggle] = useState(true);
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -41,6 +54,7 @@ const AddProducts = () => {
     price: 0,
     currency: "USD",
     discount: 0,
+    categories: [],
   });
 
   const handleSubmittedProducts = async (e) => {
@@ -172,14 +186,14 @@ const AddProducts = () => {
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
               ></div>
               <div className="px-5 py-5">
-                <div className="mb-3 min-h-32">
+                {/* <div className="mb-3 min-h-32">
                   <ReactQuill
                     theme="snow"
                     value={value}
                     onChange={setValue}
                     modules={modules}
                   />
-                </div>
+                </div> */}
                 {/* <div className="flex justify-end">
                   <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Save Changes</p>
@@ -375,34 +389,56 @@ const AddProducts = () => {
               <div
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
               ></div>
-              {/* <div className="px-5 py-5">
-                <div className="flex flex-col mb-4">
-                  <label htmlFor="category" className="text-sm mb-1">
-                    Select Category
-                  </label>
-                  <div className="flex flex-grow">
-                    <select
-                      placeholder="Select"
-                      value={selectedCategory}
-                      onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
+              <div className="px-5 py-5">
+                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
+                  {categories.map((category, index) => (
+                    <div
+                      key={index}
+                      className="flex py-2 gap-3 justify-start items-center cursor-pointer"
                     >
-                      <option value="" disabled selected>
-                        Select
-                      </option>
-                      {categories.map((option) => (
-                        <option
-                          key={option}
-                          value={option}
-                          className="cursor-pointer"
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                      <input
+                        type="checkbox"
+                        className="w-5 h-5 cursor-pointer"
+                        id={`category-${index}`}
+                      />
+                      <label
+                        htmlFor={`category-${index}`}
+                        className="cursor-pointer"
+                      >
+                        {category}
+                      </label>
+                    </div>
+                  ))}
                 </div>
                 <div className="flex flex-col mb-4">
+                  <div
+                    className="cursor-pointer text-blue-500 underline select-none"
+                    onClick={() => setCategoryViewToggle(!categoryViewToggle)}
+                  >
+                    <span className="text-sm">Add a new category</span>
+                  </div>
+                  <div
+                    className={`${
+                      categoryViewToggle ? "block" : "hidden"
+                    } mt-4`}
+                  >
+                    <label htmlFor="new_category" className="text-sm">
+                      New category
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border outline-none text-sm mt-2"
+                    />
+                    <div className="mt-2">
+                      <button className="w-full py-2 border bg-blue-500">
+                        <span className="text-sm text-white">
+                          Add New Category
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="flex flex-col mb-4">
                   <label htmlFor="subcategory" className="text-sm mb-1">
                     Select sub-category
                   </label>
@@ -426,8 +462,8 @@ const AddProducts = () => {
                       ))}
                     </select>
                   </div>
-                </div>
-              </div> */}
+                </div> */}
+              </div>
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
