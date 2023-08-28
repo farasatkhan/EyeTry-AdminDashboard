@@ -177,7 +177,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
             {modifiedData.map((user, index) => {
               return (
                 <tr key={index}>
-                  <td className="px-2 py-3" whitespace-nowrap>
+                  <td className="px-2 py-3 whitespace-nowrap">
                     <div className="flex">
                       <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                         <img
