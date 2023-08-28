@@ -26,10 +26,7 @@ const CreateFAQ = () => {
           </div>
         </div>
         <div className="flex">
-          <button
-            className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
-            onClick={() => changeModalHandle("Add new user", "add")}
-          >
+          <button className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
             <p className="">Add new FAQ</p>
           </button>
         </div>
