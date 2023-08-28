@@ -59,20 +59,20 @@ const Settings = () => {
             <form action="">
               <div className="flex flex-col md:flex-row mb-3">
                 <label
-                  htmlFor="name"
+                  htmlFor="fname"
                   className="whitespace-nowrap md:whitespace-normal text-sm w-1/5 mt-1 mb-1"
                 >
                   Full name
                 </label>
                 <div className="flex flex-grow gap-2 md:w-4/5">
                   <input
-                    id="name"
+                    id="fname"
                     type="text"
                     placeholder="First name"
                     className="border h-10 outline-none w-1/2 rounded p-2"
                   />
                   <input
-                    id="name"
+                    id="lname"
                     type="text"
                     placeholder="Last name"
                     className="border h-10 outline-none w-1/2 rounded p-2"
