@@ -1,16 +1,5 @@
 import React, { useState } from "react";
 
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
-
-const modules = {
-  toolbar: [
-    ["bold", "italic", "underline", "strike"],
-    [{ list: "bullet" }, { list: "ordered" }],
-    ["link", "image", "blockquote"],
-  ],
-};
-
 import { newProduct } from "../../../../services/Products/glasses";
 
 import AddProductsStyles from "./AddProducts.module.css";
@@ -18,32 +7,35 @@ import AddProductsStyles from "./AddProducts.module.css";
 import ProductImage from "../../../../assets/images/products/product_4.jfif";
 import ProductBasketImage from "../../../../assets/images/images-basket.png";
 
-import { BsTrash } from "react-icons/bs";
+import { BsTrash, BsX } from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
+import { newCategory } from "../../../../services/Products/categories";
 
 const AddProducts = () => {
-  const categories = [
-    "Men",
-    "Women",
-    "Kids",
-    "Rock",
-    "Pant",
-    "Arrival",
-    "New",
-    "Old",
-    "Navy",
-  ];
+  const categories = ["Men", "Women", "Kids"];
+  const [frameMaterialList, setFrameMaterialList] = useState([
+    "Acetate",
+    "Metal",
+    "TR-90",
+  ]);
 
-  const [categoryViewToggle, setCategoryViewToggle] = useState(true);
+  const [frameSizeList, setFrameSizeList] = useState([
+    "Small",
+    "Medium",
+    "Large",
+  ]);
+
+  const [newFrameSize, setNewFrameSize] = useState("");
+
+  const [viewToggle, setViewToggle] = useState({
+    category: true,
+    frame_material: true,
+    frame_size: true,
+  });
 
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const [selectedCurrency, setSelectedCurrency] = useState("USD");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [stockStatus, setStockStatus] = useState("");
-
-  const [value, setValue] = useState("");
 
   // Submitting Product //
 
@@ -51,10 +43,16 @@ const AddProducts = () => {
     name: "",
     sku: "",
     description: "",
+    manufacturer: "",
     price: 0,
     currency: "USD",
     discount: 0,
     categories: [],
+    meta_title: "",
+    meta_keywords: "",
+    meta_description: "",
+    frame_material: [],
+    frame_size: [],
   });
 
   const handleSubmittedProducts = async (e) => {
@@ -69,6 +67,19 @@ const AddProducts = () => {
       console.log("Product added successfully!", addNewProduct);
     } catch (error) {
       console.error("Failed to add product:", error);
+    }
+  };
+
+  const [addCategory, setAddCategory] = useState("");
+
+  const handleSubmittedCategory = async () => {
+    try {
+      const data = { category: addCategory };
+      console.log(data);
+      const addNewCategory = await newCategory(data);
+      console.log("Category is added successfully.", addNewCategory);
+    } catch (error) {
+      console.error("Failed to add category", error);
     }
   };
 
@@ -128,6 +139,8 @@ const AddProducts = () => {
                     id="product_name"
                     type="text"
                     className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.name}
                     onChange={(e) =>
                       setProductBasicInformation({
                         ...productBasicInformation,
@@ -144,10 +157,30 @@ const AddProducts = () => {
                     id="sku"
                     type="text"
                     className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.sku}
                     onChange={(e) =>
                       setProductBasicInformation({
                         ...productBasicInformation,
                         sku: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="manufacturer" className="text-sm">
+                    Manufacturer
+                  </label>
+                  <input
+                    id="manufacturer"
+                    type="text"
+                    className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.manufacturer}
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        manufacturer: e.target.value,
                       })
                     }
                   />
@@ -160,6 +193,8 @@ const AddProducts = () => {
                     id="description"
                     rows={3}
                     className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.description}
                     onChange={(e) =>
                       setProductBasicInformation({
                         ...productBasicInformation,
@@ -180,25 +215,66 @@ const AddProducts = () => {
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
-                <p>Details</p>
+                <p>Meta Details</p>
               </div>
               <div
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
               ></div>
               <div className="px-5 py-5">
-                {/* <div className="mb-3 min-h-32">
-                  <ReactQuill
-                    theme="snow"
-                    value={value}
-                    onChange={setValue}
-                    modules={modules}
+                <div className="mb-3">
+                  <label htmlFor="meta_title" className="text-sm">
+                    Title
+                  </label>
+                  <input
+                    id="meta_title"
+                    type="text"
+                    className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.meta_title}
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        meta_title: e.target.value,
+                      })
+                    }
                   />
-                </div> */}
-                {/* <div className="flex justify-end">
-                  <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
-                    <p className="">Save Changes</p>
-                  </button>
-                </div> */}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="meta_keywords" className="text-sm">
+                    Keywords Separated by Comma
+                  </label>
+                  <input
+                    id="meta_keywords"
+                    type="text"
+                    className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.meta_keywords}
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        meta_keywords: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="meta_description" className="text-sm">
+                    Description
+                  </label>
+                  <textarea
+                    id="meta_description"
+                    rows={3}
+                    className="border p-2 rounded-md w-full outline-none text-sm"
+                    autoComplete="off"
+                    value={productBasicInformation.meta_description}
+                    onChange={(e) =>
+                      setProductBasicInformation({
+                        ...productBasicInformation,
+                        meta_description: e.target.value,
+                      })
+                    }
+                  />
+                </div>
               </div>
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
@@ -384,7 +460,7 @@ const AddProducts = () => {
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
-                <p>Type</p>
+                <p>Categories</p>
               </div>
               <div
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
@@ -413,28 +489,39 @@ const AddProducts = () => {
                 <div className="flex flex-col mb-4">
                   <div
                     className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() => setCategoryViewToggle(!categoryViewToggle)}
+                    onClick={() =>
+                      setViewToggle({
+                        ...viewToggle,
+                        category: !viewToggle.category,
+                      })
+                    }
                   >
                     <span className="text-sm">Add a new category</span>
                   </div>
                   <div
                     className={`${
-                      categoryViewToggle ? "block" : "hidden"
+                      viewToggle.category ? "block" : "hidden"
                     } mt-4`}
                   >
                     <label htmlFor="new_category" className="text-sm">
                       New category
                     </label>
                     <input
+                      id="category"
                       type="text"
                       className="w-full p-2 border outline-none text-sm mt-2"
+                      value={addCategory}
+                      onChange={(e) => setAddCategory(e.target.value)}
                     />
                     <div className="mt-2">
-                      <button className="w-full py-2 border bg-blue-500">
-                        <span className="text-sm text-white">
+                      <div
+                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                        onClick={handleSubmittedCategory}
+                      >
+                        <span className="text-center text-sm text-white">
                           Add New Category
                         </span>
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -463,6 +550,162 @@ const AddProducts = () => {
                     </select>
                   </div>
                 </div> */}
+              </div>
+            </div>
+            <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
+                <p>Frame Material</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
+                  {frameMaterialList.map((frameMaterial, index) => (
+                    <div key={index} className="flex justify-between pr-5">
+                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="w-5 h-5 cursor-pointer"
+                          id={`frameMaterial-${index}`}
+                        />
+                        <label
+                          htmlFor={`frameMaterial-${index}`}
+                          className="cursor-pointer"
+                        >
+                          {frameMaterial}
+                        </label>
+                      </div>
+                      <div
+                        className="flex justify-center items-center cursor-pointer"
+                        onClick={() => {
+                          setFrameMaterialList(
+                            frameMaterialList.filter(
+                              (material) => material !== frameMaterial
+                            )
+                          );
+                        }}
+                      >
+                        <BsX size={25} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mb-4">
+                  <div
+                    className="cursor-pointer text-blue-500 underline select-none"
+                    onClick={() =>
+                      setViewToggle({
+                        ...viewToggle,
+                        frame_material: !viewToggle.frame_material,
+                      })
+                    }
+                  >
+                    <span className="text-sm">Add a new frame material</span>
+                  </div>
+                  <div
+                    className={`${
+                      viewToggle.frame_material ? "block" : "hidden"
+                    } mt-4`}
+                  >
+                    <label htmlFor="new_category" className="text-sm">
+                      New frame material
+                    </label>
+                    <input
+                      id="category"
+                      type="text"
+                      className="w-full p-2 border outline-none text-sm mt-2"
+                    />
+                    <div className="mt-2">
+                      <div className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer">
+                        <span className="text-center text-sm text-white">
+                          Add New Frame Material
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
+                <p>Frame Size</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
+                  {frameSizeList.map((frameSize, index) => (
+                    <div key={index} className="flex justify-between pr-5">
+                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="w-5 h-5 cursor-pointer"
+                          id={`frameSize-${index}`}
+                        />
+                        <label
+                          htmlFor={`frameSize-${index}`}
+                          className="cursor-pointer"
+                        >
+                          {frameSize}
+                        </label>
+                      </div>
+                      <div
+                        className="flex justify-center items-center cursor-pointer"
+                        onClick={() => {
+                          setFrameSizeList(
+                            frameSizeList.filter((size) => size !== frameSize)
+                          );
+                        }}
+                      >
+                        <BsX size={25} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mb-4">
+                  <div
+                    className="cursor-pointer text-blue-500 underline select-none"
+                    onClick={() =>
+                      setViewToggle({
+                        ...viewToggle,
+                        frame_size: !viewToggle.frame_size,
+                      })
+                    }
+                  >
+                    <span className="text-sm">Add a new frame material</span>
+                  </div>
+                  <div
+                    className={`${
+                      viewToggle.frame_size ? "block" : "hidden"
+                    } mt-4`}
+                  >
+                    <label htmlFor="new_category" className="text-sm">
+                      New frame size
+                    </label>
+                    <input
+                      id="category"
+                      type="text"
+                      className="w-full p-2 border outline-none text-sm mt-2"
+                      value={newFrameSize}
+                      onChange={(e) => setNewFrameSize(e.target.value)}
+                    />
+                    <div className="mt-2">
+                      <div
+                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                        onClick={() => {
+                          setFrameSizeList([...frameSizeList, newFrameSize]);
+                          console.log(frameSizeList);
+                        }}
+                      >
+                        <span className="text-center text-sm text-white">
+                          Add New Frame Size
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">

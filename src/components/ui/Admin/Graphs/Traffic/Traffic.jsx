@@ -9,7 +9,7 @@ const CustomLegend = ({ payload }) => {
     <>
       <div className="flex justify-center items-center gap-20">
         {payload.map((entry, index) => (
-          <div className="flex">
+          <div key={index} className="flex">
             <div key={`legend-${index}`} className="flex">
               <div className="flex justify-center mt-1.5">
                 <span
