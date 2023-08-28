@@ -12,7 +12,18 @@ import { AiOutlineEye } from "react-icons/ai";
 import { newCategory } from "../../../../services/Products/categories";
 
 const AddProducts = () => {
-  const categories = ["Men", "Women", "Kids"];
+  const [categoriesList, setCategoriesList] = useState([
+    "Men",
+    "Women",
+    "Kids",
+  ]);
+
+  const [ProductType, setProductType] = useState([
+    "Sunglasses",
+    "Eyeglasses",
+    "Lens",
+  ]);
+
   const [frameMaterialList, setFrameMaterialList] = useState([
     "Acetate",
     "Metal",
@@ -28,12 +39,10 @@ const AddProducts = () => {
   const [newFrameSize, setNewFrameSize] = useState("");
 
   const [viewToggle, setViewToggle] = useState({
-    category: true,
-    frame_material: true,
-    frame_size: true,
+    category: false,
+    frame_material: false,
+    frame_size: false,
   });
-
-  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [stockStatus, setStockStatus] = useState("");
 
@@ -44,6 +53,7 @@ const AddProducts = () => {
     sku: "",
     description: "",
     manufacturer: "",
+    type: "",
     price: 0,
     currency: "USD",
     discount: 0,
@@ -68,6 +78,27 @@ const AddProducts = () => {
     } catch (error) {
       console.error("Failed to add product:", error);
     }
+  };
+
+  const handleSelectedCategories = async (event) => {
+    const value = event.target.labels[0].textContent;
+
+    const updatedCategories = () => {
+      if (event.target.checked) {
+        return [...productBasicInformation.categories, value];
+      } else {
+        return productBasicInformation.categories.filter(
+          (category) => category !== value
+        );
+      }
+    };
+
+    setProductBasicInformation((prevInformation) => ({
+      ...prevInformation,
+      categories: updatedCategories(),
+    }));
+
+    console.log("selected categories: ", productBasicInformation.categories);
   };
 
   const [addCategory, setAddCategory] = useState("");
@@ -279,6 +310,42 @@ const AddProducts = () => {
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
+                <p>More Details</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="flex flex-col mb-4">
+                  <label htmlFor="subcategory" className="text-sm mb-1">
+                    Select sub-category
+                  </label>
+                  <div className="flex flex-grow">
+                    <select
+                      value={productBasicInformation.type}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          type: e.target.value,
+                        }))
+                      }
+                      className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
+                    >
+                      <option value="" disabled>
+                        Select
+                      </option>
+                      {ProductType.map((type, index) => (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
                 <p>Images</p>
               </div>
               <div
@@ -467,7 +534,7 @@ const AddProducts = () => {
               ></div>
               <div className="px-5 py-5">
                 <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {categories.map((category, index) => (
+                  {categoriesList.map((category, index) => (
                     <div
                       key={index}
                       className="flex py-2 gap-3 justify-start items-center cursor-pointer"
@@ -476,6 +543,7 @@ const AddProducts = () => {
                         type="checkbox"
                         className="w-5 h-5 cursor-pointer"
                         id={`category-${index}`}
+                        onChange={handleSelectedCategories}
                       />
                       <label
                         htmlFor={`category-${index}`}
