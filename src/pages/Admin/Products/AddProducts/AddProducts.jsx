@@ -1338,7 +1338,7 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white border shadow mb-10 rounded-lg">
+            {/* <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
                 <p>Tags</p>
               </div>
@@ -1356,13 +1356,13 @@ const AddProducts = () => {
                     />
                   </div>
                 </div>
-                {/* <div className="flex justify-end">
+                <div className="flex justify-end">
                   <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
                     <p className="">Add</p>
                   </button>
-                </div> */}
+                </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </form>
       </div>
