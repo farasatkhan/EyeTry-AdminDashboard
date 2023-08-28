@@ -30,6 +30,17 @@ const AddProducts = () => {
     "TR-90",
   ]);
 
+  const [faceShapeList, setFaceShapeList] = useState([
+    "Round Face",
+    "Square Face",
+    "Oval Face",
+    "Heart-shaped Face",
+    "Diamond Face",
+    "Rectangle/Long Face",
+  ]);
+
+  const [gendersList, setGendersList] = useState(["Male", "Female", "Kids"]);
+
   const [frameSizeList, setFrameSizeList] = useState([
     "Small",
     "Medium",
@@ -42,9 +53,9 @@ const AddProducts = () => {
     category: false,
     frame_material: false,
     frame_size: false,
+    face_shape: false,
+    genders: false,
   });
-
-  const [stockStatus, setStockStatus] = useState("");
 
   // Submitting Product //
 
@@ -70,14 +81,24 @@ const AddProducts = () => {
     bridge_width: 0,
     temple_length: 0,
     is_multifocal: false,
+    face_shape: [],
+    genders: [],
+    stock_status: "",
   });
+
+  const handleStockStatus = async (event) => {
+    setProductBasicInformation((prevProductInformation) => ({
+      ...prevProductInformation,
+      stock_status: event.target.value,
+    }));
+  };
 
   const handleSubmittedProducts = async (e) => {
     e.preventDefault();
 
     const productInformation = { ...productBasicInformation };
 
-    console.log(productInformation);
+    console.log(productBasicInformation);
 
     try {
       const addNewProduct = await newProduct(productInformation);
@@ -153,9 +174,72 @@ const AddProducts = () => {
     console.log("selected frame sizes: ", productBasicInformation.frame_size);
   };
 
+  const handleSelectedFaceShapes = async (event) => {
+    const value = event.target.labels[0].textContent;
+
+    const updatedFaceShapes = () => {
+      if (event.target.checked) {
+        return [...productBasicInformation.face_shape, value];
+      } else {
+        return productBasicInformation.face_shape.filter(
+          (face_shape) => face_shape !== value
+        );
+      }
+    };
+
+    setProductBasicInformation((prevInformation) => ({
+      ...prevInformation,
+      face_shape: updatedFaceShapes(),
+    }));
+
+    console.log("selected face shapes: ", productBasicInformation.face_shape);
+  };
+
+  const handleSelectedGenders = async (event) => {
+    const value = event.target.labels[0].textContent;
+
+    const updatedGenders = () => {
+      if (event.target.checked) {
+        return [...productBasicInformation.genders, value];
+      } else {
+        return productBasicInformation.genders.filter(
+          (genders) => genders !== value
+        );
+      }
+    };
+
+    setProductBasicInformation((prevInformation) => ({
+      ...prevInformation,
+      genders: updatedGenders(),
+    }));
+
+    console.log("selected genders: ", productBasicInformation.genders);
+  };
+
   const [addCategory, setAddCategory] = useState("");
   const [addNewFrameMaterial, setAddNewFrameMaterial] = useState("");
   const [addNewFrameSize, setAddNewFrameSize] = useState("");
+  const [addNewFaceShape, setAddNewFaceShape] = useState("");
+  const [addNewGender, setAddNewGender] = useState("");
+
+  const handleSubmittedFaceShape = async () => {
+    if (!faceShapeList.includes(addNewFaceShape)) {
+      setFaceShapeList((prevFaceShapeList) => [
+        ...prevFaceShapeList,
+        addNewFaceShape,
+      ]);
+    } else {
+      console.log("Face shape is already present.");
+    }
+  };
+
+  const handleSubmittedGenders = async () => {
+    if (!gendersList.includes(addNewGender)) {
+      setGendersList((prevGenders) => [...prevGenders, addNewGender]);
+    } else {
+      console.log("gender is already present.");
+    }
+  };
 
   const handleSubmittedCategory = async () => {
     try {
@@ -1025,6 +1109,164 @@ const AddProducts = () => {
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
+                <p>Face Shape</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
+                  {faceShapeList.map((faceShape, index) => (
+                    <div key={index} className="flex justify-between pr-5">
+                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="w-5 h-5 cursor-pointer"
+                          id={`faceShape-${index}`}
+                          onChange={handleSelectedFaceShapes}
+                        />
+                        <label
+                          htmlFor={`faceShape-${index}`}
+                          className="cursor-pointer"
+                        >
+                          {faceShape}
+                        </label>
+                      </div>
+                      <div
+                        className="flex justify-center items-center cursor-pointer"
+                        onClick={() => {
+                          setFaceShapeList(
+                            faceShapeList.filter((shape) => shape !== faceShape)
+                          );
+                        }}
+                      >
+                        <BsX size={25} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mb-4">
+                  <div
+                    className="cursor-pointer text-blue-500 underline select-none"
+                    onClick={() =>
+                      setViewToggle({
+                        ...viewToggle,
+                        face_shape: !viewToggle.face_shape,
+                      })
+                    }
+                  >
+                    <span className="text-sm">Add a new face shape</span>
+                  </div>
+                  <div
+                    className={`${
+                      viewToggle.face_shape ? "block" : "hidden"
+                    } mt-4`}
+                  >
+                    <label htmlFor="face_shape" className="text-sm">
+                      New face shape
+                    </label>
+                    <input
+                      id="face_shape"
+                      type="text"
+                      className="w-full p-2 border outline-none text-sm mt-2"
+                      value={addNewFaceShape}
+                      onChange={(e) => setAddNewFaceShape(e.target.value)}
+                    />
+                    <div className="mt-2">
+                      <div
+                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                        onClick={handleSubmittedFaceShape}
+                      >
+                        <span className="text-center text-sm text-white">
+                          Add New Face Shape
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
+                <p>Genders</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
+                  {gendersList.map((gender, index) => (
+                    <div key={index} className="flex justify-between pr-5">
+                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="w-5 h-5 cursor-pointer"
+                          id={`gender-${index}`}
+                          onChange={handleSelectedGenders}
+                        />
+                        <label
+                          htmlFor={`gender-${index}`}
+                          className="cursor-pointer"
+                        >
+                          {gender}
+                        </label>
+                      </div>
+                      <div
+                        className="flex justify-center items-center cursor-pointer"
+                        onClick={() => {
+                          setGendersList(
+                            gendersList.filter((genders) => genders !== gender)
+                          );
+                        }}
+                      >
+                        <BsX size={25} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mb-4">
+                  <div
+                    className="cursor-pointer text-blue-500 underline select-none"
+                    onClick={() =>
+                      setViewToggle({
+                        ...viewToggle,
+                        genders: !viewToggle.genders,
+                      })
+                    }
+                  >
+                    <span className="text-sm">Add a new gender type</span>
+                  </div>
+                  <div
+                    className={`${
+                      viewToggle.genders ? "block" : "hidden"
+                    } mt-4`}
+                  >
+                    <label htmlFor="gender_type" className="text-sm">
+                      New gender
+                    </label>
+                    <input
+                      id="gender_type"
+                      type="text"
+                      className="w-full p-2 border outline-none text-sm mt-2"
+                      value={addNewGender}
+                      onChange={(e) => setAddNewGender(e.target.value)}
+                    />
+                    <div className="mt-2">
+                      <div
+                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                        onClick={handleSubmittedGenders}
+                      >
+                        <span className="text-center text-sm text-white">
+                          Add New Gender
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
                 <p>Stock Status</p>
               </div>
               <div
@@ -1034,43 +1276,64 @@ const AddProducts = () => {
                 <div className="cursor-pointer mb-3">
                   <input
                     type="radio"
-                    id="instock"
-                    value="instock"
-                    checked={stockStatus === "instock"}
-                    onChange={(e) => setStockStatus(e.target.value)}
+                    id="in_stock"
+                    value="in_stock"
+                    checked={
+                      productBasicInformation.stock_status === "in_stock"
+                    }
+                    onChange={handleStockStatus}
                     className="mr-4 cursor-pointer"
                   />
-                  <label htmlFor="instock" className="mr-4 cursor-pointer">
+                  <label htmlFor="in_stock" className="mr-4 cursor-pointer">
                     In stock
                   </label>
                 </div>
                 <div className="cursor-pointer mb-3">
                   <input
                     type="radio"
-                    id="unavailable"
-                    value="unavailable"
-                    checked={stockStatus === "unavailable"}
-                    onChange={(e) => setStockStatus(e.target.value)}
+                    id="out_of_stock"
+                    value="out_of_stock"
+                    checked={
+                      productBasicInformation.stock_status === "out_of_stock"
+                    }
+                    onChange={handleStockStatus}
                     className="mr-4 cursor-pointer"
                   />
-                  <label htmlFor="unavailable" className="mr-4 cursor-pointer">
-                    Unavailable
+                  <label htmlFor="out_of_stock" className="mr-4 cursor-pointer">
+                    Out of stock
                   </label>
                 </div>
                 <div className="cursor-pointer mb-3">
                   <input
                     type="radio"
-                    id="tobe_announced"
-                    value="tobe_announced"
-                    checked={stockStatus === "tobe_announced"}
-                    onChange={(e) => setStockStatus(e.target.value)}
+                    id="to_be_announced"
+                    value="to_be_announced"
+                    checked={
+                      productBasicInformation.stock_status === "to_be_announced"
+                    }
+                    onChange={handleStockStatus}
                     className="mr-4 cursor-pointer"
                   />
                   <label
-                    htmlFor="tobe_announced"
+                    htmlFor="to_be_announced"
                     className="mr-4 cursor-pointer"
                   >
                     To be announced
+                  </label>
+                </div>
+                <div className="cursor-pointer mb-3">
+                  <input
+                    type="radio"
+                    id="low_stock"
+                    value="low_stock"
+                    checked={
+                      productBasicInformation.stock_status === "low_stock"
+                    }
+                    onChange={handleStockStatus}
+                    className="mr-4 cursor-pointer"
+                  />
+                  <label htmlFor="low_stock" className="mr-4 cursor-pointer">
+                    Low stock
                   </label>
                 </div>
               </div>
