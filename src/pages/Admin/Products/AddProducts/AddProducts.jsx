@@ -105,12 +105,38 @@ const AddProducts = () => {
 
   const handleSubmittedCategory = async () => {
     try {
-      const data = { category: addCategory };
-      console.log(data);
-      const addNewCategory = await newCategory(data);
-      console.log("Category is added successfully.", addNewCategory);
+      if (!categoriesList.includes(addCategory)) {
+        setCategoriesList((prevCategories) => [...prevCategories, addCategory]);
+      } else {
+        console.log("Category is already present");
+      }
+      // const data = { category: addCategory };
+      // const addNewCategory = await newCategory(data);
+      // console.log("Category is added successfully.", addNewCategory);
     } catch (error) {
       console.error("Failed to add category", error);
+    }
+  };
+
+  const [addNewFrameMaterial, setAddNewFrameMaterial] = useState("");
+  const [addNewFrameSize, setAddNewFrameSize] = useState("");
+
+  const handleSubmittedFrameMaterial = async () => {
+    if (!frameMaterialList.includes(addNewFrameMaterial)) {
+      setFrameMaterialList((prevFrameMaterials) => [
+        ...prevFrameMaterials,
+        addNewFrameMaterial,
+      ]);
+    } else {
+      console.log("Frame material is already present.");
+    }
+  };
+
+  const handleSubmittedNewFrameSize = async () => {
+    if (!frameSizeList.includes(addNewFrameSize)) {
+      setFrameSizeList((prevFrameSize) => [...prevFrameSize, addNewFrameSize]);
+    } else {
+      console.log("Frame size is already present.");
     }
   };
 
@@ -683,9 +709,14 @@ const AddProducts = () => {
                       id="category"
                       type="text"
                       className="w-full p-2 border outline-none text-sm mt-2"
+                      value={addNewFrameMaterial}
+                      onChange={(e) => setAddNewFrameMaterial(e.target.value)}
                     />
                     <div className="mt-2">
-                      <div className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer">
+                      <div
+                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                        onClick={handleSubmittedFrameMaterial}
+                      >
                         <span className="text-center text-sm text-white">
                           Add New Frame Material
                         </span>
@@ -742,7 +773,7 @@ const AddProducts = () => {
                       })
                     }
                   >
-                    <span className="text-sm">Add a new frame material</span>
+                    <span className="text-sm">Add a new frame size</span>
                   </div>
                   <div
                     className={`${
@@ -756,16 +787,13 @@ const AddProducts = () => {
                       id="category"
                       type="text"
                       className="w-full p-2 border outline-none text-sm mt-2"
-                      value={newFrameSize}
-                      onChange={(e) => setNewFrameSize(e.target.value)}
+                      value={addNewFrameSize}
+                      onChange={(e) => setAddNewFrameSize(e.target.value)}
                     />
                     <div className="mt-2">
                       <div
                         className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={() => {
-                          setFrameSizeList([...frameSizeList, newFrameSize]);
-                          console.log(frameSizeList);
-                        }}
+                        onClick={handleSubmittedNewFrameSize}
                       >
                         <span className="text-center text-sm text-white">
                           Add New Frame Size
