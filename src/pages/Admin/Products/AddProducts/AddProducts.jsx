@@ -63,6 +63,13 @@ const AddProducts = () => {
     meta_description: "",
     frame_material: [],
     frame_size: [],
+    measurement_type: "",
+    lens_width: 0,
+    lens_height: 0,
+    total_width: 0,
+    bridge_width: 0,
+    temple_length: 0,
+    is_multifocal: false,
   });
 
   const handleSubmittedProducts = async (e) => {
@@ -101,7 +108,54 @@ const AddProducts = () => {
     console.log("selected categories: ", productBasicInformation.categories);
   };
 
+  const handleSelectedFrameMaterials = async (event) => {
+    const value = event.target.labels[0].textContent;
+
+    const updatedFrameMaterials = () => {
+      if (event.target.checked) {
+        return [...productBasicInformation.frame_material, value];
+      } else {
+        return productBasicInformation.frame_material.filter(
+          (frame_material) => frame_material !== value
+        );
+      }
+    };
+
+    setProductBasicInformation((prevInformation) => ({
+      ...prevInformation,
+      frame_material: updatedFrameMaterials(),
+    }));
+
+    console.log(
+      "selected frame materials: ",
+      productBasicInformation.frame_material
+    );
+  };
+
+  const handleSelectedFrameSizes = async (event) => {
+    const value = event.target.labels[0].textContent;
+
+    const updatedFrameSizes = () => {
+      if (event.target.checked) {
+        return [...productBasicInformation.frame_size, value];
+      } else {
+        return productBasicInformation.frame_size.filter(
+          (frame_size) => frame_size !== value
+        );
+      }
+    };
+
+    setProductBasicInformation((prevInformation) => ({
+      ...prevInformation,
+      frame_size: updatedFrameSizes(),
+    }));
+
+    console.log("selected frame sizes: ", productBasicInformation.frame_size);
+  };
+
   const [addCategory, setAddCategory] = useState("");
+  const [addNewFrameMaterial, setAddNewFrameMaterial] = useState("");
+  const [addNewFrameSize, setAddNewFrameSize] = useState("");
 
   const handleSubmittedCategory = async () => {
     try {
@@ -117,9 +171,6 @@ const AddProducts = () => {
       console.error("Failed to add category", error);
     }
   };
-
-  const [addNewFrameMaterial, setAddNewFrameMaterial] = useState("");
-  const [addNewFrameSize, setAddNewFrameSize] = useState("");
 
   const handleSubmittedFrameMaterial = async () => {
     if (!frameMaterialList.includes(addNewFrameMaterial)) {
@@ -344,9 +395,9 @@ const AddProducts = () => {
               <div className="px-5 py-5">
                 <div className="flex flex-col mb-4">
                   <label htmlFor="subcategory" className="text-sm mb-1">
-                    Select sub-category
+                    Select a category
                   </label>
-                  <div className="flex flex-grow">
+                  <div className="flex flex-grow mt-2">
                     <select
                       value={productBasicInformation.type}
                       onChange={(e) =>
@@ -368,6 +419,172 @@ const AddProducts = () => {
                     </select>
                   </div>
                 </div>
+                <div className="flex mb-4 gap-20">
+                  <div className="flex flex-grow flex-col">
+                    <label htmlFor="subcategory" className="text-sm mb-1 w-2/3">
+                      Measurement in
+                    </label>
+                    <div className="flex flex-grow mt-2">
+                      <select
+                        value={productBasicInformation.measurement_type}
+                        onChange={(e) =>
+                          setProductBasicInformation((prevInformation) => ({
+                            ...prevInformation,
+                            measurement_type: e.target.value,
+                          }))
+                        }
+                        className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
+                      >
+                        <option value="" disabled>
+                          Select
+                        </option>
+                        <option value="mm">mm</option>
+                        <option value="in">in</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="flex flex-grow flex-col">
+                    <label htmlFor="subcategory" className="text-sm mb-1 w-2/3">
+                      Is multifocal
+                    </label>
+                    <div className="flex flex-grow mt-2">
+                      <select
+                        value={productBasicInformation.is_multifocal}
+                        onChange={(e) =>
+                          setProductBasicInformation((prevInformation) => ({
+                            ...prevInformation,
+                            is_multifocal: e.target.value,
+                          }))
+                        }
+                        className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
+                      >
+                        <option value="" disabled>
+                          Select
+                        </option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-10 mb-4">
+                  <div className="flex flex-col">
+                    <label htmlFor="lens_width" className="text-sm mb-2">
+                      Lens Width
+                    </label>
+                    <input
+                      id="lens_width"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                      value={productBasicInformation.lens_width}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          lens_width: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="lens_height" className="text-sm mb-2">
+                      Lens Height
+                    </label>
+                    <input
+                      id="lens_height"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                      value={productBasicInformation.lens_height}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          lens_height: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="total_width" className="text-sm mb-2">
+                      Total Width
+                    </label>
+                    <input
+                      id="total_width"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                      value={productBasicInformation.total_width}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          total_width: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-10 mb-4">
+                  <div className="flex flex-col">
+                    <label htmlFor="temple_length" className="text-sm mb-2">
+                      Template Length
+                    </label>
+                    <input
+                      id="temple_length"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                      value={productBasicInformation.temple_length}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          temple_length: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="bridge_width" className="text-sm mb-2">
+                      Bridge Width
+                    </label>
+                    <input
+                      id="bridge_width"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                      value={productBasicInformation.bridge_width}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          bridge_width: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                {/* <div className="flex justify-between gap-5 mb-4">
+                  <div className="flex flex-col">
+                    <label htmlFor="lens_width" className="text-sm mb-1">
+                      Lens Width
+                    </label>
+                    <input
+                      id="lens_width"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label htmlFor="lens_width" className="text-sm mb-1">
+                      Lens Width
+                    </label>
+                    <input
+                      id="lens_width"
+                      type="text"
+                      className="border p-2 rounded-md w-full outline-none text-sm"
+                      autoComplete="off"
+                    />
+                  </div>
+                </div> */}
               </div>
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
@@ -662,6 +879,7 @@ const AddProducts = () => {
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer"
                           id={`frameMaterial-${index}`}
+                          onChange={handleSelectedFrameMaterials}
                         />
                         <label
                           htmlFor={`frameMaterial-${index}`}
@@ -742,6 +960,7 @@ const AddProducts = () => {
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer"
                           id={`frameSize-${index}`}
+                          onChange={handleSelectedFrameSizes}
                         />
                         <label
                           htmlFor={`frameSize-${index}`}
