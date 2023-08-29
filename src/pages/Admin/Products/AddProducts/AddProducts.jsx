@@ -7,8 +7,10 @@ import AddProductsStyles from "./AddProducts.module.css";
 import ProductImage from "../../../../assets/images/products/product_4.jfif";
 import ProductBasketImage from "../../../../assets/images/images-basket.png";
 
+import SelectImageIcon from "../../../../assets/icons/select_image.svg";
+
 import { BsTrash, BsX } from "react-icons/bs";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { newCategory } from "../../../../services/Products/categories";
 
 const AddProducts = () => {
@@ -40,6 +42,7 @@ const AddProducts = () => {
   ]);
 
   const [gendersList, setGendersList] = useState(["Male", "Female", "Kids"]);
+  const [colorsList, setColorsList] = useState(["Black", "White", "Metallic"]);
 
   const [frameSizeList, setFrameSizeList] = useState([
     "Small",
@@ -55,6 +58,7 @@ const AddProducts = () => {
     frame_size: false,
     face_shape: false,
     genders: false,
+    colors: false,
   });
 
   // Submitting Product //
@@ -84,7 +88,28 @@ const AddProducts = () => {
     face_shape: [],
     genders: [],
     stock_status: "",
+    colors: [],
   });
+
+  const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
+
+  const handleImageChangeMultiple = (color, quantity, images) => {
+    // console.log(color, quantity);
+    setProductVariantsMultiple((prevProductVariant) => [
+      ...prevProductVariant,
+      { color: color, quantity: quantity, images: Array.from(images) },
+    ]);
+
+    console.log(productVariantsMultiple);
+  };
+
+  const handleProductVariantQuantity = (color) => {
+    const variant = productVariantsMultiple.find(
+      (variant) => variant.color === color
+    );
+    const quantity = variant ? variant.quantity : 0;
+    return quantity;
+  };
 
   const handleStockStatus = async (event) => {
     setProductBasicInformation((prevProductInformation) => ({
@@ -216,11 +241,33 @@ const AddProducts = () => {
     console.log("selected genders: ", productBasicInformation.genders);
   };
 
+  const handleSelectedColors = async (event) => {
+    const value = event.target.labels[0].textContent;
+
+    const updatedColors = () => {
+      if (event.target.checked) {
+        return [...productBasicInformation.colors, value];
+      } else {
+        return productBasicInformation.colors.filter(
+          (colors) => colors !== value
+        );
+      }
+    };
+
+    setProductBasicInformation((prevInformation) => ({
+      ...prevInformation,
+      colors: updatedColors(),
+    }));
+
+    console.log("selected genders: ", productBasicInformation.genders);
+  };
+
   const [addCategory, setAddCategory] = useState("");
   const [addNewFrameMaterial, setAddNewFrameMaterial] = useState("");
   const [addNewFrameSize, setAddNewFrameSize] = useState("");
   const [addNewFaceShape, setAddNewFaceShape] = useState("");
   const [addNewGender, setAddNewGender] = useState("");
+  const [addNewColor, setAddNewColor] = useState("");
 
   const handleSubmittedFaceShape = async () => {
     if (!faceShapeList.includes(addNewFaceShape)) {
@@ -238,6 +285,14 @@ const AddProducts = () => {
       setGendersList((prevGenders) => [...prevGenders, addNewGender]);
     } else {
       console.log("gender is already present.");
+    }
+  };
+
+  const handleSubmittedColor = async () => {
+    if (!colorsList.includes(addNewColor)) {
+      setColorsList((prevColors) => [...prevColors, addNewColor]);
+    } else {
+      console.log("color is already present.");
     }
   };
 
@@ -673,7 +728,115 @@ const AddProducts = () => {
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
-                <p>Images</p>
+                <p>Variants</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  {productBasicInformation.colors.map((color, index) => (
+                    <div key={index} className="flex gap-5 mb-5">
+                      <input
+                        id={`image-${index}`}
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(event) =>
+                          handleImageChangeMultiple(
+                            color,
+                            0,
+                            event.target.files
+                          )
+                        }
+                        className="hidden"
+                      ></input>
+                      <label
+                        htmlFor={`image-${index}`}
+                        className="flex justify-center items-center w-24 h-24 border-2 border-dotted rounded-md cursor-pointer"
+                      >
+                        <img
+                          className="w-16 h-16 object-contain"
+                          src={SelectImageIcon}
+                          alt="select image"
+                        />
+                      </label>
+                      <div>
+                        <div className="text-lg">{color}</div>
+                        <div className="flex flex-col gap-2 mt-3">
+                          <label htmlFor="color_quantity" className="text-xs">
+                            Quantity
+                          </label>
+                          <input
+                            id="color_quantity"
+                            type="text"
+                            className="border p-1 rounded-md w-20 outline-none text-sm"
+                            autoComplete="off"
+                            value={handleProductVariantQuantity(color)}
+                            onChange={(event) => {
+                              const updatedVariant =
+                                productVariantsMultiple.map((variant) =>
+                                  variant.color === color
+                                    ? {
+                                        ...variant,
+                                        quantity: event.target.value,
+                                      }
+                                    : variant
+                                );
+                              setProductVariantsMultiple(updatedVariant);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-10">
+                  {productVariantsMultiple.map((variant, index) => (
+                    <div key={index} className="mb-5">
+                      <div className="flex flex-col mb-3">
+                        <span className="text-lg">{variant.color}</span>
+                        <span className="text-xs">
+                          Quantity: {variant.quantity}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {variant.images.map(
+                          (productVariantImage, imageIndex) => (
+                            <div key={imageIndex} className="border">
+                              <div className="border-b">
+                                <div className="cursor-pointer">
+                                  <img
+                                    className="object-cover"
+                                    src={URL.createObjectURL(
+                                      productVariantImage
+                                    )}
+                                    alt="product"
+                                  />
+                                </div>
+                              </div>
+                              <div className="flex justify-between items-center py-2 px-5">
+                                <AiOutlineStar
+                                  size={20}
+                                  className="cursor-pointer"
+                                />
+                                <BsTrash
+                                  size={20}
+                                  className="text-danger-900 cursor-pointer"
+                                />
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {/* <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
+                <p>Variants</p>
               </div>
               <div
                 className={`${AddProductsStyles["line-height"]} bg-slate-100`}
@@ -774,7 +937,7 @@ const AddProducts = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* this is right side */}
           <div className="flex flex-col w-full md:w-2/6">
@@ -1258,6 +1421,83 @@ const AddProducts = () => {
                       >
                         <span className="text-center text-sm text-white">
                           Add New Gender
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border shadow mb-10 rounded-lg">
+              <div className="pl-4 py-4">
+                <p>Colors</p>
+              </div>
+              <div
+                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
+              ></div>
+              <div className="px-5 py-5">
+                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
+                  {colorsList.map((color, index) => (
+                    <div key={index} className="flex justify-between pr-5">
+                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="w-5 h-5 cursor-pointer"
+                          id={`color-${index}`}
+                          onChange={handleSelectedColors}
+                        />
+                        <label
+                          htmlFor={`color-${index}`}
+                          className="cursor-pointer"
+                        >
+                          {color}
+                        </label>
+                      </div>
+                      <div
+                        className="flex justify-center items-center cursor-pointer"
+                        onClick={() => {
+                          setColorsList(
+                            colorsList.filter((colors) => colors !== color)
+                          );
+                        }}
+                      >
+                        <BsX size={25} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mb-4">
+                  <div
+                    className="cursor-pointer text-blue-500 underline select-none"
+                    onClick={() =>
+                      setViewToggle({
+                        ...viewToggle,
+                        colors: !viewToggle.colors,
+                      })
+                    }
+                  >
+                    <span className="text-sm">Add a new color</span>
+                  </div>
+                  <div
+                    className={`${viewToggle.colors ? "block" : "hidden"} mt-4`}
+                  >
+                    <label htmlFor="color_type" className="text-sm">
+                      New color
+                    </label>
+                    <input
+                      id="color_type"
+                      type="text"
+                      className="w-full p-2 border outline-none text-sm mt-2"
+                      value={addNewColor}
+                      onChange={(e) => setAddNewColor(e.target.value)}
+                    />
+                    <div className="mt-2">
+                      <div
+                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                        onClick={handleSubmittedColor}
+                      >
+                        <span className="text-center text-sm text-white">
+                          Add New Color
                         </span>
                       </div>
                     </div>
