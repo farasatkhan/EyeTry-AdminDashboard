@@ -12,14 +12,10 @@ import SelectImageIcon from "../../../../assets/icons/select_image.svg";
 import { BsTrash, BsX } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { newCategory } from "../../../../services/Products/categories";
+import Pricing from "../../../../components/ui/Admin/AddProduct/Pricing/Pricing";
+import Categories from "../../../../components/ui/Admin/AddProduct/Categories/Categories";
 
 const AddProducts = () => {
-  const [categoriesList, setCategoriesList] = useState([
-    "Men",
-    "Women",
-    "Kids",
-  ]);
-
   const [ProductType, setProductType] = useState([
     "Sunglasses",
     "Eyeglasses",
@@ -69,10 +65,6 @@ const AddProducts = () => {
     description: "",
     manufacturer: "",
     type: "",
-    price: 0,
-    currency: "USD",
-    discount: 0,
-    categories: [],
     meta_title: "",
     meta_keywords: "",
     meta_description: "",
@@ -90,6 +82,36 @@ const AddProducts = () => {
     stock_status: "",
     colors: [],
   });
+
+  const [productPricing, setProductPricing] = useState({
+    price: 0,
+    currency: "",
+    discount: 0,
+  });
+
+  const updateProductPricing = (updatedPriceInformation) => {
+    setProductPricing({
+      price: updatedPriceInformation.price,
+      currency: updatedPriceInformation.currency,
+      discount: updatedPriceInformation.discount,
+    });
+  };
+
+  const [productCategories, setProductCategories] = useState([]);
+
+  const updateProductCategories = (updatedCategory, checked) => {
+    const updatedCategories = () => {
+      if (checked) {
+        return [...productCategories, updatedCategory];
+      } else {
+        return productCategories.filter(
+          (category) => category !== updatedCategory
+        );
+      }
+    };
+    setProductCategories(updatedCategories());
+    console.log("categories", productCategories);
+  };
 
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
@@ -121,7 +143,12 @@ const AddProducts = () => {
   const handleSubmittedProducts = async (e) => {
     e.preventDefault();
 
-    const productInformation = { ...productBasicInformation };
+    const productInformation = {
+      ...productBasicInformation,
+      ...productPricing,
+      categories: [...productCategories],
+      frame_variants: productVariantsMultiple,
+    };
 
     console.log(productBasicInformation);
 
@@ -131,27 +158,6 @@ const AddProducts = () => {
     } catch (error) {
       console.error("Failed to add product:", error);
     }
-  };
-
-  const handleSelectedCategories = async (event) => {
-    const value = event.target.labels[0].textContent;
-
-    const updatedCategories = () => {
-      if (event.target.checked) {
-        return [...productBasicInformation.categories, value];
-      } else {
-        return productBasicInformation.categories.filter(
-          (category) => category !== value
-        );
-      }
-    };
-
-    setProductBasicInformation((prevInformation) => ({
-      ...prevInformation,
-      categories: updatedCategories(),
-    }));
-
-    console.log("selected categories: ", productBasicInformation.categories);
   };
 
   const handleSelectedFrameMaterials = async (event) => {
@@ -293,21 +299,6 @@ const AddProducts = () => {
       setColorsList((prevColors) => [...prevColors, addNewColor]);
     } else {
       console.log("color is already present.");
-    }
-  };
-
-  const handleSubmittedCategory = async () => {
-    try {
-      if (!categoriesList.includes(addCategory)) {
-        setCategoriesList((prevCategories) => [...prevCategories, addCategory]);
-      } else {
-        console.log("Category is already present");
-      }
-      // const data = { category: addCategory };
-      // const addNewCategory = await newCategory(data);
-      // console.log("Category is added successfully.", addNewCategory);
-    } catch (error) {
-      console.error("Failed to add category", error);
     }
   };
 
@@ -756,6 +747,7 @@ const AddProducts = () => {
                         className="flex justify-center items-center w-24 h-24 border-2 border-dotted rounded-md cursor-pointer"
                       >
                         <img
+                          loading="lazy"
                           className="w-16 h-16 object-contain"
                           src={SelectImageIcon}
                           alt="select image"
@@ -800,14 +792,14 @@ const AddProducts = () => {
                           Quantity: {variant.quantity}
                         </span>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      <div className="items-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {variant.images.map(
                           (productVariantImage, imageIndex) => (
-                            <div key={imageIndex} className="border">
+                            <div key={imageIndex} className="border h-auto">
                               <div className="border-b">
                                 <div className="cursor-pointer">
                                   <img
-                                    className="object-cover"
+                                    className="object-contain"
                                     src={URL.createObjectURL(
                                       productVariantImage
                                     )}
@@ -942,173 +934,16 @@ const AddProducts = () => {
           {/* this is right side */}
           <div className="flex flex-col w-full md:w-2/6">
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Pricing</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col mb-4">
-                  <label htmlFor="price">Price</label>
-                  <div className="flex">
-                    <input
-                      id="price"
-                      type="text"
-                      className="border p-2 rounded-s-md w-full outline-none text-sm"
-                      placeholder="0.00"
-                      onChange={(e) =>
-                        setProductBasicInformation({
-                          ...productBasicInformation,
-                          price: e.target.value,
-                        })
-                      }
-                    />
-                    <select
-                      id="currency"
-                      value={productBasicInformation.currency}
-                      onChange={(e) =>
-                        setProductBasicInformation({
-                          ...productBasicInformation,
-                          currency: e.target.value,
-                        })
-                      }
-                      className="border px-1 sm:px-3 py-1 rounded-e-md outline-none text-sm cursor-pointer"
-                    >
-                      <option key="USD" value="USD" className="cursor-pointer">
-                        USD
-                      </option>
-                      <option key="PKR" value="PKR" className="cursor-pointer">
-                        PKR
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex flex-col mb-4">
-                  <label htmlFor="discount">Discount in percentage</label>
-                  <div className="flex">
-                    <input
-                      id="discount"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      placeholder="0%"
-                      onChange={(e) =>
-                        setProductBasicInformation({
-                          ...productBasicInformation,
-                          discount: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-                {/* <div className="flex flex-col mb-4">
-                  <label htmlFor="finalprice">Final Price</label>
-                  <div className="flex">
-                    <input
-                      id="finalprice"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      placeholder="0"
-                      disabled
-                    />
-                  </div>
-                </div> */}
-              </div>
+              <Pricing
+                productPricing={productPricing}
+                updateProductPricing={updateProductPricing}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Categories</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {categoriesList.map((category, index) => (
-                    <div
-                      key={index}
-                      className="flex py-2 gap-3 justify-start items-center cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        className="w-5 h-5 cursor-pointer"
-                        id={`category-${index}`}
-                        onChange={handleSelectedCategories}
-                      />
-                      <label
-                        htmlFor={`category-${index}`}
-                        className="cursor-pointer"
-                      >
-                        {category}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <div
-                    className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() =>
-                      setViewToggle({
-                        ...viewToggle,
-                        category: !viewToggle.category,
-                      })
-                    }
-                  >
-                    <span className="text-sm">Add a new category</span>
-                  </div>
-                  <div
-                    className={`${
-                      viewToggle.category ? "block" : "hidden"
-                    } mt-4`}
-                  >
-                    <label htmlFor="new_category" className="text-sm">
-                      New category
-                    </label>
-                    <input
-                      id="category"
-                      type="text"
-                      className="w-full p-2 border outline-none text-sm mt-2"
-                      value={addCategory}
-                      onChange={(e) => setAddCategory(e.target.value)}
-                    />
-                    <div className="mt-2">
-                      <div
-                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={handleSubmittedCategory}
-                      >
-                        <span className="text-center text-sm text-white">
-                          Add New Category
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <div className="flex flex-col mb-4">
-                  <label htmlFor="subcategory" className="text-sm mb-1">
-                    Select sub-category
-                  </label>
-                  <div className="flex flex-grow">
-                    <select
-                      value={selectedSubCategory}
-                      onChange={(e) => setSelectedSubCategory(e.target.value)}
-                      className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
-                    >
-                      <option value="" disabled selected>
-                        Select
-                      </option>
-                      {subcategories.map((option) => (
-                        <option
-                          key={option}
-                          value={option}
-                          className="cursor-pointer"
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div> */}
-              </div>
+              <Categories
+                selectedCategories={productCategories}
+                updateSelectedCategories={updateProductCategories}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
