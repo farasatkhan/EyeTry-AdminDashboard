@@ -15,6 +15,10 @@ import { newCategory } from "../../../../services/Products/categories";
 import Pricing from "../../../../components/ui/Admin/AddProduct/Pricing/Pricing";
 import Categories from "../../../../components/ui/Admin/AddProduct/Categories/Categories";
 import FrameMaterial from "../../../../components/ui/Admin/AddProduct/FrameMaterial/FrameMaterial";
+import FrameSize from "../../../../components/ui/Admin/AddProduct/FrameSize/FrameSize";
+import FaceShape from "../../../../components/ui/Admin/AddProduct/FaceShape/FaceShape";
+import Gender from "../../../../components/ui/Admin/AddProduct/Gender/Gender";
+import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors";
 
 const AddProducts = () => {
   const [ProductType, setProductType] = useState([
@@ -22,34 +26,6 @@ const AddProducts = () => {
     "Eyeglasses",
     "Lens",
   ]);
-
-  const [faceShapeList, setFaceShapeList] = useState([
-    "Round Face",
-    "Square Face",
-    "Oval Face",
-    "Heart-shaped Face",
-    "Diamond Face",
-    "Rectangle/Long Face",
-  ]);
-
-  const [gendersList, setGendersList] = useState(["Male", "Female", "Kids"]);
-  const [colorsList, setColorsList] = useState(["Black", "White", "Metallic"]);
-
-  const [frameSizeList, setFrameSizeList] = useState([
-    "Small",
-    "Medium",
-    "Large",
-  ]);
-
-  const [newFrameSize, setNewFrameSize] = useState("");
-
-  const [viewToggle, setViewToggle] = useState({
-    category: false,
-    frame_size: false,
-    face_shape: false,
-    genders: false,
-    colors: false,
-  });
 
   // Submitting Product //
 
@@ -62,7 +38,6 @@ const AddProducts = () => {
     meta_title: "",
     meta_keywords: "",
     meta_description: "",
-    frame_size: [],
     measurement_type: "",
     lens_width: 0,
     lens_height: 0,
@@ -70,10 +45,7 @@ const AddProducts = () => {
     bridge_width: 0,
     temple_length: 0,
     is_multifocal: false,
-    face_shape: [],
-    genders: [],
     stock_status: "",
-    colors: [],
   });
 
   const [productPricing, setProductPricing] = useState({
@@ -91,6 +63,11 @@ const AddProducts = () => {
   };
 
   const [productCategories, setProductCategories] = useState([]);
+  const [productFrameMaterials, setProductFrameMaterials] = useState([]);
+  const [productFrameSizes, setProductFrameSizes] = useState([]);
+  const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
+  const [productFrameGender, setProductFrameGender] = useState([]);
+  const [productFrameColors, setProductFrameColors] = useState([]);
 
   const updateProductCategories = (updatedCategory, checked) => {
     const updatedCategories = () => {
@@ -105,19 +82,61 @@ const AddProducts = () => {
     setProductCategories(updatedCategories());
   };
 
-  const [productFrameMaterials, setProductFrameMaterials] = useState([]);
-
   const updatedProductFrameMaterials = (updatedMaterial, checked) => {
     const updatedFrameMaterials = () => {
       if (checked) {
         return [...productFrameMaterials, updatedMaterial];
       } else {
         return productFrameMaterials.filter(
-          (category) => category !== updatedMaterial
+          (material) => material !== updatedMaterial
         );
       }
     };
     setProductFrameMaterials(updatedFrameMaterials());
+  };
+
+  const updatedSelectedFrameSize = (updatedSize, checked) => {
+    const updatedFrameSizes = () => {
+      if (checked) {
+        return [...productFrameSizes, updatedSize];
+      } else {
+        return productFrameSizes.filter((size) => size !== updatedSize);
+      }
+    };
+    setProductFrameSizes(updatedFrameSizes());
+  };
+
+  const updatedSelectedFrameFaceShape = (updatedShape, checked) => {
+    const updatedFrameFaceShapes = () => {
+      if (checked) {
+        return [...productFrameFaceShape, updatedShape];
+      } else {
+        return productFrameFaceShape.filter((shape) => shape !== updatedShape);
+      }
+    };
+    setProductFrameFaceShape(updatedFrameFaceShapes());
+  };
+
+  const updatedSelectedFrameGenders = (updatedGender, checked) => {
+    const updatedFrameGenders = () => {
+      if (checked) {
+        return [...productFrameGender, updatedGender];
+      } else {
+        return productFrameGender.filter((gender) => gender !== updatedGender);
+      }
+    };
+    setProductFrameGender(updatedFrameGenders());
+  };
+
+  const updatedSelectedFrameColors = (updatedColor, checked) => {
+    const updatedFrameColors = () => {
+      if (checked) {
+        return [...productFrameColors, updatedColor];
+      } else {
+        return productFrameColors.filter((size) => size !== updatedColor);
+      }
+    };
+    setProductFrameColors(updatedFrameColors());
   };
 
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
@@ -155,6 +174,9 @@ const AddProducts = () => {
       ...productPricing,
       categories: [...productCategories],
       frame_material: [...productFrameMaterials],
+      frame_size: [...productFrameSizes],
+      face_shape: [...productFrameFaceShape],
+      genders: [...productFrameGender],
       frame_variants: productVariantsMultiple,
     };
 
@@ -165,131 +187,6 @@ const AddProducts = () => {
       console.log("Product added successfully!", addNewProduct);
     } catch (error) {
       console.error("Failed to add product:", error);
-    }
-  };
-
-  const handleSelectedFrameSizes = async (event) => {
-    const value = event.target.labels[0].textContent;
-
-    const updatedFrameSizes = () => {
-      if (event.target.checked) {
-        return [...productBasicInformation.frame_size, value];
-      } else {
-        return productBasicInformation.frame_size.filter(
-          (frame_size) => frame_size !== value
-        );
-      }
-    };
-
-    setProductBasicInformation((prevInformation) => ({
-      ...prevInformation,
-      frame_size: updatedFrameSizes(),
-    }));
-
-    console.log("selected frame sizes: ", productBasicInformation.frame_size);
-  };
-
-  const handleSelectedFaceShapes = async (event) => {
-    const value = event.target.labels[0].textContent;
-
-    const updatedFaceShapes = () => {
-      if (event.target.checked) {
-        return [...productBasicInformation.face_shape, value];
-      } else {
-        return productBasicInformation.face_shape.filter(
-          (face_shape) => face_shape !== value
-        );
-      }
-    };
-
-    setProductBasicInformation((prevInformation) => ({
-      ...prevInformation,
-      face_shape: updatedFaceShapes(),
-    }));
-
-    console.log("selected face shapes: ", productBasicInformation.face_shape);
-  };
-
-  const handleSelectedGenders = async (event) => {
-    const value = event.target.labels[0].textContent;
-
-    const updatedGenders = () => {
-      if (event.target.checked) {
-        return [...productBasicInformation.genders, value];
-      } else {
-        return productBasicInformation.genders.filter(
-          (genders) => genders !== value
-        );
-      }
-    };
-
-    setProductBasicInformation((prevInformation) => ({
-      ...prevInformation,
-      genders: updatedGenders(),
-    }));
-
-    console.log("selected genders: ", productBasicInformation.genders);
-  };
-
-  const handleSelectedColors = async (event) => {
-    const value = event.target.labels[0].textContent;
-
-    const updatedColors = () => {
-      if (event.target.checked) {
-        return [...productBasicInformation.colors, value];
-      } else {
-        return productBasicInformation.colors.filter(
-          (colors) => colors !== value
-        );
-      }
-    };
-
-    setProductBasicInformation((prevInformation) => ({
-      ...prevInformation,
-      colors: updatedColors(),
-    }));
-
-    console.log("selected genders: ", productBasicInformation.genders);
-  };
-
-  const [addCategory, setAddCategory] = useState("");
-  const [addNewFrameSize, setAddNewFrameSize] = useState("");
-  const [addNewFaceShape, setAddNewFaceShape] = useState("");
-  const [addNewGender, setAddNewGender] = useState("");
-  const [addNewColor, setAddNewColor] = useState("");
-
-  const handleSubmittedFaceShape = async () => {
-    if (!faceShapeList.includes(addNewFaceShape)) {
-      setFaceShapeList((prevFaceShapeList) => [
-        ...prevFaceShapeList,
-        addNewFaceShape,
-      ]);
-    } else {
-      console.log("Face shape is already present.");
-    }
-  };
-
-  const handleSubmittedGenders = async () => {
-    if (!gendersList.includes(addNewGender)) {
-      setGendersList((prevGenders) => [...prevGenders, addNewGender]);
-    } else {
-      console.log("gender is already present.");
-    }
-  };
-
-  const handleSubmittedColor = async () => {
-    if (!colorsList.includes(addNewColor)) {
-      setColorsList((prevColors) => [...prevColors, addNewColor]);
-    } else {
-      console.log("color is already present.");
-    }
-  };
-
-  const handleSubmittedNewFrameSize = async () => {
-    if (!frameSizeList.includes(addNewFrameSize)) {
-      setFrameSizeList((prevFrameSize) => [...prevFrameSize, addNewFrameSize]);
-    } else {
-      console.log("Frame size is already present.");
     }
   };
 
@@ -698,7 +595,7 @@ const AddProducts = () => {
               ></div>
               <div className="px-5 py-5">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
-                  {productBasicInformation.colors.map((color, index) => (
+                  {productFrameColors.map((color, index) => (
                     <div key={index} className="flex gap-5 mb-5">
                       <input
                         id={`image-${index}`}
@@ -922,399 +819,30 @@ const AddProducts = () => {
                 selectedFrameMaterials={productFrameMaterials}
                 updateSelectedFrameMaterials={updatedProductFrameMaterials}
               />
-              {/* <div className="pl-4 py-4">
-                <p>Frame Material</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {frameMaterialList.map((frameMaterial, index) => (
-                    <div key={index} className="flex justify-between pr-5">
-                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="w-5 h-5 cursor-pointer"
-                          id={`frameMaterial-${index}`}
-                          onChange={handleSelectedFrameMaterials}
-                        />
-                        <label
-                          htmlFor={`frameMaterial-${index}`}
-                          className="cursor-pointer"
-                        >
-                          {frameMaterial}
-                        </label>
-                      </div>
-                      <div
-                        className="flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setFrameMaterialList(
-                            frameMaterialList.filter(
-                              (material) => material !== frameMaterial
-                            )
-                          );
-                        }}
-                      >
-                        <BsX size={25} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <div
-                    className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() =>
-                      setViewToggle({
-                        ...viewToggle,
-                        frame_material: !viewToggle.frame_material,
-                      })
-                    }
-                  >
-                    <span className="text-sm">Add a new frame material</span>
-                  </div>
-                  <div
-                    className={`${
-                      viewToggle.frame_material ? "block" : "hidden"
-                    } mt-4`}
-                  >
-                    <label htmlFor="new_category" className="text-sm">
-                      New frame material
-                    </label>
-                    <input
-                      id="category"
-                      type="text"
-                      className="w-full p-2 border outline-none text-sm mt-2"
-                      value={addNewFrameMaterial}
-                      onChange={(e) => setAddNewFrameMaterial(e.target.value)}
-                    />
-                    <div className="mt-2">
-                      <div
-                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={handleSubmittedFrameMaterial}
-                      >
-                        <span className="text-center text-sm text-white">
-                          Add New Frame Material
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Frame Size</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {frameSizeList.map((frameSize, index) => (
-                    <div key={index} className="flex justify-between pr-5">
-                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="w-5 h-5 cursor-pointer"
-                          id={`frameSize-${index}`}
-                          onChange={handleSelectedFrameSizes}
-                        />
-                        <label
-                          htmlFor={`frameSize-${index}`}
-                          className="cursor-pointer"
-                        >
-                          {frameSize}
-                        </label>
-                      </div>
-                      <div
-                        className="flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setFrameSizeList(
-                            frameSizeList.filter((size) => size !== frameSize)
-                          );
-                        }}
-                      >
-                        <BsX size={25} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <div
-                    className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() =>
-                      setViewToggle({
-                        ...viewToggle,
-                        frame_size: !viewToggle.frame_size,
-                      })
-                    }
-                  >
-                    <span className="text-sm">Add a new frame size</span>
-                  </div>
-                  <div
-                    className={`${
-                      viewToggle.frame_size ? "block" : "hidden"
-                    } mt-4`}
-                  >
-                    <label htmlFor="new_category" className="text-sm">
-                      New frame size
-                    </label>
-                    <input
-                      id="category"
-                      type="text"
-                      className="w-full p-2 border outline-none text-sm mt-2"
-                      value={addNewFrameSize}
-                      onChange={(e) => setAddNewFrameSize(e.target.value)}
-                    />
-                    <div className="mt-2">
-                      <div
-                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={handleSubmittedNewFrameSize}
-                      >
-                        <span className="text-center text-sm text-white">
-                          Add New Frame Size
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <FrameSize
+                selectedFrameSizes={productFrameSizes}
+                updateSelectedFrameSizes={updatedSelectedFrameSize}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Face Shape</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {faceShapeList.map((faceShape, index) => (
-                    <div key={index} className="flex justify-between pr-5">
-                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="w-5 h-5 cursor-pointer"
-                          id={`faceShape-${index}`}
-                          onChange={handleSelectedFaceShapes}
-                        />
-                        <label
-                          htmlFor={`faceShape-${index}`}
-                          className="cursor-pointer"
-                        >
-                          {faceShape}
-                        </label>
-                      </div>
-                      <div
-                        className="flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setFaceShapeList(
-                            faceShapeList.filter((shape) => shape !== faceShape)
-                          );
-                        }}
-                      >
-                        <BsX size={25} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <div
-                    className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() =>
-                      setViewToggle({
-                        ...viewToggle,
-                        face_shape: !viewToggle.face_shape,
-                      })
-                    }
-                  >
-                    <span className="text-sm">Add a new face shape</span>
-                  </div>
-                  <div
-                    className={`${
-                      viewToggle.face_shape ? "block" : "hidden"
-                    } mt-4`}
-                  >
-                    <label htmlFor="face_shape" className="text-sm">
-                      New face shape
-                    </label>
-                    <input
-                      id="face_shape"
-                      type="text"
-                      className="w-full p-2 border outline-none text-sm mt-2"
-                      value={addNewFaceShape}
-                      onChange={(e) => setAddNewFaceShape(e.target.value)}
-                    />
-                    <div className="mt-2">
-                      <div
-                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={handleSubmittedFaceShape}
-                      >
-                        <span className="text-center text-sm text-white">
-                          Add New Face Shape
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <FaceShape
+                selectedFrameFaceShape={productFrameFaceShape}
+                updateSelectedFrameFaceShape={updatedSelectedFrameFaceShape}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Genders</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {gendersList.map((gender, index) => (
-                    <div key={index} className="flex justify-between pr-5">
-                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="w-5 h-5 cursor-pointer"
-                          id={`gender-${index}`}
-                          onChange={handleSelectedGenders}
-                        />
-                        <label
-                          htmlFor={`gender-${index}`}
-                          className="cursor-pointer"
-                        >
-                          {gender}
-                        </label>
-                      </div>
-                      <div
-                        className="flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setGendersList(
-                            gendersList.filter((genders) => genders !== gender)
-                          );
-                        }}
-                      >
-                        <BsX size={25} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <div
-                    className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() =>
-                      setViewToggle({
-                        ...viewToggle,
-                        genders: !viewToggle.genders,
-                      })
-                    }
-                  >
-                    <span className="text-sm">Add a new gender type</span>
-                  </div>
-                  <div
-                    className={`${
-                      viewToggle.genders ? "block" : "hidden"
-                    } mt-4`}
-                  >
-                    <label htmlFor="gender_type" className="text-sm">
-                      New gender
-                    </label>
-                    <input
-                      id="gender_type"
-                      type="text"
-                      className="w-full p-2 border outline-none text-sm mt-2"
-                      value={addNewGender}
-                      onChange={(e) => setAddNewGender(e.target.value)}
-                    />
-                    <div className="mt-2">
-                      <div
-                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={handleSubmittedGenders}
-                      >
-                        <span className="text-center text-sm text-white">
-                          Add New Gender
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Gender
+                selectedFrameGender={productFrameGender}
+                updateSelectedFrameGender={updatedSelectedFrameGenders}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Colors</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col border-y border-slate-100 mb-4 max-h-40 overflow-y-auto">
-                  {colorsList.map((color, index) => (
-                    <div key={index} className="flex justify-between pr-5">
-                      <div className="flex py-2 gap-3 justify-start items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="w-5 h-5 cursor-pointer"
-                          id={`color-${index}`}
-                          onChange={handleSelectedColors}
-                        />
-                        <label
-                          htmlFor={`color-${index}`}
-                          className="cursor-pointer"
-                        >
-                          {color}
-                        </label>
-                      </div>
-                      <div
-                        className="flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setColorsList(
-                            colorsList.filter((colors) => colors !== color)
-                          );
-                        }}
-                      >
-                        <BsX size={25} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <div
-                    className="cursor-pointer text-blue-500 underline select-none"
-                    onClick={() =>
-                      setViewToggle({
-                        ...viewToggle,
-                        colors: !viewToggle.colors,
-                      })
-                    }
-                  >
-                    <span className="text-sm">Add a new color</span>
-                  </div>
-                  <div
-                    className={`${viewToggle.colors ? "block" : "hidden"} mt-4`}
-                  >
-                    <label htmlFor="color_type" className="text-sm">
-                      New color
-                    </label>
-                    <input
-                      id="color_type"
-                      type="text"
-                      className="w-full p-2 border outline-none text-sm mt-2"
-                      value={addNewColor}
-                      onChange={(e) => setAddNewColor(e.target.value)}
-                    />
-                    <div className="mt-2">
-                      <div
-                        className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                        onClick={handleSubmittedColor}
-                      >
-                        <span className="text-center text-sm text-white">
-                          Add New Color
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <FrameColors
+                selectedFrameColors={productFrameColors}
+                updateSelectedFrameColors={updatedSelectedFrameColors}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
