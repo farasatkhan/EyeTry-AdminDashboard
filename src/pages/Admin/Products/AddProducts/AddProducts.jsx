@@ -16,6 +16,7 @@ import FaceShape from "../../../../components/ui/Admin/AddProduct/FaceShape/Face
 import Gender from "../../../../components/ui/Admin/AddProduct/Gender/Gender";
 import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors";
 import MetaDetails from "../../../../components/ui/Admin/AddProduct/MetaDetails/MetaDetails";
+import StockStatus from "../../../../components/ui/Admin/AddProduct/StockStatus/StockStatus";
 
 const AddProducts = () => {
   const [ProductType, setProductType] = useState([
@@ -39,23 +40,14 @@ const AddProducts = () => {
     bridge_width: 0,
     temple_length: 0,
     is_multifocal: false,
-    stock_status: "",
   });
 
+  const [stockStatus, setStockStatus] = useState("");
   const [metaDetails, setMetaDetails] = useState({
     meta_title: "",
     meta_keywords: "",
     meta_description: "",
   });
-
-  const updateProductMetaDetails = (updatedMetaDetails) => {
-    setMetaDetails({
-      meta_title: updatedMetaDetails.meta_title,
-      meta_keywords: updatedMetaDetails.meta_keywords,
-      meta_description: updatedMetaDetails.meta_description,
-    });
-  };
-
   const [productPricing, setProductPricing] = useState({
     price: 0,
     currency: "",
@@ -67,6 +59,18 @@ const AddProducts = () => {
   const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
   const [productFrameGender, setProductFrameGender] = useState([]);
   const [productFrameColors, setProductFrameColors] = useState([]);
+
+  const updateStockStatus = (updatedStockStatus) => {
+    setStockStatus(updatedStockStatus);
+  };
+
+  const updateProductMetaDetails = (updatedMetaDetails) => {
+    setMetaDetails({
+      meta_title: updatedMetaDetails.meta_title,
+      meta_keywords: updatedMetaDetails.meta_keywords,
+      meta_description: updatedMetaDetails.meta_description,
+    });
+  };
 
   const updateProductPricing = (updatedPriceInformation) => {
     setProductPricing({
@@ -185,6 +189,7 @@ const AddProducts = () => {
       frame_size: [...productFrameSizes],
       face_shape: [...productFrameFaceShape],
       genders: [...productFrameGender],
+      stock_status: stockStatus,
       frame_variants: productVariantsMultiple,
     };
 
@@ -662,77 +667,10 @@ const AddProducts = () => {
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Stock Status</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="cursor-pointer mb-3">
-                  <input
-                    type="radio"
-                    id="in_stock"
-                    value="in_stock"
-                    checked={
-                      productBasicInformation.stock_status === "in_stock"
-                    }
-                    onChange={handleStockStatus}
-                    className="mr-4 cursor-pointer"
-                  />
-                  <label htmlFor="in_stock" className="mr-4 cursor-pointer">
-                    In stock
-                  </label>
-                </div>
-                <div className="cursor-pointer mb-3">
-                  <input
-                    type="radio"
-                    id="out_of_stock"
-                    value="out_of_stock"
-                    checked={
-                      productBasicInformation.stock_status === "out_of_stock"
-                    }
-                    onChange={handleStockStatus}
-                    className="mr-4 cursor-pointer"
-                  />
-                  <label htmlFor="out_of_stock" className="mr-4 cursor-pointer">
-                    Out of stock
-                  </label>
-                </div>
-                <div className="cursor-pointer mb-3">
-                  <input
-                    type="radio"
-                    id="to_be_announced"
-                    value="to_be_announced"
-                    checked={
-                      productBasicInformation.stock_status === "to_be_announced"
-                    }
-                    onChange={handleStockStatus}
-                    className="mr-4 cursor-pointer"
-                  />
-                  <label
-                    htmlFor="to_be_announced"
-                    className="mr-4 cursor-pointer"
-                  >
-                    To be announced
-                  </label>
-                </div>
-                <div className="cursor-pointer mb-3">
-                  <input
-                    type="radio"
-                    id="low_stock"
-                    value="low_stock"
-                    checked={
-                      productBasicInformation.stock_status === "low_stock"
-                    }
-                    onChange={handleStockStatus}
-                    className="mr-4 cursor-pointer"
-                  />
-                  <label htmlFor="low_stock" className="mr-4 cursor-pointer">
-                    Low stock
-                  </label>
-                </div>
-              </div>
+              <StockStatus
+                currentStockStatus={stockStatus}
+                updateStockStatus={updateStockStatus}
+              />
             </div>
           </div>
         </form>
