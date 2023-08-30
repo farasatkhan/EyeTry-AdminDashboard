@@ -14,18 +14,13 @@ import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { newCategory } from "../../../../services/Products/categories";
 import Pricing from "../../../../components/ui/Admin/AddProduct/Pricing/Pricing";
 import Categories from "../../../../components/ui/Admin/AddProduct/Categories/Categories";
+import FrameMaterial from "../../../../components/ui/Admin/AddProduct/FrameMaterial/FrameMaterial";
 
 const AddProducts = () => {
   const [ProductType, setProductType] = useState([
     "Sunglasses",
     "Eyeglasses",
     "Lens",
-  ]);
-
-  const [frameMaterialList, setFrameMaterialList] = useState([
-    "Acetate",
-    "Metal",
-    "TR-90",
   ]);
 
   const [faceShapeList, setFaceShapeList] = useState([
@@ -50,7 +45,6 @@ const AddProducts = () => {
 
   const [viewToggle, setViewToggle] = useState({
     category: false,
-    frame_material: false,
     frame_size: false,
     face_shape: false,
     genders: false,
@@ -68,7 +62,6 @@ const AddProducts = () => {
     meta_title: "",
     meta_keywords: "",
     meta_description: "",
-    frame_material: [],
     frame_size: [],
     measurement_type: "",
     lens_width: 0,
@@ -110,7 +103,21 @@ const AddProducts = () => {
       }
     };
     setProductCategories(updatedCategories());
-    console.log("categories", productCategories);
+  };
+
+  const [productFrameMaterials, setProductFrameMaterials] = useState([]);
+
+  const updatedProductFrameMaterials = (updatedMaterial, checked) => {
+    const updatedFrameMaterials = () => {
+      if (checked) {
+        return [...productFrameMaterials, updatedMaterial];
+      } else {
+        return productFrameMaterials.filter(
+          (category) => category !== updatedMaterial
+        );
+      }
+    };
+    setProductFrameMaterials(updatedFrameMaterials());
   };
 
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
@@ -147,6 +154,7 @@ const AddProducts = () => {
       ...productBasicInformation,
       ...productPricing,
       categories: [...productCategories],
+      frame_material: [...productFrameMaterials],
       frame_variants: productVariantsMultiple,
     };
 
@@ -158,30 +166,6 @@ const AddProducts = () => {
     } catch (error) {
       console.error("Failed to add product:", error);
     }
-  };
-
-  const handleSelectedFrameMaterials = async (event) => {
-    const value = event.target.labels[0].textContent;
-
-    const updatedFrameMaterials = () => {
-      if (event.target.checked) {
-        return [...productBasicInformation.frame_material, value];
-      } else {
-        return productBasicInformation.frame_material.filter(
-          (frame_material) => frame_material !== value
-        );
-      }
-    };
-
-    setProductBasicInformation((prevInformation) => ({
-      ...prevInformation,
-      frame_material: updatedFrameMaterials(),
-    }));
-
-    console.log(
-      "selected frame materials: ",
-      productBasicInformation.frame_material
-    );
   };
 
   const handleSelectedFrameSizes = async (event) => {
@@ -269,7 +253,6 @@ const AddProducts = () => {
   };
 
   const [addCategory, setAddCategory] = useState("");
-  const [addNewFrameMaterial, setAddNewFrameMaterial] = useState("");
   const [addNewFrameSize, setAddNewFrameSize] = useState("");
   const [addNewFaceShape, setAddNewFaceShape] = useState("");
   const [addNewGender, setAddNewGender] = useState("");
@@ -299,17 +282,6 @@ const AddProducts = () => {
       setColorsList((prevColors) => [...prevColors, addNewColor]);
     } else {
       console.log("color is already present.");
-    }
-  };
-
-  const handleSubmittedFrameMaterial = async () => {
-    if (!frameMaterialList.includes(addNewFrameMaterial)) {
-      setFrameMaterialList((prevFrameMaterials) => [
-        ...prevFrameMaterials,
-        addNewFrameMaterial,
-      ]);
-    } else {
-      console.log("Frame material is already present.");
     }
   };
 
@@ -946,7 +918,11 @@ const AddProducts = () => {
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
+              <FrameMaterial
+                selectedFrameMaterials={productFrameMaterials}
+                updateSelectedFrameMaterials={updatedProductFrameMaterials}
+              />
+              {/* <div className="pl-4 py-4">
                 <p>Frame Material</p>
               </div>
               <div
@@ -1024,7 +1000,7 @@ const AddProducts = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
