@@ -18,6 +18,7 @@ import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors"
 import MetaDetails from "../../../../components/ui/Admin/AddProduct/MetaDetails/MetaDetails";
 import StockStatus from "../../../../components/ui/Admin/AddProduct/StockStatus/StockStatus";
 import LensInformation from "../../../../components/ui/Admin/AddProduct/LensInformation/LensInformation";
+import ProductBasicInformation from "../../../../components/ui/Admin/AddProduct/ProductBasicInformation/ProductBasicInformation";
 
 const AddProducts = () => {
   const [ProductType, setProductType] = useState([
@@ -28,19 +29,8 @@ const AddProducts = () => {
 
   // Submitting Product //
 
-  const [productBasicInformation, setProductBasicInformation] = useState({
-    name: "",
-    sku: "",
-    description: "",
-    manufacturer: "",
-    type: "",
-  });
-
+  const [productBasicInformation, setProductBasicInformation] = useState({});
   const [productLensInformation, setProductLensInformation] = useState({});
-
-  const updateLensInformation = (updatedLens) => {
-    setProductLensInformation({ ...updatedLens });
-  };
 
   const [stockStatus, setStockStatus] = useState("");
   const [metaDetails, setMetaDetails] = useState({
@@ -59,6 +49,14 @@ const AddProducts = () => {
   const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
   const [productFrameGender, setProductFrameGender] = useState([]);
   const [productFrameColors, setProductFrameColors] = useState([]);
+
+  const updateBasicProductInformation = (updatedInformation) => {
+    setProductBasicInformation({ ...updatedInformation });
+  };
+
+  const updateLensInformation = (updatedLens) => {
+    setProductLensInformation({ ...updatedLens });
+  };
 
   const updateStockStatus = (updatedStockStatus) => {
     setStockStatus(updatedStockStatus);
@@ -233,120 +231,10 @@ const AddProducts = () => {
           {/* this is left side */}
           <div className="flex flex-col w-full md:w-4/6">
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Product Information</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="mb-3">
-                  <label htmlFor="product_name" className="text-sm">
-                    Product Name
-                  </label>
-                  <input
-                    id="product_name"
-                    type="text"
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.name}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        name: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="sku" className="text-sm">
-                    SKU
-                  </label>
-                  <input
-                    id="sku"
-                    type="text"
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.sku}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        sku: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="manufacturer" className="text-sm">
-                    Manufacturer
-                  </label>
-                  <input
-                    id="manufacturer"
-                    type="text"
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.manufacturer}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        manufacturer: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="subcategory" className="text-sm mb-1">
-                    Select a category
-                  </label>
-                  <div className="flex flex-grow mt-2">
-                    <select
-                      value={productBasicInformation.type}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          type: e.target.value,
-                        }))
-                      }
-                      className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
-                    >
-                      <option value="" disabled>
-                        Select
-                      </option>
-                      {ProductType.map((type, index) => (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="description" className="text-sm">
-                    Product Description
-                  </label>
-                  <textarea
-                    id="description"
-                    rows={3}
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.description}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        description: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
-                  >
-                    <p className="">Save Changes</p>
-                  </button>
-                </div>
-              </div>
+              <ProductBasicInformation
+                basicProductInformation={productBasicInformation}
+                updateBasicProductInformation={updateBasicProductInformation}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <MetaDetails

@@ -1,6 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ProductBasicInformation = () => {
+const ProductBasicInformation = ({
+  basicProductInformation,
+  updateBasicProductInformation,
+}) => {
+  const [ProductType, setProductType] = useState([
+    "Sunglasses",
+    "Eyeglasses",
+    "Lens",
+  ]);
+
+  const [basicInformation, setBasicInformation] = useState({
+    name: "",
+    sku: "",
+    description: "",
+    manufacturer: "",
+    type: "",
+  });
+
+  useEffect(() => {
+    updateBasicProductInformation(basicInformation);
+  }, [basicInformation]);
+
   return (
     <>
       <div className="pl-4 py-4">
@@ -17,10 +38,10 @@ const ProductBasicInformation = () => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={productBasicInformation.name}
+            value={basicInformation.name}
             onChange={(e) =>
-              setProductBasicInformation({
-                ...productBasicInformation,
+              setBasicInformation({
+                ...basicInformation,
                 name: e.target.value,
               })
             }
@@ -35,10 +56,10 @@ const ProductBasicInformation = () => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={productBasicInformation.sku}
+            value={basicInformation.sku}
             onChange={(e) =>
-              setProductBasicInformation({
-                ...productBasicInformation,
+              setBasicInformation({
+                ...basicInformation,
                 sku: e.target.value,
               })
             }
@@ -53,14 +74,40 @@ const ProductBasicInformation = () => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={productBasicInformation.manufacturer}
+            value={basicInformation.manufacturer}
             onChange={(e) =>
-              setProductBasicInformation({
-                ...productBasicInformation,
+              setBasicInformation({
+                ...basicInformation,
                 manufacturer: e.target.value,
               })
             }
           />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="subcategory" className="text-sm mb-1">
+            Select a category
+          </label>
+          <div className="flex flex-grow mt-2">
+            <select
+              value={setBasicInformation.type}
+              onChange={(e) =>
+                setBasicInformation((prevInformation) => ({
+                  ...prevInformation,
+                  type: e.target.value,
+                }))
+              }
+              className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              {ProductType.map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="text-sm">
@@ -71,10 +118,10 @@ const ProductBasicInformation = () => {
             rows={3}
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={productBasicInformation.description}
+            value={basicInformation.description}
             onChange={(e) =>
-              setProductBasicInformation({
-                ...productBasicInformation,
+              setBasicInformation({
+                ...basicInformation,
                 description: e.target.value,
               })
             }
