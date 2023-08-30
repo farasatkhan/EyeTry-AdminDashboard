@@ -4,14 +4,10 @@ import { newProduct } from "../../../../services/Products/glasses";
 
 import AddProductsStyles from "./AddProducts.module.css";
 
-import ProductImage from "../../../../assets/images/products/product_4.jfif";
-import ProductBasketImage from "../../../../assets/images/images-basket.png";
-
 import SelectImageIcon from "../../../../assets/icons/select_image.svg";
 
 import { BsTrash, BsX } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
-import { newCategory } from "../../../../services/Products/categories";
 import Pricing from "../../../../components/ui/Admin/AddProduct/Pricing/Pricing";
 import Categories from "../../../../components/ui/Admin/AddProduct/Categories/Categories";
 import FrameMaterial from "../../../../components/ui/Admin/AddProduct/FrameMaterial/FrameMaterial";
@@ -19,6 +15,7 @@ import FrameSize from "../../../../components/ui/Admin/AddProduct/FrameSize/Fram
 import FaceShape from "../../../../components/ui/Admin/AddProduct/FaceShape/FaceShape";
 import Gender from "../../../../components/ui/Admin/AddProduct/Gender/Gender";
 import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors";
+import MetaDetails from "../../../../components/ui/Admin/AddProduct/MetaDetails/MetaDetails";
 
 const AddProducts = () => {
   const [ProductType, setProductType] = useState([
@@ -35,9 +32,6 @@ const AddProducts = () => {
     description: "",
     manufacturer: "",
     type: "",
-    meta_title: "",
-    meta_keywords: "",
-    meta_description: "",
     measurement_type: "",
     lens_width: 0,
     lens_height: 0,
@@ -48,11 +42,31 @@ const AddProducts = () => {
     stock_status: "",
   });
 
+  const [metaDetails, setMetaDetails] = useState({
+    meta_title: "",
+    meta_keywords: "",
+    meta_description: "",
+  });
+
+  const updateProductMetaDetails = (updatedMetaDetails) => {
+    setMetaDetails({
+      meta_title: updatedMetaDetails.meta_title,
+      meta_keywords: updatedMetaDetails.meta_keywords,
+      meta_description: updatedMetaDetails.meta_description,
+    });
+  };
+
   const [productPricing, setProductPricing] = useState({
     price: 0,
     currency: "",
     discount: 0,
   });
+  const [productCategories, setProductCategories] = useState([]);
+  const [productFrameMaterials, setProductFrameMaterials] = useState([]);
+  const [productFrameSizes, setProductFrameSizes] = useState([]);
+  const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
+  const [productFrameGender, setProductFrameGender] = useState([]);
+  const [productFrameColors, setProductFrameColors] = useState([]);
 
   const updateProductPricing = (updatedPriceInformation) => {
     setProductPricing({
@@ -62,14 +76,7 @@ const AddProducts = () => {
     });
   };
 
-  const [productCategories, setProductCategories] = useState([]);
-  const [productFrameMaterials, setProductFrameMaterials] = useState([]);
-  const [productFrameSizes, setProductFrameSizes] = useState([]);
-  const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
-  const [productFrameGender, setProductFrameGender] = useState([]);
-  const [productFrameColors, setProductFrameColors] = useState([]);
-
-  const updateProductCategories = (updatedCategory, checked) => {
+  const updatedProductCategories = (updatedCategory, checked) => {
     const updatedCategories = () => {
       if (checked) {
         return [...productCategories, updatedCategory];
@@ -172,6 +179,7 @@ const AddProducts = () => {
     const productInformation = {
       ...productBasicInformation,
       ...productPricing,
+      ...metaDetails,
       categories: [...productCategories],
       frame_material: [...productFrameMaterials],
       frame_size: [...productFrameSizes],
@@ -205,11 +213,6 @@ const AddProducts = () => {
           </div>
         </div>
         <div className="flex flex-grow md:flex-grow-0 gap-4">
-          {/* <div className="flex w-full">
-            <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
-              <p className="">Add Products</p>
-            </button>
-          </div> */}
           <div className="flex w-full">
             <button
               className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border"
@@ -321,68 +324,10 @@ const AddProducts = () => {
               </div>
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Meta Details</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="mb-3">
-                  <label htmlFor="meta_title" className="text-sm">
-                    Title
-                  </label>
-                  <input
-                    id="meta_title"
-                    type="text"
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.meta_title}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        meta_title: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="meta_keywords" className="text-sm">
-                    Keywords Separated by Comma
-                  </label>
-                  <input
-                    id="meta_keywords"
-                    type="text"
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.meta_keywords}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        meta_keywords: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="meta_description" className="text-sm">
-                    Description
-                  </label>
-                  <textarea
-                    id="meta_description"
-                    rows={3}
-                    className="border p-2 rounded-md w-full outline-none text-sm"
-                    autoComplete="off"
-                    value={productBasicInformation.meta_description}
-                    onChange={(e) =>
-                      setProductBasicInformation({
-                        ...productBasicInformation,
-                        meta_description: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
+              <MetaDetails
+                metaDetails={metaDetails}
+                updateMetaDetails={updateProductMetaDetails}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
@@ -560,30 +505,6 @@ const AddProducts = () => {
                     />
                   </div>
                 </div>
-                {/* <div className="flex justify-between gap-5 mb-4">
-                  <div className="flex flex-col">
-                    <label htmlFor="lens_width" className="text-sm mb-1">
-                      Lens Width
-                    </label>
-                    <input
-                      id="lens_width"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="lens_width" className="text-sm mb-1">
-                      Lens Width
-                    </label>
-                    <input
-                      id="lens_width"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                    />
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
@@ -695,110 +616,6 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Variants</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 pt-5">
-                <div className="flex flex-wrap md:justify-start gap-2 lg:gap-10">
-                  <div
-                    className={`${AddProductsStyles["custom-width-percentage"]} flex flex-col flex-shrink-0 border rounded-md lg:w-1/4 mb-4`}
-                  >
-                    <div className="border-b cursor-pointer">
-                      <img
-                        className="object-contain"
-                        src={ProductImage}
-                        alt="product"
-                      />
-                    </div>
-                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
-                      <AiOutlineEye size={20} className="cursor-pointer" />
-                      <BsTrash
-                        size={20}
-                        className="text-danger-900 cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${AddProductsStyles["custom-width-percentage"]} flex flex-col flex-shrink-0 border rounded-md lg:w-1/4 mb-4`}
-                  >
-                    <div className="border-b cursor-pointer">
-                      <img
-                        className="object-contain"
-                        src={ProductImage}
-                        alt="product"
-                      />
-                    </div>
-                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
-                      <AiOutlineEye size={20} className="cursor-pointer" />
-                      <BsTrash
-                        size={20}
-                        className="text-danger-900 cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${AddProductsStyles["custom-width-percentage"]} flex flex-col flex-shrink-0 border rounded-md lg:w-1/4 mb-4`}
-                  >
-                    <div className="border-b cursor-pointer">
-                      <img
-                        className="object-contain"
-                        src={ProductImage}
-                        alt="product"
-                      />
-                    </div>
-                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
-                      <AiOutlineEye size={20} className="cursor-pointer" />
-                      <BsTrash
-                        size={20}
-                        className="text-danger-900 cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${AddProductsStyles["custom-width-percentage"]} flex flex-col flex-shrink-0 border rounded-md lg:w-1/4 mb-4`}
-                  >
-                    <div className="border-b cursor-pointer">
-                      <img
-                        className="object-contain"
-                        src={ProductImage}
-                        alt="product"
-                      />
-                    </div>
-                    <div className="flex justify-between items-center mx-4 my-3 h-1/5 py-2">
-                      <AiOutlineEye size={20} className="cursor-pointer" />
-                      <BsTrash
-                        size={20}
-                        className="text-danger-900 cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`${AddProductsStyles["border-width"]} border border-dotted mt-5 mb-4 mx-1 rounded-md`}
-                >
-                  <div className="flex flex-col gap-2 justify-center items-center py-10 cursor-pointer">
-                    <div className="flex justify-center items-center h-40 w-40">
-                      <img
-                        src={ProductBasketImage}
-                        alt="basket"
-                        className="object-contain"
-                      />
-                    </div>
-                    <p className="text-sm">Drag and drop your file here</p>
-                    <p className="text-sm">or</p>
-                    <div className="">
-                      <button className="w-28 h-10 rounded-md text-white focus:outline-none border">
-                        <p className="text-black text-sm">Browse files</p>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
           {/* this is right side */}
           <div className="flex flex-col w-full md:w-2/6">
@@ -811,7 +628,7 @@ const AddProducts = () => {
             <div className="bg-white border shadow mb-10 rounded-lg">
               <Categories
                 selectedCategories={productCategories}
-                updateSelectedCategories={updateProductCategories}
+                updateSelectedCategories={updatedProductCategories}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
@@ -917,31 +734,6 @@ const AddProducts = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>Tags</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col mb-4">
-                  <label htmlFor="tags">Add keywords:</label>
-                  <div className="flex">
-                    <input
-                      id="tags"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-end">
-                  <button className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600">
-                    <p className="">Add</p>
-                  </button>
-                </div>
-              </div>
-            </div> */}
           </div>
         </form>
       </div>

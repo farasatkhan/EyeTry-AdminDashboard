@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { BsX } from "react-icons/bs";
 
-const Colors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
+const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
   const [colorsList, setColorsList] = useState(["Black", "White", "Metallic"]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
@@ -91,4 +91,4 @@ const Colors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
   );
 };
 
-export default Colors;
+export default FrameColors;
