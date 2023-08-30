@@ -17,6 +17,7 @@ import Gender from "../../../../components/ui/Admin/AddProduct/Gender/Gender";
 import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors";
 import MetaDetails from "../../../../components/ui/Admin/AddProduct/MetaDetails/MetaDetails";
 import StockStatus from "../../../../components/ui/Admin/AddProduct/StockStatus/StockStatus";
+import LensInformation from "../../../../components/ui/Admin/AddProduct/LensInformation/LensInformation";
 
 const AddProducts = () => {
   const [ProductType, setProductType] = useState([
@@ -33,14 +34,13 @@ const AddProducts = () => {
     description: "",
     manufacturer: "",
     type: "",
-    measurement_type: "",
-    lens_width: 0,
-    lens_height: 0,
-    total_width: 0,
-    bridge_width: 0,
-    temple_length: 0,
-    is_multifocal: false,
   });
+
+  const [productLensInformation, setProductLensInformation] = useState({});
+
+  const updateLensInformation = (updatedLens) => {
+    setProductLensInformation({ ...updatedLens });
+  };
 
   const [stockStatus, setStockStatus] = useState("");
   const [metaDetails, setMetaDetails] = useState({
@@ -170,13 +170,6 @@ const AddProducts = () => {
     return quantity;
   };
 
-  const handleStockStatus = async (event) => {
-    setProductBasicInformation((prevProductInformation) => ({
-      ...prevProductInformation,
-      stock_status: event.target.value,
-    }));
-  };
-
   const handleSubmittedProducts = async (e) => {
     e.preventDefault();
 
@@ -184,6 +177,7 @@ const AddProducts = () => {
       ...productBasicInformation,
       ...productPricing,
       ...metaDetails,
+      ...productLensInformation,
       categories: [...productCategories],
       frame_material: [...productFrameMaterials],
       frame_size: [...productFrameSizes],
@@ -301,6 +295,32 @@ const AddProducts = () => {
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="subcategory" className="text-sm mb-1">
+                    Select a category
+                  </label>
+                  <div className="flex flex-grow mt-2">
+                    <select
+                      value={productBasicInformation.type}
+                      onChange={(e) =>
+                        setProductBasicInformation((prevInformation) => ({
+                          ...prevInformation,
+                          type: e.target.value,
+                        }))
+                      }
+                      className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
+                    >
+                      <option value="" disabled>
+                        Select
+                      </option>
+                      {ProductType.map((type, index) => (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="mb-3">
                   <label htmlFor="description" className="text-sm">
                     Product Description
                   </label>
@@ -335,182 +355,10 @@ const AddProducts = () => {
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <div className="pl-4 py-4">
-                <p>More Details</p>
-              </div>
-              <div
-                className={`${AddProductsStyles["line-height"]} bg-slate-100`}
-              ></div>
-              <div className="px-5 py-5">
-                <div className="flex flex-col mb-4">
-                  <label htmlFor="subcategory" className="text-sm mb-1">
-                    Select a category
-                  </label>
-                  <div className="flex flex-grow mt-2">
-                    <select
-                      value={productBasicInformation.type}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          type: e.target.value,
-                        }))
-                      }
-                      className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
-                    >
-                      <option value="" disabled>
-                        Select
-                      </option>
-                      {ProductType.map((type, index) => (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="flex mb-4 gap-20">
-                  <div className="flex flex-grow flex-col">
-                    <label htmlFor="subcategory" className="text-sm mb-1 w-2/3">
-                      Measurement in
-                    </label>
-                    <div className="flex flex-grow mt-2">
-                      <select
-                        value={productBasicInformation.measurement_type}
-                        onChange={(e) =>
-                          setProductBasicInformation((prevInformation) => ({
-                            ...prevInformation,
-                            measurement_type: e.target.value,
-                          }))
-                        }
-                        className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
-                      >
-                        <option value="" disabled>
-                          Select
-                        </option>
-                        <option value="mm">mm</option>
-                        <option value="in">in</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="flex flex-grow flex-col">
-                    <label htmlFor="subcategory" className="text-sm mb-1 w-2/3">
-                      Is multifocal
-                    </label>
-                    <div className="flex flex-grow mt-2">
-                      <select
-                        value={productBasicInformation.is_multifocal}
-                        onChange={(e) =>
-                          setProductBasicInformation((prevInformation) => ({
-                            ...prevInformation,
-                            is_multifocal: e.target.value,
-                          }))
-                        }
-                        className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
-                      >
-                        <option value="" disabled>
-                          Select
-                        </option>
-                        <option value="true">True</option>
-                        <option value="false">False</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-10 mb-4">
-                  <div className="flex flex-col">
-                    <label htmlFor="lens_width" className="text-sm mb-2">
-                      Lens Width
-                    </label>
-                    <input
-                      id="lens_width"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                      value={productBasicInformation.lens_width}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          lens_width: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="lens_height" className="text-sm mb-2">
-                      Lens Height
-                    </label>
-                    <input
-                      id="lens_height"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                      value={productBasicInformation.lens_height}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          lens_height: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="total_width" className="text-sm mb-2">
-                      Total Width
-                    </label>
-                    <input
-                      id="total_width"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                      value={productBasicInformation.total_width}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          total_width: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-10 mb-4">
-                  <div className="flex flex-col">
-                    <label htmlFor="temple_length" className="text-sm mb-2">
-                      Template Length
-                    </label>
-                    <input
-                      id="temple_length"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                      value={productBasicInformation.temple_length}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          temple_length: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="bridge_width" className="text-sm mb-2">
-                      Bridge Width
-                    </label>
-                    <input
-                      id="bridge_width"
-                      type="text"
-                      className="border p-2 rounded-md w-full outline-none text-sm"
-                      autoComplete="off"
-                      value={productBasicInformation.bridge_width}
-                      onChange={(e) =>
-                        setProductBasicInformation((prevInformation) => ({
-                          ...prevInformation,
-                          bridge_width: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
+              <LensInformation
+                lensInformation={productLensInformation}
+                updateLensInformation={updateLensInformation}
+              />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <div className="pl-4 py-4">
