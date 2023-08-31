@@ -4,13 +4,20 @@ import { FaRegEdit } from "react-icons/fa";
 import { BsFillTrashFill } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 
-import { newFAQ, viewFAQs, deleteFAQ } from "../../../../../services/FAQ/faq";
+import {
+  newFAQ,
+  viewFAQs,
+  updateFAQ,
+  deleteFAQ,
+} from "../../../../../services/FAQ/faq";
 
 const CreateFAQ = () => {
   const [faq, setFAQ] = useState({ question: "", answer: "" });
   const [allFaqs, setAllFaqs] = useState([]);
 
   const [buttonStatus, setButtonStatus] = useState(false);
+
+  const [editFAQ, setEditFaq] = useState({ status: false, id: -1 });
 
   const handleFAQChange = (field, value) => {
     setFAQ((prevFAQ) => ({
@@ -27,13 +34,19 @@ const CreateFAQ = () => {
     setButtonStatus(true);
 
     try {
-      const newFaqAdded = await newFAQ(faq);
-      console.log("Faq is added", newFaqAdded);
+      if (!editFAQ.status) {
+        const newFaqAdded = await newFAQ(faq);
+        console.log("Faq is added", newFaqAdded);
+      } else {
+        const updatedFaq = await updateFAQ(editFAQ.id, faq);
+        console.log("Faq is updated", updatedFaq);
+      }
     } catch (error) {
       console.error("Failed to add faq:", error);
     } finally {
       setButtonStatus(false);
       setFAQ({ question: "", answer: "" });
+      setEditFaq({ status: false, id: -1 });
     }
   };
 
@@ -58,6 +71,16 @@ const CreateFAQ = () => {
       console.error("Error deleting FAQ", error);
     } finally {
     }
+  };
+
+  const handleEditFAQ = async (id, question, answer) => {
+    setFAQ((prevFAQ) => ({ ...prevFAQ, question: question, answer: answer }));
+    setEditFaq({ status: true, id: id });
+  };
+
+  const handleUpdateFAQDiscard = () => {
+    setEditFaq({ status: false, id: -1 });
+    setFAQ({ question: "", answer: "" });
   };
 
   return (
@@ -96,7 +119,16 @@ const CreateFAQ = () => {
               }}
               placeholder="Answer"
             />
-            <div className="flex justify-end">
+            <div className="flex gap-5 justify-end">
+              {editFAQ.status && (
+                <button
+                  disabled={buttonStatus}
+                  onClick={handleUpdateFAQDiscard}
+                  className={`text-black border w-36 h-10 rounded-md focus:outline-none cursor-pointer`}
+                >
+                  <p className="">Discard</p>
+                </button>
+              )}
               <button
                 disabled={buttonStatus}
                 className={`${
@@ -105,7 +137,9 @@ const CreateFAQ = () => {
                     : "bg-blue-600 text-white"
                 } w-36 h-10 rounded-md focus:outline-none cursor-pointer`}
               >
-                <p className="">Add new FAQ</p>
+                <p className="">
+                  {editFAQ.status ? "Update FAQ" : "Add new FAQ"}
+                </p>
               </button>
             </div>
           </form>
@@ -118,7 +152,13 @@ const CreateFAQ = () => {
             <div className="flex justify-between">
               <p className="text-base font-semibold">{faq.question}</p>
               <div className="flex gap-5">
-                <FaRegEdit size={20} className="cursor-pointer" />
+                <FaRegEdit
+                  onClick={() =>
+                    handleEditFAQ(faq._id, faq.question, faq.answer)
+                  }
+                  size={20}
+                  className="cursor-pointer"
+                />
                 <BsFillTrashFill
                   onClick={() => handleDeleteFAQ(faq._id)}
                   size={20}
