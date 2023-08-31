@@ -65,7 +65,7 @@ const ViewFAQ = () => {
           </div>
         </div>
       </div>
-      <div className="mx-20 sm:mx-10 lg:mx-24 my-10">
+      {/* <div className="mx-20 sm:mx-10 lg:mx-24 my-10">
         <div className="mb-5">
           <span className="text-2xl font-bold">Related Articles</span>
         </div>
@@ -99,7 +99,7 @@ const ViewFAQ = () => {
             image={Blog1}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

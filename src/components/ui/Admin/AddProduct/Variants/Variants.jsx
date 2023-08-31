@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { BsTrash, BsX } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
@@ -6,6 +6,9 @@ import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
 import SelectImageIcon from "../../../../../assets/icons/select_image.svg";
 
 const Variants = ({ productFrameColors }) => {
+  const [variantBasicInformation, setVariantBasicInformation] = useState([]);
+  const [variantImages, setVariantImages] = useState([]);
+
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
   const handleImageChangeMultiple = (color, quantity, images) => {

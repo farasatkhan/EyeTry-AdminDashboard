@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { FaRegEdit } from "react-icons/fa";
 import { BsFillTrashFill } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 
-import CreateFAQStyles from "./CreateFAQ.module.css";
+import { newFAQ } from "../../../../../services/FAQ/faq";
 
 const CreateFAQ = () => {
-  const [answer, setAnswer] = useState("");
+  const [faq, setFAQ] = useState({ question: "", answer: "" });
 
-  const handleAnswerValueChange = (e) => {
-    setAnswer(e.target.value);
+  const [buttonStatus, setButtonStatus] = useState(false);
+
+  const handleFAQChange = (field, value) => {
+    setFAQ((prevFAQ) => ({
+      ...prevFAQ,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmittedFAQ = async (event) => {
+    event.preventDefault();
+
+    if (buttonStatus || !faq.question || !faq.answer) return;
+
+    setButtonStatus(true);
+
+    try {
+      const newFaqAdded = await newFAQ(faq);
+      console.log("Faq is added", newFaqAdded);
+    } catch (error) {
+      console.error("Failed to add faq:", error);
+    } finally {
+      setButtonStatus(false);
+      setFAQ({ question: "", answer: "" });
+    }
   };
 
   return (
@@ -25,28 +48,42 @@ const CreateFAQ = () => {
             <p className="text-2xl">FAQs</p>
           </div>
         </div>
-        <div className="flex">
-          <button className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600">
-            <p className="">Add new FAQ</p>
-          </button>
-        </div>
       </div>
       <div className="mt-5 flex gap-2 h-full">
         <div className="w-full mb-20">
-          <form action="" className="flex flex-col gap-5">
+          <form onSubmit={handleSubmittedFAQ} className="flex flex-col gap-5">
             <input
+              id="question"
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               placeholder="Question"
+              value={faq.question}
+              onChange={(event) => {
+                handleFAQChange("question", event.target.value);
+              }}
             />
             <textarea
-              id="textarea"
+              id="answer"
               className="border p-2 rounded-md w-full outline-none text-sm"
               rows="5"
-              value={answer}
-              onChange={handleAnswerValueChange}
+              value={faq.answer}
+              onChange={(event) => {
+                handleFAQChange("answer", event.target.value);
+              }}
               placeholder="Answer"
             />
+            <div className="flex justify-end">
+              <button
+                disabled={buttonStatus}
+                className={`${
+                  !faq.question || !faq.answer
+                    ? "bg-gray-300 text-gray-600"
+                    : "bg-blue-600 text-white"
+                } w-36 h-10 rounded-md focus:outline-none cursor-pointer`}
+              >
+                <p className="">Add new FAQ</p>
+              </button>
+            </div>
           </form>
         </div>
       </div>

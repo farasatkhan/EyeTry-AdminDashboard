@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { newProduct } from "../../../../services/Products/glasses";
 
@@ -159,12 +160,11 @@ const AddProducts = () => {
         </div>
         <div className="flex flex-grow md:flex-grow-0 gap-4">
           <div className="flex w-full">
-            <button
-              className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border"
-              onClick={() => changeModalHandle("Add new user", "add")}
-            >
-              <p className="text-black">Import</p>
-            </button>
+            <Link to="/products/variant">
+              <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border">
+                <p className="text-black">Next</p>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

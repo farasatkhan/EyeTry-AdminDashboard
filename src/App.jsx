@@ -21,8 +21,6 @@ import PublishedReviews from "./pages/Admin/Moderation/PublishedReviews";
 import PendingReviews from "./pages/Admin/Moderation/PendingReviews";
 
 import CreateBlog from "./pages/Admin/Guides/Blog/CreateBlog";
-import ViewBlog from "./pages/Admin/Guides/Blog/ViewBlog";
-import ViewParticularBlog from "./pages/Admin/Guides/Blog/ViewParticularBlog/ViewParticularBlog";
 
 import CreateFAQ from "./pages/Admin/Guides/FAQ/CreateFAQ";
 import ViewFAQ from "./pages/Admin/Guides/FAQ/ViewFAQ";
@@ -40,6 +38,7 @@ import RootDashboardLayout from "./layouts/Admin/RootDashboardLayout";
 import BlankLayout from "./layouts/Admin/BlankLayout";
 
 import "./index.css";
+import AddProductVariants from "./pages/Admin/Products/AddProductVariants/AddProductVariants";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +50,7 @@ const router = createBrowserRouter(
       <Route path="products">
         <Route index element={<ProductsHome />} />
         <Route path="new" element={<AddProducts />} />
+        <Route path="variant" element={<AddProductVariants />} />
         <Route path="view" element={<ViewProducts />} />
       </Route>
       <Route path="giftcards">
