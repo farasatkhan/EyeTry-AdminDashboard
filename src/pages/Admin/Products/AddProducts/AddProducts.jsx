@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import { newProduct } from "../../../../services/Products/glasses";
 
-import AddProductsStyles from "./AddProducts.module.css";
-
 import Pricing from "../../../../components/ui/Admin/AddProduct/Pricing/Pricing";
 import Categories from "../../../../components/ui/Admin/AddProduct/Categories/Categories";
 import FrameMaterial from "../../../../components/ui/Admin/AddProduct/FrameMaterial/FrameMaterial";
@@ -20,7 +18,6 @@ import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Varian
 const AddProducts = () => {
   const [productBasicInformation, setProductBasicInformation] = useState({});
   const [productLensInformation, setProductLensInformation] = useState({});
-
   const [stockStatus, setStockStatus] = useState("");
   const [metaDetails, setMetaDetails] = useState({});
   const [productPricing, setProductPricing] = useState({});
@@ -148,8 +145,6 @@ const AddProducts = () => {
     }
   };
 
-  ////////////////////////
-
   return (
     <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col">
       <div className="flex flex-col md:flex-row flex-grow justify-between ml-7 mr-7 mt-7">
@@ -173,9 +168,7 @@ const AddProducts = () => {
           </div>
         </div>
       </div>
-      <div
-        className={`${AddProductsStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
-      ></div>
+      <div className={`h-0.5 bg-slate-100 ml-7 mr-7 mt-7`}></div>
       <div className="flex mx-5 mt-5">
         <form
           onSubmit={handleSubmittedProducts}
