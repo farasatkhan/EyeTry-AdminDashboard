@@ -4,10 +4,11 @@ import { FaRegEdit } from "react-icons/fa";
 import { BsFillTrashFill } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 
-import { newFAQ } from "../../../../../services/FAQ/faq";
+import { newFAQ, viewFAQs, deleteFAQ } from "../../../../../services/FAQ/faq";
 
 const CreateFAQ = () => {
   const [faq, setFAQ] = useState({ question: "", answer: "" });
+  const [allFaqs, setAllFaqs] = useState([]);
 
   const [buttonStatus, setButtonStatus] = useState(false);
 
@@ -33,6 +34,29 @@ const CreateFAQ = () => {
     } finally {
       setButtonStatus(false);
       setFAQ({ question: "", answer: "" });
+    }
+  };
+
+  useEffect(() => {
+    fetchFAQs();
+  }, [buttonStatus]);
+
+  const fetchFAQs = async () => {
+    try {
+      const fetchedFAQs = await viewFAQs();
+      setAllFaqs(fetchedFAQs);
+    } catch (error) {
+      console.error("Error fetching FAQs", error);
+    }
+  };
+
+  const handleDeleteFAQ = async (id) => {
+    try {
+      await deleteFAQ(id);
+      fetchFAQs();
+    } catch (error) {
+      console.error("Error deleting FAQ", error);
+    } finally {
     }
   };
 
@@ -89,27 +113,25 @@ const CreateFAQ = () => {
       </div>
       <div>
         <p className="text-2xl">FAQs</p>
-        <div className="flex flex-col gap-2 mt-5">
-          <div className="flex justify-between">
-            <p className="text-base font-semibold">
-              What's the difference between eyeglasses and sunglasses?
-            </p>
-            <div className="flex gap-5">
-              <FaRegEdit size={20} className="cursor-pointer" />
-              <BsFillTrashFill size={20} className="cursor-pointer" />
-              <IoIosArrowDown size={20} className="cursor-pointer" />
+        {allFaqs.map((faq, index) => (
+          <div key={index} className="flex flex-col gap-2 mt-5">
+            <div className="flex justify-between">
+              <p className="text-base font-semibold">{faq.question}</p>
+              <div className="flex gap-5">
+                <FaRegEdit size={20} className="cursor-pointer" />
+                <BsFillTrashFill
+                  onClick={() => handleDeleteFAQ(faq._id)}
+                  size={20}
+                  className="cursor-pointer"
+                />
+                <IoIosArrowDown size={20} className="cursor-pointer" />
+              </div>
+            </div>
+            <div>
+              <span className="text-sm">{faq.answer}</span>
             </div>
           </div>
-          <div>
-            <span className="text-sm">
-              Eyeglasses are designed to correct vision impairments, such as
-              nearsightedness or farsightedness. Sunglasses, on the other hand,
-              are primarily intended to protect your eyes from harmful UV rays
-              and reduce glare from the sun. While some eyeglasses can also have
-              tinted lenses, their main purpose is vision correction.
-            </span>
-          </div>
-        </div>
+        ))}
         <div className="flex justify-center items-center mt-10 mb-10">
           <button className="w-40 h-10 rounded-md text-white focus:outline-none bg-black">
             <p className="text-white">See More</p>

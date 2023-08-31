@@ -14,7 +14,7 @@ export const viewFAQs = async () => {
         const response = await axios.get('/v1/faq');
         return response.data;
     } catch (error) {
-        console.error('Error while fetching categories', error);
+        console.error('Error while viewing faqs', error);
         throw error;
     }
 }
@@ -24,7 +24,7 @@ export const updateFAQ = async (faqID, data) => {
         const response = await axios.put(`/v1/faq/${faqID}`, data);
         return response.data;
     } catch (error) {
-        console.error('Error while fetching categories', error);
+        console.error('Error while updating faqs', error);
         throw error;
     }
 }
@@ -34,7 +34,7 @@ export const deleteFAQ = async (faqID) => {
         const response = await axios.delete(`/v1/faq/${faqID}`);
         return response.data;
     } catch (error) {
-        console.error('Error while fetching categories', error);
+        console.error('Error while deleting faqs', error);
         throw error;
     }
 }
