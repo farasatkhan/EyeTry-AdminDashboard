@@ -1,13 +1,42 @@
-import React from "react";
-
 import BlogCover from "../../../../../assets/blog/help-center-cover_dark.png";
+
+import React, { useState, useEffect } from "react";
 
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-import BlogCard from "../../../../../layouts/Admin/BlogCard";
-import Blog1 from "../../../../../assets/blog/blog-1.jpg";
+import { viewFAQs } from "../../../../../services/FAQ/faq";
 
 const ViewFAQ = () => {
+  const [expandedFAQ, setExpandedFAQ] = useState(null);
+
+  const toggleFAQ = (faqIndex) => {
+    if (expandedFAQ === faqIndex) {
+      setExpandedFAQ(null);
+    } else {
+      setExpandedFAQ(faqIndex);
+    }
+  };
+
+  const [allFaqs, setAllFaqs] = useState([]);
+
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
+
+  const fetchFAQs = async () => {
+    try {
+      const fetchedFAQs = await viewFAQs();
+      setAllFaqs(fetchedFAQs);
+    } catch (error) {
+      console.error("Error fetching FAQs", error);
+    }
+  };
+
+  const [visibleFaqs, setVisibleFaqs] = useState(5);
+
+  const handleSeeMoreResults = () => {
+    setVisibleFaqs((prevVisibleFaqs) => prevVisibleFaqs + 5);
+  };
   return (
     <div className="font-body">
       <div
@@ -28,41 +57,45 @@ const ViewFAQ = () => {
       <div className="mx-10 sm:mx-20 md:mx-32 lg:mx-60 my-10">
         <div>
           <p className="text-2xl">FAQs</p>
-          <div className="flex flex-col gap-2 mt-5">
-            <div className="flex justify-between">
-              <p className="w-11/12 text-base font-semibold">
-                What's the difference between eyeglasses and sunglasses?
-              </p>
-              <div className="w-1/12 flex justify-end gap-5">
-                <IoIosArrowUp size={20} className="cursor-pointer" />
+          {allFaqs.slice(0, visibleFaqs).map((faq, index) => (
+            <div key={index} className="flex flex-col gap-2 mt-5">
+              <div id={`question-${index}`} className="flex justify-between">
+                <p className="text-base font-semibold">{faq.question}</p>
+                <div className="flex gap-5">
+                  {expandedFAQ === index ? (
+                    <IoIosArrowUp
+                      size={20}
+                      onClick={() => toggleFAQ(index)}
+                      className="cursor-pointer transition-transform transform"
+                    />
+                  ) : (
+                    <IoIosArrowDown
+                      size={20}
+                      onClick={() => toggleFAQ(index)}
+                      className="cursor-pointer transition-transform transform"
+                    />
+                  )}
+                </div>
               </div>
+              {expandedFAQ === index && (
+                <div>
+                  <span id={`answer-${index}`} className="text-sm">
+                    {faq.answer}
+                  </span>
+                </div>
+              )}
             </div>
-            <div>
-              <span className="text-sm">
-                Eyeglasses are designed to correct vision impairments, such as
-                nearsightedness or farsightedness. Sunglasses, on the other
-                hand, are primarily intended to protect your eyes from harmful
-                UV rays and reduce glare from the sun. While some eyeglasses can
-                also have tinted lenses, their main purpose is vision
-                correction.
-              </span>
+          ))}
+          {visibleFaqs < allFaqs.length && (
+            <div className="flex justify-center items-center mt-10 mb-10">
+              <button
+                onClick={handleSeeMoreResults}
+                className="w-40 h-10 rounded-md text-white focus:outline-none bg-black"
+              >
+                <p className="text-white">See More</p>
+              </button>
             </div>
-          </div>
-          <div className="flex flex-col gap-2 mt-5">
-            <div className="flex justify-between">
-              <p className="w-11/12 text-base font-semibold">
-                What's the difference between eyeglasses and sunglasses?
-              </p>
-              <div className="w-1/12 justify-end flex gap-5">
-                <IoIosArrowDown size={20} className="cursor-pointer" />
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center items-center mt-10 mb-10">
-            <button className="w-40 h-10 rounded-md text-white focus:outline-none bg-black">
-              <p className="text-white">See More</p>
-            </button>
-          </div>
+          )}
         </div>
       </div>
       {/* <div className="mx-20 sm:mx-10 lg:mx-24 my-10">

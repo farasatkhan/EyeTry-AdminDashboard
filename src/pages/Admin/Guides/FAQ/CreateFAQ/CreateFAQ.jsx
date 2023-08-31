@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { FaRegEdit } from "react-icons/fa";
 import { BsFillTrashFill } from "react-icons/bs";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 import {
   newFAQ,
@@ -12,6 +12,16 @@ import {
 } from "../../../../../services/FAQ/faq";
 
 const CreateFAQ = () => {
+  const [expandedFAQ, setExpandedFAQ] = useState(null);
+
+  const toggleFAQ = (faqIndex) => {
+    if (expandedFAQ === faqIndex) {
+      setExpandedFAQ(null);
+    } else {
+      setExpandedFAQ(faqIndex);
+    }
+  };
+
   const [faq, setFAQ] = useState({ question: "", answer: "" });
   const [allFaqs, setAllFaqs] = useState([]);
 
@@ -83,6 +93,12 @@ const CreateFAQ = () => {
     setFAQ({ question: "", answer: "" });
   };
 
+  const [visibleFaqs, setVisibleFaqs] = useState(5);
+
+  const handleSeeMoreResults = () => {
+    setVisibleFaqs((prevVisibleFaqs) => prevVisibleFaqs + 5);
+  };
+
   return (
     <div className="mx-7 mb-20">
       <div className="flex flex-grow justify-between mt-7">
@@ -147,9 +163,9 @@ const CreateFAQ = () => {
       </div>
       <div>
         <p className="text-2xl">FAQs</p>
-        {allFaqs.map((faq, index) => (
+        {allFaqs.slice(0, visibleFaqs).map((faq, index) => (
           <div key={index} className="flex flex-col gap-2 mt-5">
-            <div className="flex justify-between">
+            <div id={`question-${index}`} className="flex justify-between">
               <p className="text-base font-semibold">{faq.question}</p>
               <div className="flex gap-5">
                 <FaRegEdit
@@ -164,19 +180,40 @@ const CreateFAQ = () => {
                   size={20}
                   className="cursor-pointer"
                 />
-                <IoIosArrowDown size={20} className="cursor-pointer" />
+                {expandedFAQ === index ? (
+                  <IoIosArrowUp
+                    size={20}
+                    onClick={() => toggleFAQ(index)}
+                    className="cursor-pointer transition-transform transform"
+                  />
+                ) : (
+                  <IoIosArrowDown
+                    size={20}
+                    onClick={() => toggleFAQ(index)}
+                    className="cursor-pointer transition-transform transform"
+                  />
+                )}
               </div>
             </div>
-            <div>
-              <span className="text-sm">{faq.answer}</span>
-            </div>
+            {expandedFAQ === index && (
+              <div>
+                <span id={`answer-${index}`} className="text-sm">
+                  {faq.answer}
+                </span>
+              </div>
+            )}
           </div>
         ))}
-        <div className="flex justify-center items-center mt-10 mb-10">
-          <button className="w-40 h-10 rounded-md text-white focus:outline-none bg-black">
-            <p className="text-white">See More</p>
-          </button>
-        </div>
+        {visibleFaqs < allFaqs.length && (
+          <div className="flex justify-center items-center mt-10 mb-10">
+            <button
+              onClick={handleSeeMoreResults}
+              className="w-40 h-10 rounded-md text-white focus:outline-none bg-black"
+            >
+              <p className="text-white">See More</p>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
