@@ -29,6 +29,8 @@ const AddProducts = () => {
   const [productFrameGender, setProductFrameGender] = useState([]);
   const [productFrameColors, setProductFrameColors] = useState([]);
 
+  const [responseGlassesId, setResponseGlassesId] = useState(null);
+
   const updateBasicProductInformation = (updatedInformation) => {
     setProductBasicInformation({ ...updatedInformation });
   };
@@ -133,7 +135,7 @@ const AddProducts = () => {
       face_shape: [...productFrameFaceShape],
       genders: [...productFrameGender],
       stock_status: stockStatus,
-      frame_variants: productVariantsMultiple,
+      // frame_variants: productVariantsMultiple,
     };
 
     console.log(productBasicInformation);
@@ -141,6 +143,7 @@ const AddProducts = () => {
     try {
       const addNewProduct = await newProduct(productInformation);
       console.log("Product added successfully!", addNewProduct);
+      setResponseGlassesId(addNewProduct.data.GlassesId);
     } catch (error) {
       console.error("Failed to add product:", error);
     }
@@ -160,7 +163,7 @@ const AddProducts = () => {
         </div>
         <div className="flex flex-grow md:flex-grow-0 gap-4">
           <div className="flex w-full">
-            <Link to="/products/variant">
+            <Link to={`/products/${responseGlassesId}/variant/`}>
               <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border">
                 <p className="text-black">Next</p>
               </button>
@@ -168,7 +171,7 @@ const AddProducts = () => {
           </div>
         </div>
       </div>
-      <div className={`h-0.5 bg-slate-100 ml-7 mr-7 mt-7`}></div>
+      {/* <div className={`h-0.5 bg-slate-100 ml-7 mr-7 mt-7`}></div> */}
       <div className="flex mx-5 mt-5">
         <form
           onSubmit={handleSubmittedProducts}
@@ -194,8 +197,16 @@ const AddProducts = () => {
                 updateLensInformation={updateLensInformation}
               />
             </div>
-            <div className="bg-white border shadow mb-10 rounded-lg">
+            {/* <div className="bg-white border shadow mb-10 rounded-lg">
               <Variants productFrameColors={productFrameColors} />
+            </div> */}
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
+              >
+                <p className="">Save Changes</p>
+              </button>
             </div>
           </div>
           {/* this is right side */}
@@ -236,12 +247,12 @@ const AddProducts = () => {
                 updateSelectedFrameGender={updatedSelectedFrameGenders}
               />
             </div>
-            <div className="bg-white border shadow mb-10 rounded-lg">
+            {/* <div className="bg-white border shadow mb-10 rounded-lg">
               <FrameColors
                 selectedFrameColors={productFrameColors}
                 updateSelectedFrameColors={updatedSelectedFrameColors}
               />
-            </div>
+            </div> */}
             <div className="bg-white border shadow mb-10 rounded-lg">
               <StockStatus
                 currentStockStatus={stockStatus}

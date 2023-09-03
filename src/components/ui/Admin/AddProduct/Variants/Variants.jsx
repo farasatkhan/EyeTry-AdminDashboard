@@ -5,16 +5,18 @@ import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 import SelectImageIcon from "../../../../../assets/icons/select_image.svg";
 
-const Variants = ({ productFrameColors }) => {
-  const [variantBasicInformation, setVariantBasicInformation] = useState([]);
-  const [variantImages, setVariantImages] = useState([]);
-
+const Variants = ({ productFrameColors, updateVariants }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
-  const handleImageChangeMultiple = (color, quantity, images) => {
+  const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
     setProductVariantsMultiple((prevProductVariant) => [
       ...prevProductVariant,
-      { color: color, quantity: quantity, images: Array.from(images) },
+      {
+        color: color,
+        quantity: quantity,
+        image_count: totalImages,
+        images: Array.from(images),
+      },
     ]);
 
     console.log(productVariantsMultiple);
@@ -28,6 +30,11 @@ const Variants = ({ productFrameColors }) => {
     return quantity;
   };
 
+  useEffect(() => {
+    updateVariants(productVariantsMultiple);
+    console.log(productVariantsMultiple);
+  }, [productVariantsMultiple]);
+
   return (
     <>
       <div className="pl-4 py-4">
@@ -39,13 +46,20 @@ const Variants = ({ productFrameColors }) => {
           {productFrameColors.map((color, index) => (
             <div key={index} className="flex gap-5 mb-5">
               <input
+                name="product_images"
                 id={`image-${index}`}
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={(event) =>
-                  handleImageChangeMultiple(color, 0, event.target.files)
-                }
+                onChange={(event) => {
+                  const totalImages = event.target.files.length;
+                  handleImageChangeMultiple(
+                    color,
+                    0,
+                    event.target.files,
+                    totalImages
+                  );
+                }}
                 className="hidden"
               ></input>
               <label

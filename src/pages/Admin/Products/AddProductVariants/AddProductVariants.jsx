@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import { newProduct } from "../../../../services/Products/glasses";
+import { addProductImages } from "../../../../services/Products/glasses";
 
 import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors";
 import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Variants";
 
 const AddProductVariants = () => {
+  const { glassesId } = useParams();
+
   const [productFrameColors, setProductFrameColors] = useState([]);
 
   const updatedSelectedFrameColors = (updatedColor, checked) => {
@@ -20,28 +22,30 @@ const AddProductVariants = () => {
     setProductFrameColors(updatedFrameColors());
   };
 
-  const handleSubmittedProducts = async (e) => {
+  const [productVariant, setProductVaraint] = useState([]);
+
+  const handleSubmittedProductsVariant = async (e) => {
     e.preventDefault();
 
-    const productInformation = {
-      ...productBasicInformation,
-      ...productPricing,
-      ...metaDetails,
-      ...productLensInformation,
-      categories: [...productCategories],
-      frame_material: [...productFrameMaterials],
-      frame_size: [...productFrameSizes],
-      face_shape: [...productFrameFaceShape],
-      genders: [...productFrameGender],
-      stock_status: stockStatus,
-      frame_variants: productVariantsMultiple,
-    };
+    const formData = new FormData();
 
-    console.log(productBasicInformation);
+    productVariant.forEach((variant, index) => {
+      formData.append(`color`, variant.color);
+      formData.append(`quantity`, variant.quantity);
+      formData.append(`image_count`, variant.image_count);
+      variant.images.forEach((image, imageIndex) => {
+        formData.append("product_images", image);
+      });
+    });
+
+    console.log(productVariant);
 
     try {
-      const addNewProduct = await newProduct(productInformation);
-      console.log("Product added successfully!", addNewProduct);
+      const addProductImagesResponse = await addProductImages(
+        glassesId,
+        formData
+      );
+      console.log("Product added successfully!", addProductImagesResponse);
     } catch (error) {
       console.error("Failed to add product:", error);
     }
@@ -77,13 +81,24 @@ const AddProductVariants = () => {
       <div className={`h-0.5 bg-slate-100 ml-7 mr-7 mt-7`}></div>
       <div className="flex mx-5 mt-5">
         <form
-          onSubmit={handleSubmittedProducts}
+          onSubmit={handleSubmittedProductsVariant}
           className="flex flex-col md:flex-row flex-grow gap-10"
         >
           {/* this is left side */}
           <div className="flex flex-col w-full md:w-4/6">
             <div className="bg-white border shadow mb-10 rounded-lg">
-              <Variants productFrameColors={productFrameColors} />
+              <Variants
+                productFrameColors={productFrameColors}
+                updateVariants={setProductVaraint}
+              />
+            </div>
+            <div className="flex justify-end mb-10">
+              <button
+                type="submit"
+                className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
+              >
+                <p className="">Save Changes</p>
+              </button>
             </div>
           </div>
           {/* this is right side */}

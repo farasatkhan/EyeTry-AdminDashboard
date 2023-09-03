@@ -127,14 +127,14 @@ const ProductBasicInformation = ({
             }
           />
         </div>
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <button
             type="submit"
             className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
           >
             <p className="">Save Changes</p>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );
