@@ -96,7 +96,7 @@ const Settings = () => {
       if (updatePassword.status === 200) {
         setPasswordChangeStatus((oldStatus) => ({
           ...oldStatus,
-          status: error.response.data.message,
+          status: updatePassword.data.message,
         }));
       }
     } catch (error) {
