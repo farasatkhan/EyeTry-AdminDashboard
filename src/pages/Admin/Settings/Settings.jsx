@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SettingsCard from "../../../layouts/Admin/SettingsCard/SettingsCard";
 import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
 import SettingsStyles from "./Settings.module.css";
+import { getAdminProfile } from "../../../services/Admin/admin";
 
 const Settings = () => {
   const [closeModal, setCloseModal] = useState(false);
@@ -26,6 +27,31 @@ const Settings = () => {
   const handleDeleteAccount = (event) => {
     event.preventDefault();
   };
+
+  const [admin, setAdmin] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    fetchAdmin();
+  }, []);
+
+  const fetchAdmin = async () => {
+    try {
+      const fetchedAdminProfile = await getAdminProfile();
+      setAdmin(fetchedAdminProfile);
+    } catch (error) {
+      console.error("Error fetching admin", error);
+    }
+  };
+
+  const [adminPassword, setAdminPassword] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   return (
     <div>
@@ -69,12 +95,20 @@ const Settings = () => {
                     id="fname"
                     type="text"
                     placeholder="First name"
+                    value={admin.firstName}
+                    onChange={(event) =>
+                      setAdmin({ ...admin, firstName: event.target.value })
+                    }
                     className="border h-10 outline-none w-1/2 rounded p-2"
                   />
                   <input
                     id="lname"
                     type="text"
                     placeholder="Last name"
+                    value={admin.lastName}
+                    onChange={(event) =>
+                      setAdmin({ ...admin, lastName: event.target.value })
+                    }
                     className="border h-10 outline-none w-1/2 rounded p-2"
                   />
                 </div>
@@ -89,10 +123,14 @@ const Settings = () => {
                 <input
                   type="email"
                   placeholder="john@gmail.com"
+                  value={admin.email}
+                  onChange={(event) =>
+                    setAdmin({ ...admin, email: event.target.value })
+                  }
                   className="border h-10 outline-none md:w-4/5 rounded p-2"
                 />
               </div>
-              <div className="flex flex-col md:flex-row mb-3">
+              {/* <div className="flex flex-col md:flex-row mb-3">
                 <label
                   htmlFor="phone"
                   className="whitespace-nowrap md:whitespace-normal text-sm w-1/5 mt-1 mb-1"
@@ -104,7 +142,7 @@ const Settings = () => {
                   placeholder="999-999-9999"
                   className="border h-10 outline-none md:w-4/5 rounded p-2"
                 />
-              </div>
+              </div> */}
               <div className="flex justify-end">
                 <button className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600">
                   <p>Save Changes</p>
@@ -125,6 +163,13 @@ const Settings = () => {
                   id="current_password"
                   type="password"
                   placeholder="********"
+                  value={adminPassword.currentPassword}
+                  onChange={(event) =>
+                    setAdminPassword({
+                      ...adminPassword,
+                      currentPassword: event.target.value,
+                    })
+                  }
                   className="border h-10 outline-none md:w-4/5 rounded p-2"
                 />
               </div>
@@ -139,6 +184,13 @@ const Settings = () => {
                   id="new_password"
                   type="password"
                   placeholder="********"
+                  value={adminPassword.newPassword}
+                  onChange={(event) =>
+                    setAdminPassword({
+                      ...adminPassword,
+                      newPassword: event.target.value,
+                    })
+                  }
                   className="border h-10 outline-none md:w-4/5 rounded p-2"
                 />
               </div>
@@ -153,6 +205,13 @@ const Settings = () => {
                   id="confirm_password"
                   type="password"
                   placeholder="********"
+                  value={adminPassword.confirmPassword}
+                  onChange={(event) =>
+                    setAdminPassword({
+                      ...adminPassword,
+                      confirmPassword: event.target.value,
+                    })
+                  }
                   className="border h-10 outline-none md:w-4/5 rounded p-2"
                 />
               </div>
