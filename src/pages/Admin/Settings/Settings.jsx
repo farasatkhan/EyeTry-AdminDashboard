@@ -4,9 +4,37 @@ import SettingsCard from "../../../layouts/Admin/SettingsCard/SettingsCard";
 import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
 import SettingsStyles from "./Settings.module.css";
-import { getAdminProfile } from "../../../services/Admin/admin";
+import {
+  getAdminProfile,
+  updateAdminBasicInformation,
+  updateAdminPassword,
+} from "../../../services/Admin/admin";
 
 const Settings = () => {
+  const [passwordChangeStatus, setPasswordChangeStatus] = useState({
+    status: "",
+    error: "",
+  });
+
+  const [basicInformationChangeStatus, setBasicInformationChangeStatus] =
+    useState({
+      status: "",
+      error: "",
+    });
+
+  const [admin, setAdmin] = useState({
+    _id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const [adminPassword, setAdminPassword] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
   const [closeModal, setCloseModal] = useState(false);
   const [modalType, setModalType] = useState({
     title: "",
@@ -28,11 +56,60 @@ const Settings = () => {
     event.preventDefault();
   };
 
-  const [admin, setAdmin] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-  });
+  const handleUpdateAdminBasicInformation = async (event) => {
+    event.preventDefault();
+
+    try {
+      const updateAdmin = await updateAdminBasicInformation(admin._id, {
+        firstName: admin.firstName,
+        lastName: admin.lastName,
+        email: admin.email,
+      });
+
+      if (updateAdmin.status === 200) {
+        setBasicInformationChangeStatus((oldStatus) => ({
+          ...oldStatus,
+          status: updateAdmin.data.message,
+        }));
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setBasicInformationChangeStatus((oldStatus) => ({
+          ...oldStatus,
+          error: error.response.data.message,
+        }));
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
+  const handleUpdateAdminPassword = async (event) => {
+    event.preventDefault();
+
+    try {
+      const updatePassword = await updateAdminPassword(
+        admin._id,
+        adminPassword
+      );
+
+      if (updatePassword.status === 200) {
+        setPasswordChangeStatus((oldStatus) => ({
+          ...oldStatus,
+          status: error.response.data.message,
+        }));
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setPasswordChangeStatus((oldStatus) => ({
+          ...oldStatus,
+          error: error.response.data.message,
+        }));
+      } else {
+        console.error(error);
+      }
+    }
+  };
 
   useEffect(() => {
     fetchAdmin();
@@ -46,12 +123,6 @@ const Settings = () => {
       console.error("Error fetching admin", error);
     }
   };
-
-  const [adminPassword, setAdminPassword] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
 
   return (
     <div>
@@ -82,7 +153,7 @@ const Settings = () => {
         </div>
         <div className="w-full md:w-3/4">
           <SettingsCard title="Basic Information">
-            <form action="">
+            <form onSubmit={handleUpdateAdminBasicInformation}>
               <div className="flex flex-col md:flex-row mb-3">
                 <label
                   htmlFor="fname"
@@ -95,6 +166,7 @@ const Settings = () => {
                     id="fname"
                     type="text"
                     placeholder="First name"
+                    autoComplete="off"
                     value={admin.firstName}
                     onChange={(event) =>
                       setAdmin({ ...admin, firstName: event.target.value })
@@ -105,6 +177,7 @@ const Settings = () => {
                     id="lname"
                     type="text"
                     placeholder="Last name"
+                    autoComplete="off"
                     value={admin.lastName}
                     onChange={(event) =>
                       setAdmin({ ...admin, lastName: event.target.value })
@@ -123,6 +196,7 @@ const Settings = () => {
                 <input
                   type="email"
                   placeholder="john@gmail.com"
+                  autoComplete="off"
                   value={admin.email}
                   onChange={(event) =>
                     setAdmin({ ...admin, email: event.target.value })
@@ -143,15 +217,36 @@ const Settings = () => {
                   className="border h-10 outline-none md:w-4/5 rounded p-2"
                 />
               </div> */}
-              <div className="flex justify-end">
-                <button className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600">
+              {basicInformationChangeStatus.error && (
+                <div className="flex border rounded-md h-10 mb-5 bg-danger-900">
+                  <div className="p-2">
+                    <span className="text-sm text-slate-900">
+                      {passwordChangeStatus.error}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {basicInformationChangeStatus.status && (
+                <div className="flex border rounded-md h-10 mb-5 bg-primary-900">
+                  <div className="p-2">
+                    <span className="text-sm text-slate-900">
+                      {basicInformationChangeStatus.status}
+                    </span>
+                  </div>
+                </div>
+              )}
+              <div className="flex justify-end cursor-pointer">
+                <button
+                  type="submit"
+                  className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600"
+                >
                   <p>Save Changes</p>
                 </button>
               </div>
             </form>
           </SettingsCard>
           <SettingsCard title="Password">
-            <form action="">
+            <form onSubmit={handleUpdateAdminPassword}>
               <div className="flex flex-col md:flex-row mb-3">
                 <label
                   htmlFor="current_password"
@@ -233,8 +328,29 @@ const Settings = () => {
                   </ul>
                 </div>
               </div>
+              {passwordChangeStatus.error && (
+                <div className="flex border rounded-md h-10 mb-5 bg-danger-900">
+                  <div className="p-2">
+                    <span className="text-sm text-slate-900">
+                      {passwordChangeStatus.error}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {passwordChangeStatus.status && (
+                <div className="flex border rounded-md h-10 mb-5 bg-primary-900">
+                  <div className="p-2">
+                    <span className="text-sm text-slate-900">
+                      {passwordChangeStatus.status}
+                    </span>
+                  </div>
+                </div>
+              )}
               <div className="flex justify-end">
-                <button className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600">
+                <button
+                  type="submit"
+                  className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600"
+                >
                   <p>Save Changes</p>
                 </button>
               </div>

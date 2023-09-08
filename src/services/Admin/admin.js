@@ -8,3 +8,21 @@ export const getAdminProfile = async () => {
         throw error;
     }
 }
+
+export const updateAdminBasicInformation = async (adminId, data) => {
+    try {
+        const response = await axios.put(`/admin/profile/${adminId}`, data);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const updateAdminPassword = async (adminId, data) => {
+    try {
+        const response = await axios.put(`/admin/profile/${adminId}/password/`, data);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
