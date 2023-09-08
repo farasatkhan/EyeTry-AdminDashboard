@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ReviewsInformation from "../../../../layouts/Admin/Moderation/ReviewsInformation";
 
@@ -9,11 +9,41 @@ import data from "../../../../data/Admin/reviewsData";
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter, BsGraphUp } from "react-icons/bs";
 
+import {
+  viewAllReviews,
+  deleteReview,
+} from "../../../../services/Reviews/reviews";
+
 const PublishedReviews = () => {
+  const [reviews, setReviews] = useState([]);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchQuery = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    try {
+      const fetchedReviews = await viewAllReviews();
+      setReviews(fetchedReviews);
+    } catch (error) {
+      console.error("Error fetching reviews", error);
+    }
+  };
+
+  const handleDeleteReview = async (id) => {
+    try {
+      await deleteReview(id);
+      fetchReviews();
+    } catch (error) {
+      console.error("Error deleting review", error);
+    } finally {
+    }
   };
 
   return (
@@ -30,7 +60,7 @@ const PublishedReviews = () => {
         </div>
       </div>
       <div className="mx-7 mt-5 bg-white">
-        <ReviewsInformation />
+        <ReviewsInformation reviews={reviews} />
       </div>
       <div className="border shadow-sm mx-7 my-7 rounded-lg bg-white">
         <div className="flex justify-between m-3">
@@ -71,7 +101,11 @@ const PublishedReviews = () => {
         </div>
         {/* table */}
         <div className="mx-4">
-          <ReviewsTable data={data} query={searchQuery} />
+          <ReviewsTable
+            data={reviews}
+            query={searchQuery}
+            handleDeleteReview={handleDeleteReview}
+          />
         </div>
       </div>
     </div>

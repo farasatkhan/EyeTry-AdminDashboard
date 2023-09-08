@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 import { NavLink } from "react-router-dom";
 
@@ -11,7 +12,11 @@ import StarFilled from "../../../../assets/icons/star_filled.svg";
 import StarHalfFilled from "../../../../assets/icons/star_halffilled.svg";
 import StarUnFilled from "../../../../assets/icons/star_unfilled.svg";
 
-const ReviewsTable = ({ data, query }) => {
+import StarsRating from "../../../../components/ui/Admin/Reviews/StarsRating";
+
+import { deleteReview } from "../../../../services/Reviews/reviews";
+
+const ReviewsTable = ({ data, query, handleDeleteReview }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -52,10 +57,8 @@ const ReviewsTable = ({ data, query }) => {
     !!query
       ? setModifiedData(
           data
-            .filter(
-              (order) =>
-                order.order_no.toLowerCase().includes(query.toLowerCase()) ||
-                order.user.toLowerCase().includes(query.toLowerCase())
+            .filter((order) =>
+              order.order_no.toLowerCase().includes(query.toLowerCase())
             )
             .slice(0, 10)
           // Max Items to be displayed will be 10.
@@ -108,6 +111,14 @@ const ReviewsTable = ({ data, query }) => {
     }
   };
 
+  const handleReviewDate = (date) => {
+    const originalDate = new Date(date);
+    const customFormat = "MMM dd'th,' yyyy, HH:mm (OOO)";
+    const formattedDateTime = format(originalDate, customFormat);
+
+    return formattedDateTime;
+  };
+
   return (
     <>
       {/* relative overflow-x-auto */}
@@ -156,7 +167,7 @@ const ReviewsTable = ({ data, query }) => {
                       <div className="flex">
                         <div className="mt-1">
                           <p className="whitespace-nowrap text-blue-500 cursor-pointer">
-                            #{review.order_no}
+                            #{review.order.order_no}
                           </p>
                         </div>
                       </div>
@@ -173,8 +184,12 @@ const ReviewsTable = ({ data, query }) => {
                           />
                         </div>
                         <div className="mt-1">
-                          <p className="whitespace-nowrap">{review.name}</p>
-                          <p className="whitespace-nowrap">{review.email}</p>
+                          <p className="whitespace-nowrap">
+                            {review.user.firstName + " " + review.user.lastName}
+                          </p>
+                          <p className="whitespace-nowrap">
+                            {review.user.email}
+                          </p>
                         </div>
                       </div>
                     </NavLink>
@@ -182,51 +197,22 @@ const ReviewsTable = ({ data, query }) => {
                   <td className="px-2 py-3">
                     <div className="flex flex-col gap-1">
                       <div className="flex gap-1">
-                        <div className="h-4 w-4 shrink-0">
-                          <img
-                            src={StarFilled}
-                            alt="star"
-                            className="object-contain h-full w-full"
-                          />
-                        </div>
-                        <div className="h-4 w-4 shrink-0">
-                          <img
-                            src={StarFilled}
-                            alt="star"
-                            className="object-contain h-full w-full"
-                          />
-                        </div>
-                        <div className="h-4 w-4 shrink-0">
-                          <img
-                            src={StarFilled}
-                            alt="star"
-                            className="object-contain h-full w-full"
-                          />
-                        </div>
-                        <div className="h-4 w-4 shrink-0">
-                          <img
-                            src={StarHalfFilled}
-                            alt="star"
-                            className="object-contain h-full w-full"
-                          />
-                        </div>
-                        <div className="h-4 w-4 shrink-0">
-                          <img
-                            src={StarUnFilled}
-                            alt="star"
-                            className="object-contain h-full w-full"
-                          />
-                        </div>
+                        <StarsRating starsRecieved={review.stars} />
                       </div>
                       <div className="font-semibold text-base">
-                        {review.review_title}
+                        {review.user_review_title}
                       </div>
-                      <div>{review.review_description}</div>
+                      <div>{review.user_review_description}</div>
                     </div>
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">{review.date}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    <div className="flex justify-center items-center gap-1 bg-slate-200 rounded-xl h-5 w-12 cursor-pointer">
+                    {handleReviewDate(review.date)}
+                  </td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    <div
+                      onClick={() => handleDeleteReview(review._id)}
+                      className="flex justify-center items-center gap-1 bg-slate-200 rounded-xl h-5 w-12 cursor-pointer"
+                    >
                       <span className="w-1 h-1 rounded-full bg-slate-900"></span>
                       <span className="w-1 h-1 rounded-full bg-slate-900"></span>
                       <span className="w-1 h-1 rounded-full bg-slate-900"></span>
