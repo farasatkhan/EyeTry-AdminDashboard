@@ -29,9 +29,9 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           className="flex justify-center items-center rounded-full bg-white h-12 w-12 absolute -right-4 top-2 border-2 border-slate-100 cursor-pointer"
         >
           {toggleSidebar ? (
-            <TbArrowBarLeft size={17} />
+            <TbArrowBarLeft size={18} />
           ) : (
-            <TbArrowBarRight size={17} />
+            <TbArrowBarRight size={18} />
           )}
         </div>
         <div className="flex items-center justify-center">
@@ -47,7 +47,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BiHomeAlt2 size={17} className="" />
+                <BiHomeAlt2 size={18} className="" />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Dashboard
@@ -57,7 +57,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/users">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BsPeople size={17} />
+                <BsPeople size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Management
@@ -67,7 +67,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/products/view">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BsBox size={17} />
+                <BsBox size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Products
@@ -77,7 +77,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/giftcards/view">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BsBox size={17} />
+                <BsBox size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Giftcards
@@ -87,7 +87,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/orders">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BsBasket size={17} />
+                <BsBasket size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Orders</p>
             </div>
@@ -95,7 +95,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/analytics">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BiLineChart size={17} />
+                <BiLineChart size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Analytics
@@ -105,7 +105,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/moderation/">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BsShieldCheck size={17} />
+                <BsShieldCheck size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Moderation
@@ -115,7 +115,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/guides/faqs">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BiMessageDetail size={17} />
+                <BiMessageDetail size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Guides</p>
             </div>
