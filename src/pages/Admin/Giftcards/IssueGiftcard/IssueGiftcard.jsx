@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,6 +8,13 @@ import { newGiftcard } from "../../../../services/Giftcards/giftcards";
 import { useEffect } from "react";
 
 const IssueGiftcard = () => {
+  const { routeId } = useParams();
+
+  useEffect(() => {
+    if (routeId) {
+    }
+  }, [routeId]);
+
   const [expirationDate, setExpirationDate] = useState(new Date());
 
   const [giftcard, setGiftcard] = useState({

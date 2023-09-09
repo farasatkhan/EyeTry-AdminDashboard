@@ -164,7 +164,9 @@ const GiftcardTable = ({ data, query, handleGiftcardRemoval }) => {
                     </p>
                   </td>
                   <td className="px-2 py-2 cursor-pointer">
-                    <BiEdit size={20} />
+                    <NavLink to={`/giftcards/${giftcard._id}`}>
+                      <BiEdit size={20} />
+                    </NavLink>
                   </td>
                   <td className="px-2 py-2 cursor-pointer">
                     <div onClick={() => handleGiftcardRemoval(giftcard._id)}>

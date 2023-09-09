@@ -19,6 +19,16 @@ export const viewGiftcard = async () => {
     }
 }
 
+export const viewParticularGiftcard = async (giftcardId) => {
+    try {
+        const response = await axios.get(`/admin/giftcard/${giftcardId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error while viewing giftcards', error);
+        throw error;
+    }
+}
+
 export const updateGiftcard = async (giftcardId, data) => {
     try {
         const response = await axios.put(`/admin/giftcard/${giftcardId}`, data);

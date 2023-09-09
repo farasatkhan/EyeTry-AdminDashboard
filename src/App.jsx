@@ -57,6 +57,7 @@ const router = createBrowserRouter(
         <Route index element={<GiftcardsHome />} />
         <Route path="issue" element={<IssueGiftcard />} />
         <Route path="view" element={<ViewGiftcards />} />
+        <Route path=":giftcardId" element={<IssueGiftcard />} />
       </Route>
       <Route path="orders">
         <Route index element={<ViewAllOrders />} />
