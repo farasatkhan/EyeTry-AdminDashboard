@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
@@ -8,11 +8,49 @@ import { BsDownload, BsFilter } from "react-icons/bs";
 import GiftcardTable from "../../../../layouts/Admin/Giftcard/GiftcardTable";
 import data from "../../../../data/Admin/giftcardsData";
 
+import {
+  deleteGiftcard,
+  viewGiftcard,
+} from "../../../../services/Giftcards/giftcards";
+
 const ViewGiftcards = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchQuery = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    fetchGiftcards();
+  }, []);
+
+  const [giftcards, setGiftcards] = useState([]);
+
+  const fetchGiftcards = async () => {
+    try {
+      const fetchAllGiftcards = await viewGiftcard();
+      setGiftcards(fetchAllGiftcards);
+    } catch (error) {
+      console.error("Error fetching giftcards", error);
+    }
+  };
+
+  const handleGiftcardRemoval = async (giftcardId) => {
+    try {
+      const removeGiftcards = await deleteGiftcard(giftcardId);
+      fetchGiftcards();
+    } catch (error) {
+      console.error("Error removing giftcards", error);
+    }
+  };
+
+  const handleGiftcardEdit = async () => {
+    try {
+      const fetchAllGiftcards = await viewGiftcard();
+      setGiftcards(fetchAllGiftcards);
+    } catch (error) {
+      console.error("Error fetching giftcards", error);
+    }
   };
 
   return (
@@ -64,7 +102,11 @@ const ViewGiftcards = () => {
         </div>
         {/* table */}
         <div className="mx-4">
-          <GiftcardTable data={data} query={searchQuery} />
+          <GiftcardTable
+            data={giftcards}
+            handleGiftcardRemoval={handleGiftcardRemoval}
+            query={searchQuery}
+          />
         </div>
       </div>
     </div>

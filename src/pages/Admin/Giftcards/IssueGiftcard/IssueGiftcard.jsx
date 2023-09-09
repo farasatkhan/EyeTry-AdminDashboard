@@ -18,7 +18,7 @@ const IssueGiftcard = () => {
     status: "Active",
     expirationDate: new Date(),
     customerEmail: "",
-    note: "",
+    note: "No Note",
   });
 
   const [giftcardChangeStatus, setGiftcardChangeStatus] = useState({

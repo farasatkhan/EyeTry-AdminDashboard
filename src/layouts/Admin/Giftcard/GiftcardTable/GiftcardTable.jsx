@@ -5,7 +5,9 @@ import { NavLink } from "react-router-dom";
 import StatusPill from "../../../../components/ui/Admin/StatusPill";
 import Person from "../../../../assets/images/test/person.jpg";
 
-const GiftcardTable = ({ data, query }) => {
+import { BiEdit, BiTrash } from "react-icons/bi";
+
+const GiftcardTable = ({ data, query, handleGiftcardRemoval }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -104,13 +106,19 @@ const GiftcardTable = ({ data, query }) => {
                 Status
               </th>
               <th scope="col" className="px-2 py-3 font-normal ">
-                Customer
+                Note
               </th>
               <th scope="col" className="px-2 py-3 font-normal ">
-                Date Issued
+                Expiration Date
               </th>
               <th scope="col" className="px-2 py-3 font-normal ">
                 Balance
+              </th>
+              <th scope="col" className="px-2 py-3 font-normal ">
+                Edit
+              </th>
+              <th scope="col" className="px-2 py-3 font-normal ">
+                Delete
               </th>
             </tr>
           </thead>
@@ -124,7 +132,7 @@ const GiftcardTable = ({ data, query }) => {
                     </p>
                   </td>
                   <td className="px-2 py-1 ">
-                    {giftcard.status === "active" ? (
+                    {giftcard.status === "Active" ? (
                       <div
                         className={`bg-primary-100 w-16 h-6 flex justify-center items-center rounded-full`}
                       >
@@ -144,14 +152,24 @@ const GiftcardTable = ({ data, query }) => {
                   </td>
                   <td className="px-2 py-2">
                     <p className="">
-                      <span className="text-sm">{giftcard.customerEmail}</span>
+                      <span className="text-sm">{giftcard.note}</span>
                     </p>
                   </td>
                   <td className="px-2 py-2">
-                    <p className="text-sm">{giftcard.dateIssued}</p>
+                    <p className="text-sm">{giftcard.expirationDate}</p>
                   </td>
                   <td className="px-2 py-2">
-                    <p className="text-sm">{giftcard.balance}</p>
+                    <p className="text-sm">
+                      {giftcard.currency + ". " + giftcard.value}
+                    </p>
+                  </td>
+                  <td className="px-2 py-2 cursor-pointer">
+                    <BiEdit size={20} />
+                  </td>
+                  <td className="px-2 py-2 cursor-pointer">
+                    <div onClick={() => handleGiftcardRemoval(giftcard._id)}>
+                      <BiTrash size={20} />
+                    </div>
                   </td>
                 </tr>
               );
