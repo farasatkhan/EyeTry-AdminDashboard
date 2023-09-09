@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { newGiftcard } from "../../../../services/Giftcards/giftcards";
-import { useEffect } from "react";
+import {
+  newGiftcard,
+  updateGiftcard,
+  viewParticularGiftcard,
+} from "../../../../services/Giftcards/giftcards";
 
 const IssueGiftcard = () => {
-  const { routeId } = useParams();
-
-  useEffect(() => {
-    if (routeId) {
-    }
-  }, [routeId]);
+  const navigate = useNavigate();
+  const { giftcardId } = useParams();
 
   const [expirationDate, setExpirationDate] = useState(new Date());
 
@@ -38,14 +37,27 @@ const IssueGiftcard = () => {
     event.preventDefault();
 
     try {
-      const submittedGiftcard = await newGiftcard(giftcard);
+      if (giftcardId) {
+        const submittedGiftcard = await updateGiftcard(giftcardId, giftcard);
 
-      if (submittedGiftcard.status === 200) {
-        setGiftcardChangeStatus((oldStatus) => ({
-          ...oldStatus,
-          status: submittedGiftcard.data.message,
-        }));
+        if (submittedGiftcard.status === 200) {
+          setGiftcardChangeStatus((oldStatus) => ({
+            ...oldStatus,
+            status: submittedGiftcard.data.message,
+          }));
+        }
+      } else {
+        const submittedGiftcard = await newGiftcard(giftcard);
+
+        if (submittedGiftcard.status === 200) {
+          setGiftcardChangeStatus((oldStatus) => ({
+            ...oldStatus,
+            status: submittedGiftcard.data.message,
+          }));
+        }
       }
+
+      navigate("/giftcards/view/");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setGiftcardChangeStatus((oldStatus) => ({
@@ -66,13 +78,37 @@ const IssueGiftcard = () => {
   }, [expirationDate]);
 
   useEffect(() => {
-    console.log(giftcard);
-  }, [giftcard]);
+    if (giftcardId) {
+      try {
+        async function fetchData() {
+          const fetchGiftcard = await viewParticularGiftcard(giftcardId);
+
+          setGiftcard({
+            code: fetchGiftcard.code,
+            amount: {
+              price: fetchGiftcard.value,
+              currency: fetchGiftcard.currency,
+            },
+            status: fetchGiftcard.status,
+            expirationDate: fetchGiftcard.expirationDate,
+            customerEmail: "",
+            note: fetchGiftcard.note,
+          });
+        }
+        fetchData();
+      } catch (error) {
+        console.log("error getting particular giftcard.");
+      }
+    }
+    console.log(giftcardId);
+  }, [giftcardId]);
 
   return (
     <div className="mx-5 md:mx-10 lg:mx-28 my-10">
       <div className="mb-10">
-        <span className="text-lg">Issue Gift card</span>
+        <span className="text-lg">
+          {giftcardId ? "Update" : "Issue"} Gift card
+        </span>
       </div>
       <form onSubmit={handleGiftcardSubmission}>
         <div className="flex flex-col md:flex-row flex-grow gap-5">
@@ -159,15 +195,15 @@ const IssueGiftcard = () => {
                     }
                   >
                     <option
-                      key="active"
-                      value="active"
+                      key="Active"
+                      value="Active"
                       className="cursor-pointer"
                     >
                       Active
                     </option>
                     <option
-                      key="expired"
-                      value="expired"
+                      key="Expired"
+                      value="Expired"
                       className="cursor-pointer"
                     >
                       Expired
@@ -246,7 +282,9 @@ const IssueGiftcard = () => {
             type="submit"
             className="border w-full py-3 md:w-auto md:px-4 md:py-1 rounded-lg shadow-sm bg-white"
           >
-            <span className="md:text-sm">Activate</span>
+            <span className="md:text-sm">
+              {giftcardId ? "Update" : "Activate"}
+            </span>
           </button>
         </div>
       </form>
