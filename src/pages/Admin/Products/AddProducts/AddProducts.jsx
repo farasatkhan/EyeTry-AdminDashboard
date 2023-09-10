@@ -19,6 +19,10 @@ import LensInformation from "../../../../components/ui/Admin/AddProduct/LensInfo
 import ProductBasicInformation from "../../../../components/ui/Admin/AddProduct/ProductBasicInformation/ProductBasicInformation";
 import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Variants";
 
+/*
+  Bug: Categories, Frame Material, Frame Size, Face Shape, and gender when updated is not working
+*/
+
 const AddProducts = () => {
   const { glassesId } = useParams();
 
@@ -54,7 +58,12 @@ const AddProducts = () => {
     discount: 0.0,
   });
 
-  const [productCategories, setProductCategories] = useState([]);
+  const [productCategories, setProductCategories] = useState([
+    "Men",
+    "Women",
+    "Kids",
+  ]);
+
   const [productFrameMaterials, setProductFrameMaterials] = useState([]);
   const [productFrameSizes, setProductFrameSizes] = useState([]);
   const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
@@ -217,6 +226,18 @@ const AddProducts = () => {
             currency: fetchedGlasses.priceInfo.currency,
             discount: fetchedGlasses.discount,
           });
+
+          if (fetchedGlasses.stock.is_in_stock) {
+            setStockStatus("in_stock");
+          } else if (fetchedGlasses.stock.is_low_stock) {
+            setStockStatus("low_stock");
+          } else if (fetchedGlasses.stock.is_out_of_stock) {
+            setStockStatus("out_of_stock");
+          } else if (fetchedGlasses.stock.is_to_be_announced) {
+            setStockStatus("to_be_announced");
+          }
+
+          setProductCategories(fetchedGlasses.categories);
         }
         fetchData();
       } catch (error) {

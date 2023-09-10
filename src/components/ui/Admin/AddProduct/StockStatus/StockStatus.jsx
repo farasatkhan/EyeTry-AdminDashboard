@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
-  const [stockStatus, setStockStatus] = useState(currentStockStatus);
+  // const [stockStatus, setStockStatus] = useState(currentStockStatus);
 
-  useEffect(() => {
-    updateStockStatus(stockStatus);
-  }, [stockStatus]);
+  // useEffect(() => {
+  //   updateStockStatus(stockStatus);
+  // }, [stockStatus]);
 
   return (
     <>
@@ -19,8 +19,8 @@ const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
             type="radio"
             id="in_stock"
             value="in_stock"
-            checked={stockStatus === "in_stock"}
-            onChange={(event) => setStockStatus(event.target.value)}
+            checked={currentStockStatus === "in_stock"}
+            onChange={(event) => updateStockStatus(event.target.value)}
             className="mr-4 cursor-pointer"
           />
           <label htmlFor="in_stock" className="mr-4 cursor-pointer">
@@ -32,8 +32,8 @@ const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
             type="radio"
             id="out_of_stock"
             value="out_of_stock"
-            checked={stockStatus === "out_of_stock"}
-            onChange={(event) => setStockStatus(event.target.value)}
+            checked={currentStockStatus === "out_of_stock"}
+            onChange={(event) => updateStockStatus(event.target.value)}
             className="mr-4 cursor-pointer"
           />
           <label htmlFor="out_of_stock" className="mr-4 cursor-pointer">
@@ -45,8 +45,8 @@ const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
             type="radio"
             id="to_be_announced"
             value="to_be_announced"
-            checked={stockStatus === "to_be_announced"}
-            onChange={(event) => setStockStatus(event.target.value)}
+            checked={currentStockStatus === "to_be_announced"}
+            onChange={(event) => updateStockStatus(event.target.value)}
             className="mr-4 cursor-pointer"
           />
           <label htmlFor="to_be_announced" className="mr-4 cursor-pointer">
@@ -58,8 +58,8 @@ const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
             type="radio"
             id="low_stock"
             value="low_stock"
-            checked={stockStatus === "low_stock"}
-            onChange={(event) => setStockStatus(event.target.value)}
+            checked={currentStockStatus === "low_stock"}
+            onChange={(event) => updateStockStatus(event.target.value)}
             className="mr-4 cursor-pointer"
           />
           <label htmlFor="low_stock" className="mr-4 cursor-pointer">
