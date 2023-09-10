@@ -50,6 +50,7 @@ const router = createBrowserRouter(
       <Route path="products">
         <Route index element={<ProductsHome />} />
         <Route path="new" element={<AddProducts />} />
+        <Route path=":glassesId/" element={<AddProducts />} />
         <Route path=":glassesId/variant" element={<AddProductVariants />} />
         <Route path="view" element={<ViewProducts />} />
       </Route>

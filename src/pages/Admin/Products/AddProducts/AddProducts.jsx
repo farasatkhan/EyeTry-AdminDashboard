@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 
-import { newProduct } from "../../../../services/Products/glasses";
+import {
+  newProduct,
+  viewParticularProduct,
+} from "../../../../services/Products/glasses";
 
 import Pricing from "../../../../components/ui/Admin/AddProduct/Pricing/Pricing";
 import Categories from "../../../../components/ui/Admin/AddProduct/Categories/Categories";
@@ -17,7 +20,20 @@ import ProductBasicInformation from "../../../../components/ui/Admin/AddProduct/
 import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Variants";
 
 const AddProducts = () => {
-  const [productBasicInformation, setProductBasicInformation] = useState({});
+  const { glassesId } = useParams();
+
+  const [productBasicInformation, setProductBasicInformation] = useState({
+    name: "",
+    sku: "",
+    description: "",
+    manufacturer: "",
+    type: "",
+  });
+
+  useEffect(() => {
+    console.log(productBasicInformation);
+  }, [productBasicInformation]);
+
   const [productLensInformation, setProductLensInformation] = useState({});
   const [stockStatus, setStockStatus] = useState("");
   const [metaDetails, setMetaDetails] = useState({
@@ -143,19 +159,62 @@ const AddProducts = () => {
       face_shape: [...productFrameFaceShape],
       genders: [...productFrameGender],
       stock_status: stockStatus,
-      // frame_variants: productVariantsMultiple,
     };
 
-    console.log(productBasicInformation);
-
     try {
-      const addNewProduct = await newProduct(productInformation);
-      console.log("Product added successfully!", addNewProduct);
-      setResponseGlassesId(addNewProduct.data.GlassesId);
+      if (glassesId) {
+        const updatedProductInformation = await updateProduct(
+          glassesId,
+          productInformation
+        );
+
+        if (updatedProductInformation.status === 200) {
+          setGiftcardChangeStatus((oldStatus) => ({
+            ...oldStatus,
+            status: updatedProductInformation.data.message,
+          }));
+        }
+        setResponseGlassesId(glassesId);
+      } else {
+        const addNewProduct = await newProduct(productInformation);
+        console.log("Product added successfully!", addNewProduct);
+        setResponseGlassesId(addNewProduct.data.GlassesId);
+      }
     } catch (error) {
       console.error("Failed to add product:", error);
     }
   };
+
+  useEffect(() => {
+    if (glassesId) {
+      try {
+        async function fetchData() {
+          const fetchedGlasses = await viewParticularProduct(glassesId);
+
+          // set all the products after you get data from the db
+          setProductBasicInformation({
+            name: fetchedGlasses.name,
+            sku: fetchedGlasses.sku,
+            description: fetchedGlasses.description,
+            manufacturer: fetchedGlasses.manufacturer,
+            type: fetchedGlasses.type,
+          });
+
+          setProductLensInformation(fetchedGlasses.lens_information);
+          // setMetaDetails(fetchedGlasses.meta);
+
+          // setProductPricing({
+          //   price: fetchedGlasses.priceInfo.price,
+          //   currency: fetchedGlasses.priceInfo.currency,
+          //   discount: fetchedGlasses.discount,
+          // });
+        }
+        fetchData();
+      } catch (error) {
+        console.log("error getting particular glasses.");
+      }
+    }
+  }, [glassesId]);
 
   return (
     <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col">

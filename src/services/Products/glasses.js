@@ -27,6 +27,15 @@ export const viewProductsList = async () => {
     }
 }
 
+export const viewParticularProduct = async (glassesId) => {
+    try {
+        const response = await axios.get(`/products/v1/glasses/${glassesId}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const updateProduct = async (productId, data) => {
     try {
         const response = await axios.put(`/products/v1/glasses/${productId}`, data);

@@ -38,10 +38,10 @@ const ProductBasicInformation = ({
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={basicInformation.name}
+            value={basicProductInformation.name}
             onChange={(e) =>
-              setBasicInformation({
-                ...basicInformation,
+              updateBasicProductInformation({
+                ...basicProductInformation,
                 name: e.target.value,
               })
             }
@@ -56,10 +56,10 @@ const ProductBasicInformation = ({
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={basicInformation.sku}
+            value={basicProductInformation.sku}
             onChange={(e) =>
-              setBasicInformation({
-                ...basicInformation,
+              updateBasicProductInformation({
+                ...basicProductInformation,
                 sku: e.target.value,
               })
             }
@@ -74,10 +74,10 @@ const ProductBasicInformation = ({
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={basicInformation.manufacturer}
+            value={basicProductInformation.manufacturer}
             onChange={(e) =>
-              setBasicInformation({
-                ...basicInformation,
+              updateBasicProductInformation({
+                ...basicProductInformation,
                 manufacturer: e.target.value,
               })
             }
@@ -89,12 +89,12 @@ const ProductBasicInformation = ({
           </label>
           <div className="flex flex-grow mt-2">
             <select
-              value={setBasicInformation.type}
+              value={basicProductInformation.type}
               onChange={(e) =>
-                setBasicInformation((prevInformation) => ({
-                  ...prevInformation,
+                updateBasicProductInformation({
+                  ...basicProductInformation,
                   type: e.target.value,
-                }))
+                })
               }
               className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
             >
@@ -118,10 +118,10 @@ const ProductBasicInformation = ({
             rows={3}
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={basicInformation.description}
+            value={basicProductInformation.description}
             onChange={(e) =>
-              setBasicInformation({
-                ...basicInformation,
+              updateBasicProductInformation({
+                ...basicProductInformation,
                 description: e.target.value,
               })
             }

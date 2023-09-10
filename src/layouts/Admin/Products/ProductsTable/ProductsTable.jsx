@@ -164,8 +164,8 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
               return (
                 <tr key={index} className="border-b">
                   <td className="px-2 py-1 ">
-                    <div className="flex cursor-pointer">
-                      <div className="h-10 w-9 overflow-hidden mr-2 shrink-0">
+                    <div className="flex items-center cursor-pointer">
+                      <div className="h-6 w-9 overflow-hidden mr-2 shrink-0">
                         {/* <img
                           src={Person}
                           alt="Person"
@@ -216,7 +216,7 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
                     <p>{product.manufacturer}</p>
                   </td>
                   <td className="px-2 py-1 cursor-pointer">
-                    <NavLink to={`/giftcards/${product._id}`}>
+                    <NavLink to={`/products/${product._id}`}>
                       <BiEdit size={20} />
                     </NavLink>
                   </td>
