@@ -30,11 +30,20 @@ const AddProducts = () => {
     type: "",
   });
 
-  useEffect(() => {
-    console.log(productBasicInformation);
-  }, [productBasicInformation]);
+  const [productLensInformation, setProductLensInformation] = useState({
+    measurement_type: "",
+    lens_width: 0,
+    lens_height: 0,
+    total_width: 0,
+    bridge_width: 0,
+    temple_length: 0,
+    is_multifocal: false,
+  });
 
-  const [productLensInformation, setProductLensInformation] = useState({});
+  useEffect(() => {
+    console.log(productLensInformation);
+  }, [productLensInformation]);
+
   const [stockStatus, setStockStatus] = useState("");
   const [metaDetails, setMetaDetails] = useState({
     meta_title: "",
@@ -201,6 +210,7 @@ const AddProducts = () => {
           });
 
           setProductLensInformation(fetchedGlasses.lens_information);
+
           // setMetaDetails(fetchedGlasses.meta);
 
           // setProductPricing({

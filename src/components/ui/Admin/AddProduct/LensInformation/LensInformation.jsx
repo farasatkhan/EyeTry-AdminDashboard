@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 const LensInformation = ({ lensInformation, updateLensInformation }) => {
-  const [lensInfo, setLensInfo] = useState({
-    measurement_type: "",
-    lens_width: 0,
-    lens_height: 0,
-    total_width: 0,
-    bridge_width: 0,
-    temple_length: 0,
-    is_multifocal: false,
-  });
+  // const [lensInfo, setLensInfo] = useState({
+  //   measurement_type: "",
+  //   lens_width: 0,
+  //   lens_height: 0,
+  //   total_width: 0,
+  //   bridge_width: 0,
+  //   temple_length: 0,
+  //   is_multifocal: false,
+  // });
 
-  useEffect(() => {
-    updateLensInformation(lensInfo);
-  }, [lensInfo]);
+  // useEffect(() => {
+  //   updateLensInformation(lensInfo);
+  // }, [lensInfo]);
 
   return (
     <>
@@ -29,12 +29,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
             </label>
             <div className="flex flex-grow mt-2">
               <select
-                value={lensInfo.measurement_type}
+                value={lensInformation.measurement_type}
                 onChange={(event) =>
-                  setLensInfo((prevLensInfo) => ({
-                    ...prevLensInfo,
+                  updateLensInformation({
+                    ...lensInformation,
                     measurement_type: event.target.value,
-                  }))
+                  })
                 }
                 className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
               >
@@ -52,12 +52,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
             </label>
             <div className="flex flex-grow mt-2">
               <select
-                value={lensInfo.is_multifocal}
+                value={lensInformation.is_multifocal}
                 onChange={(event) =>
-                  setLensInfo((prevLensInfo) => ({
-                    ...prevLensInfo,
+                  updateLensInformation({
+                    ...lensInformation,
                     is_multifocal: event.target.value,
-                  }))
+                  })
                 }
                 className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
               >
@@ -80,12 +80,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
-              value={lensInfo.lens_width}
+              value={lensInformation.lens_width}
               onChange={(event) =>
-                setLensInfo((prevLensInfo) => ({
-                  ...prevLensInfo,
+                updateLensInformation({
+                  ...lensInformation,
                   lens_width: event.target.value,
-                }))
+                })
               }
             />
           </div>
@@ -98,12 +98,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
-              value={lensInfo.lens_height}
+              value={lensInformation.lens_height}
               onChange={(event) =>
-                setLensInfo((prevLensInfo) => ({
-                  ...prevLensInfo,
+                updateLensInformation({
+                  ...lensInformation,
                   lens_height: event.target.value,
-                }))
+                })
               }
             />
           </div>
@@ -116,12 +116,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
-              value={lensInfo.total_width}
+              value={lensInformation.total_width}
               onChange={(event) =>
-                setLensInfo((prevLensInfo) => ({
-                  ...prevLensInfo,
+                updateLensInformation({
+                  ...lensInformation,
                   total_width: event.target.value,
-                }))
+                })
               }
             />
           </div>
@@ -136,12 +136,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
-              value={lensInfo.temple_length}
+              value={lensInformation.temple_length}
               onChange={(event) =>
-                setLensInfo((prevLensInfo) => ({
-                  ...prevLensInfo,
+                updateLensInformation({
+                  ...lensInformation,
                   temple_length: event.target.value,
-                }))
+                })
               }
             />
           </div>
@@ -154,12 +154,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
-              value={lensInfo.bridge_width}
+              value={lensInformation.bridge_width}
               onChange={(event) =>
-                setLensInfo((prevLensInfo) => ({
-                  ...prevLensInfo,
+                updateLensInformation({
+                  ...lensInformation,
                   bridge_width: event.target.value,
-                }))
+                })
               }
             />
           </div>
