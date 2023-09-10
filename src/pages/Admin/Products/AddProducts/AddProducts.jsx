@@ -40,21 +40,20 @@ const AddProducts = () => {
     is_multifocal: false,
   });
 
-  useEffect(() => {
-    console.log(productLensInformation);
-  }, [productLensInformation]);
-
   const [stockStatus, setStockStatus] = useState("");
+
   const [metaDetails, setMetaDetails] = useState({
-    meta_title: "",
-    meta_keywords: "",
-    meta_description: "",
+    title: "",
+    keywords: "",
+    description: "",
   });
+
   const [productPricing, setProductPricing] = useState({
     price: 0,
     currency: "",
     discount: 0.0,
   });
+
   const [productCategories, setProductCategories] = useState([]);
   const [productFrameMaterials, setProductFrameMaterials] = useState([]);
   const [productFrameSizes, setProductFrameSizes] = useState([]);
@@ -211,13 +210,13 @@ const AddProducts = () => {
 
           setProductLensInformation(fetchedGlasses.lens_information);
 
-          // setMetaDetails(fetchedGlasses.meta);
+          setMetaDetails(fetchedGlasses.meta);
 
-          // setProductPricing({
-          //   price: fetchedGlasses.priceInfo.price,
-          //   currency: fetchedGlasses.priceInfo.currency,
-          //   discount: fetchedGlasses.discount,
-          // });
+          setProductPricing({
+            price: fetchedGlasses.priceInfo.price,
+            currency: fetchedGlasses.priceInfo.currency,
+            discount: fetchedGlasses.discount,
+          });
         }
         fetchData();
       } catch (error) {

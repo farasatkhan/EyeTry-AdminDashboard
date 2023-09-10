@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
-  const [title, setTitle] = useState(metaDetails.meta_title);
-  const [keywords, setKeywords] = useState(metaDetails.meta_keywords);
-  const [description, setDescription] = useState(metaDetails.meta_description);
+  // const [title, setTitle] = useState(metaDetails.meta_title);
+  // const [keywords, setKeywords] = useState(metaDetails.meta_keywords);
+  // const [description, setDescription] = useState(metaDetails.meta_description);
 
-  useEffect(() => {
-    updateMetaDetails({
-      meta_title: title,
-      meta_keywords: keywords,
-      meta_description: description,
-    });
-  }, [title, keywords, description]);
+  // useEffect(() => {
+  //   updateMetaDetails({
+  //     meta_title: title,
+  //     meta_keywords: keywords,
+  //     meta_description: description,
+  //   });
+  // }, [title, keywords, description]);
 
   return (
     <>
@@ -29,8 +29,13 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            value={metaDetails.title}
+            onChange={(event) =>
+              updateMetaDetails({
+                ...metaDetails,
+                title: event.target.value,
+              })
+            }
           />
         </div>
         <div className="mb-3">
@@ -42,8 +47,13 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={keywords}
-            onChange={(event) => setKeywords(event.target.value)}
+            value={metaDetails.keywords}
+            onChange={(event) =>
+              updateMetaDetails({
+                ...metaDetails,
+                keywords: event.target.value,
+              })
+            }
           />
         </div>
         <div className="mb-3">
@@ -55,8 +65,13 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             rows={3}
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
+            value={metaDetails.description}
+            onChange={(event) =>
+              updateMetaDetails({
+                ...metaDetails,
+                description: event.target.value,
+              })
+            }
           />
         </div>
       </div>

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 const Pricing = ({ productPricing, updateProductPricing }) => {
-  const [price, setPrice] = useState(productPricing.price);
-  const [currency, setCurrency] = useState(productPricing.currency);
-  const [discount, setDiscount] = useState(productPricing.discount);
+  // const [price, setPrice] = useState(productPricing.price);
+  // const [currency, setCurrency] = useState(productPricing.currency);
+  // const [discount, setDiscount] = useState(productPricing.discount);
 
-  useEffect(() => {
-    updateProductPricing({
-      price: price,
-      currency: currency,
-      discount: discount,
-    });
-  }, [price, currency, discount]);
+  // useEffect(() => {
+  //   updateProductPricing({
+  //     price: price,
+  //     currency: currency,
+  //     discount: discount,
+  //   });
+  // }, [price, currency, discount]);
 
   return (
     <>
@@ -28,13 +28,23 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
               type="text"
               className="border p-2 rounded-s-md w-full outline-none text-sm"
               placeholder="0.00"
-              value={price}
-              onChange={(event) => setPrice(event.target.value)}
+              value={productPricing.price}
+              onChange={(event) =>
+                updateProductPricing({
+                  ...productPricing,
+                  price: event.target.value,
+                })
+              }
             />
             <select
               id="currency"
-              value={currency}
-              onChange={(event) => setCurrency(event.target.value)}
+              value={productPricing.currency}
+              onChange={(event) =>
+                updateProductPricing({
+                  ...productPricing,
+                  currency: event.target.value,
+                })
+              }
               className="border px-1 sm:px-3 py-1 rounded-e-md outline-none text-sm cursor-pointer"
             >
               <option key="USD" value="USD" className="cursor-pointer">
@@ -54,8 +64,13 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
               placeholder="0%"
-              value={discount}
-              onChange={(event) => setDiscount(event.target.value)}
+              value={productPricing.discount}
+              onChange={(event) =>
+                updateProductPricing({
+                  ...productPricing,
+                  discount: event.target.value,
+                })
+              }
             />
           </div>
         </div>
