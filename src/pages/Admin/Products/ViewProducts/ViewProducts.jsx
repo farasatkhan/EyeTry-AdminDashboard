@@ -1,20 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
 
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
 
 import ProductsTable from "../../../../layouts/Admin/Products/ProductsTable";
-import data from "../../../../data/Admin/productsTable";
 
 import ViewProductsStyles from "./ViewProducts.module.css";
+
+import {
+  viewProductsList,
+  deleteProduct,
+} from "../../../../services/Products/glasses";
 
 const ViewProducts = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchQuery = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    fetchProductsList();
+  }, []);
+
+  const [productsList, setProductsList] = useState([]);
+
+  const fetchProductsList = async () => {
+    try {
+      const fetchProductsList = await viewProductsList();
+      setProductsList(fetchProductsList);
+    } catch (error) {
+      console.error("Error fetching products list", error);
+    }
+  };
+
+  const handleProductRemoval = async (productId) => {
+    try {
+      const removeProduct = await deleteProduct(productId);
+      fetchProductsList();
+    } catch (error) {
+      console.error("Error removing products", error);
+    }
   };
 
   return (
@@ -69,7 +96,11 @@ const ViewProducts = () => {
         </div>
         {/* table */}
         <div className="mx-4">
-          <ProductsTable data={data} query={searchQuery} />
+          <ProductsTable
+            handleProductRemoval={handleProductRemoval}
+            data={productsList}
+            query={searchQuery}
+          />
         </div>
       </div>
     </div>

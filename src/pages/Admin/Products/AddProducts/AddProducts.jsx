@@ -20,8 +20,16 @@ const AddProducts = () => {
   const [productBasicInformation, setProductBasicInformation] = useState({});
   const [productLensInformation, setProductLensInformation] = useState({});
   const [stockStatus, setStockStatus] = useState("");
-  const [metaDetails, setMetaDetails] = useState({});
-  const [productPricing, setProductPricing] = useState({});
+  const [metaDetails, setMetaDetails] = useState({
+    meta_title: "",
+    meta_keywords: "",
+    meta_description: "",
+  });
+  const [productPricing, setProductPricing] = useState({
+    price: 0,
+    currency: "",
+    discount: 0.0,
+  });
   const [productCategories, setProductCategories] = useState([]);
   const [productFrameMaterials, setProductFrameMaterials] = useState([]);
   const [productFrameSizes, setProductFrameSizes] = useState([]);

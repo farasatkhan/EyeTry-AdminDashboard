@@ -1,5 +1,6 @@
 import axios from "axios";
+import API_URL from "../config/config";
 
 export default axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: API_URL
 })

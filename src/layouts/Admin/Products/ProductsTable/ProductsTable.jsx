@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import API_URL from "../../../../config/config";
 
 import { NavLink } from "react-router-dom";
 
 import StatusPill from "../../../../components/ui/Admin/StatusPill";
 import Person from "../../../../assets/images/test/person.jpg";
 
-const ProductsTable = ({ data, query }) => {
+import { BiEdit, BiTrash } from "react-icons/bi";
+
+const ProductsTable = ({ data, query, handleProductRemoval }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -90,14 +93,37 @@ const ProductsTable = ({ data, query }) => {
     setPages({ ...pages, currentPage: page });
   };
 
-  const checkStatus = (status) => {
-    if (status === "Paid") {
-      return <StatusPill text="Paid" type="primary" />;
-    } else if (status === "Declined") {
-      return <StatusPill text="Declined" type="danger" />;
-    } else if (status === "Pending") {
-      return <StatusPill text="Pending" type="warning" />;
+  const checkStatus = (stockStatus) => {
+    if (stockStatus.is_in_stock) {
+      return <StatusPill text="Available" type="primary" />;
+    } else if (stockStatus.is_low_stock) {
+      return <StatusPill text="Low Stock" type="danger" />;
+    } else if (stockStatus.is_out_of_stock) {
+      return <StatusPill text="Out of Stock" type="warning" />;
+    } else if (stockStatus.is_to_be_announced) {
+      return <StatusPill text="To be announced" type="primary" />;
     }
+  };
+
+  const totalStockInventory = (product) => {
+    const quantities = product.frame_information.frame_variants.map(
+      (item) => item.quantity
+    );
+    const totalQuantity = quantities.reduce((acc, curr) => acc + curr, 0);
+
+    return totalQuantity;
+  };
+
+  const productImage = (product) => {
+    const path = product.frame_information.frame_variants[0].images[0];
+
+    const completePath = API_URL + path;
+
+    return (
+      <div className="mt-2">
+        <img src={completePath} alt="product" className="" />
+      </div>
+    );
   };
 
   return (
@@ -117,10 +143,19 @@ const ProductsTable = ({ data, query }) => {
                 Inventory
               </th>
               <th scope="col" className="px-2 py-3 font-normal ">
-                Rating
+                SKU
+              </th>
+              <th scope="col" className="px-2 py-3 font-normal ">
+                Type
               </th>
               <th scope="col" className="px-2 py-3 font-normal ">
                 Manufacturer
+              </th>
+              <th scope="col" className="px-2 py-3 font-normal ">
+                Edit
+              </th>
+              <th scope="col" className="px-2 py-3 font-normal ">
+                Delete
               </th>
             </tr>
           </thead>
@@ -131,19 +166,21 @@ const ProductsTable = ({ data, query }) => {
                   <td className="px-2 py-1 ">
                     <div className="flex cursor-pointer">
                       <div className="h-10 w-9 overflow-hidden mr-2 shrink-0">
-                        <img
+                        {/* <img
                           src={Person}
                           alt="Person"
                           className="object-cover h-full w-full"
-                        />
+                        /> */}
+                        {productImage(product)}
                       </div>
                       <div className="mt-1">
-                        <p className="text-sm">{product.productName}</p>
+                        <p className="text-sm">{product.name}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-2 py-1 ">
-                    {product.status === "active" ? (
+                    {checkStatus(product.stock)}
+                    {/* {product.status === "active" ? (
                       <div
                         className={`bg-primary-100 w-16 h-6 flex justify-center items-center rounded-full`}
                       >
@@ -159,19 +196,34 @@ const ProductsTable = ({ data, query }) => {
                           {product.status}
                         </p>
                       </div>
-                    )}
+                    )} */}
                   </td>
                   <td className="px-2 py-1">
                     <p className="">
-                      <span className="font-semibold">{product.inventory}</span>{" "}
+                      <span className="font-semibold">
+                        {totalStockInventory(product)}
+                      </span>{" "}
                       items are in the inventory
                     </p>
                   </td>
                   <td className="px-2 py-1">
-                    <p className="">{product.rating}</p>
+                    <p className="">{product.sku}</p>
+                  </td>
+                  <td className="px-2 py-1">
+                    <p className="">{product.type}</p>
                   </td>
                   <td className="px-2 py-1">
                     <p>{product.manufacturer}</p>
+                  </td>
+                  <td className="px-2 py-1 cursor-pointer">
+                    <NavLink to={`/giftcards/${product._id}`}>
+                      <BiEdit size={20} />
+                    </NavLink>
+                  </td>
+                  <td className="px-2 py-1 cursor-pointer">
+                    <div onClick={() => handleProductRemoval(product._id)}>
+                      <BiTrash size={20} />
+                    </div>
                   </td>
                 </tr>
               );
