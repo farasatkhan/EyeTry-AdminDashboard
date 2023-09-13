@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Categories = ({ selectedCategories, updateSelectedCategories }) => {
-  const [categoriesList, setCategoriesList] = useState([
-    "Men",
-    "Women",
-    "Kids",
-  ]);
+  const [categoriesList, setCategoriesList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
 
@@ -13,7 +9,8 @@ const Categories = ({ selectedCategories, updateSelectedCategories }) => {
 
   const handleSubmittedCategory = async () => {
     if (!categoriesList.includes(addCategory)) {
-      setCategoriesList((prevCategories) => [...prevCategories, addCategory]);
+      // setCategoriesList((prevCategories) => [...prevCategories, addCategory]);
+      updateSelectedCategories(addCategory, true);
     } else {
       console.log("Category is already present");
     }
@@ -23,6 +20,10 @@ const Categories = ({ selectedCategories, updateSelectedCategories }) => {
     const value = event.target.labels[0].textContent;
     updateSelectedCategories(value, event.target.checked);
   };
+
+  useEffect(() => {
+    setCategoriesList(selectedCategories);
+  }, [selectedCategories]);
 
   return (
     <>
@@ -41,6 +42,7 @@ const Categories = ({ selectedCategories, updateSelectedCategories }) => {
                 type="checkbox"
                 className="w-5 h-5 cursor-pointer"
                 id={`category-${index}`}
+                checked={true}
                 onChange={handleSelectedCategories}
               />
               <label htmlFor={`category-${index}`} className="cursor-pointer">

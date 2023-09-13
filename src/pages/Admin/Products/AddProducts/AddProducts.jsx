@@ -102,6 +102,7 @@ const AddProducts = () => {
         );
       }
     };
+    console.log(checked);
     setProductCategories(updatedCategories());
   };
 
@@ -236,6 +237,8 @@ const AddProducts = () => {
           } else if (fetchedGlasses.stock.is_to_be_announced) {
             setStockStatus("to_be_announced");
           }
+
+          console.log(fetchedGlasses.categories);
 
           setProductCategories(fetchedGlasses.categories);
         }
