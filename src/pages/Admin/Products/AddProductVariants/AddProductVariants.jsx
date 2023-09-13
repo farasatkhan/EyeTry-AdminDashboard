@@ -6,6 +6,8 @@ import { addProductImages } from "../../../../services/Products/glasses";
 import FrameColors from "../../../../components/ui/Admin/AddProduct/FrameColors";
 import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Variants";
 
+import { viewParticularProduct } from "../../../../services/Products/glasses";
+
 const AddProductVariants = () => {
   const { glassesId } = useParams();
 
@@ -14,6 +16,8 @@ const AddProductVariants = () => {
     "White",
     "Metallic",
   ]);
+
+  const [productVariant, setProductVaraint] = useState([]);
 
   const updatedSelectedFrameColors = (updatedColor, checked) => {
     const updatedFrameColors = () => {
@@ -25,8 +29,6 @@ const AddProductVariants = () => {
     };
     setProductFrameColors(updatedFrameColors());
   };
-
-  const [productVariant, setProductVaraint] = useState([]);
 
   const handleSubmittedProductsVariant = async (e) => {
     e.preventDefault();
@@ -60,6 +62,12 @@ const AddProductVariants = () => {
       try {
         async function fetchData() {
           const fetchedGlasses = await viewParticularProduct(glassesId);
+
+          const colors = fetchedGlasses.frame_information.frame_variants.map(
+            (variant) => variant.color
+          );
+
+          setProductFrameColors(colors);
         }
         fetchData();
       } catch (error) {

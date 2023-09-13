@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useFetcher, useParams } from "react-router-dom";
 
 import {
   newProduct,
@@ -282,6 +282,10 @@ const AddProducts = () => {
         console.log("error getting particular glasses.");
       }
     }
+  }, [glassesId]);
+
+  useEffect(() => {
+    setResponseGlassesId(glassesId);
   }, [glassesId]);
 
   return (

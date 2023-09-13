@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
@@ -11,7 +11,9 @@ import InformationTable from "../../../layouts/Admin/InformationTable/Informatio
 
 import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
-import data from "../../../data/Admin/informationTableData";
+// import data from "../../../data/Admin/informationTableData";
+
+import { getAllUsers } from "../../../../src/services/Admin/admin";
 
 const UsersPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,6 +30,21 @@ const UsersPage = () => {
   const changeModalHandle = (title, action) => {
     setCloseModal(!closeModal);
     setModalType({ ...modalType, title: title, action: action });
+  };
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
+  const fetchAllUsers = async () => {
+    try {
+      const fetchAllUsers = await getAllUsers();
+      setUsers(fetchAllUsers);
+    } catch (error) {
+      console.error("Error fetching giftcards", error);
+    }
   };
 
   return (
@@ -116,7 +133,7 @@ const UsersPage = () => {
           {/* table */}
           <div className="">
             <InformationTable
-              data={data}
+              data={users}
               query={searchQuery}
               onCloseModal={changeModalHandle}
             />

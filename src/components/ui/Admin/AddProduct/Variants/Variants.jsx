@@ -119,6 +119,7 @@ const Variants = ({ productFrameColors, updateVariants }) => {
                           className="object-contain"
                           src={URL.createObjectURL(productVariantImage)}
                           alt="product"
+                          loading="lazy"
                         />
                       </div>
                     </div>

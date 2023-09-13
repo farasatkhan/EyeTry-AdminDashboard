@@ -133,6 +133,12 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                 scope="col"
                 className="px-2 py-3 font-normal whitespace-nowrap"
               >
+                Name
+              </th>
+              <th
+                scope="col"
+                className="px-2 py-3 font-normal whitespace-nowrap"
+              >
                 Email
               </th>
               <th
@@ -151,13 +157,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                 scope="col"
                 className="px-2 py-3 font-normal whitespace-nowrap"
               >
-                Last Active
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-3 font-normal whitespace-nowrap"
-              >
-                Amount Spent
+                City
               </th>
               <th
                 scope="col"
@@ -191,17 +191,15 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                       </div>
                     </div>
                   </td>
+                  <td className="px-2 py-3 whitespace-nowrap">
+                    {user.firstName + " " + user.lastName}
+                  </td>
                   <td className="px-2 py-3 whitespace-nowrap">{user.email}</td>
                   <td className="px-2 py-3 whitespace-nowrap">{user.phone}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
                     {checkStatus(user.status)}
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {user.last_active}
-                  </td>
-                  <td className="px-2 py-3 whitespace-nowrap">
-                    {user.amount_spent}
-                  </td>
+                  <td className="px-2 py-3 whitespace-nowrap">{user.city}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
                     {user.country}
                   </td>
