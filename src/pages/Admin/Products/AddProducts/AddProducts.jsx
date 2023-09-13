@@ -70,8 +70,21 @@ const AddProducts = () => {
     "TR-90",
   ]);
 
-  const [productFrameSizes, setProductFrameSizes] = useState([]);
-  const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
+  const [productFrameSizes, setProductFrameSizes] = useState([
+    "Small",
+    "Medium",
+    "Large",
+  ]);
+
+  const [productFrameFaceShape, setProductFrameFaceShape] = useState([
+    "Round Face",
+    "Square Face",
+    "Oval Face",
+    "Heart-shaped Face",
+    "Diamond Face",
+    "Rectangle/Long Face",
+  ]);
+
   const [productFrameGender, setProductFrameGender] = useState([]);
   const [productFrameColors, setProductFrameColors] = useState([]);
 
@@ -249,6 +262,12 @@ const AddProducts = () => {
 
           setProductFrameMaterials(
             fetchedGlasses.frame_information.frame_material
+          );
+
+          setProductFrameSizes(fetchedGlasses.frame_information.frame_size);
+
+          setProductFrameFaceShape(
+            fetchedGlasses.person_information.face_shape
           );
         }
         fetchData();

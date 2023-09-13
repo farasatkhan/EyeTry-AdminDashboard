@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
 
 const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
-  const [frameSizeList, setFrameSizeList] = useState([
-    "Small",
-    "Medium",
-    "Large",
-  ]);
+  const [frameSizeList, setFrameSizeList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
 
@@ -15,7 +11,8 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
 
   const handleSubmittedNewFrameSize = async () => {
     if (!frameSizeList.includes(addNewFrameSize)) {
-      setFrameSizeList((prevFrameSize) => [...prevFrameSize, addNewFrameSize]);
+      // setFrameSizeList((prevFrameSize) => [...prevFrameSize, addNewFrameSize]);
+      updateSelectedFrameSizes(addNewFrameSize, true);
     } else {
       console.log("Frame size is already present.");
     }
@@ -25,6 +22,10 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
     const value = event.target.labels[0].textContent;
     updateSelectedFrameSizes(value, event.target.checked);
   };
+
+  useEffect(() => {
+    setFrameSizeList(selectedFrameSizes);
+  }, [selectedFrameSizes]);
 
   return (
     <>
@@ -42,6 +43,7 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
                   className="w-5 h-5 cursor-pointer"
                   id={`frameSize-${index}`}
                   onChange={handleSelectedFrameSize}
+                  checked={true}
                 />
                 <label
                   htmlFor={`frameSize-${index}`}

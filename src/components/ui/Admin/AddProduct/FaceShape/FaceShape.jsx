@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
 
@@ -6,14 +6,7 @@ const FaceShape = ({
   selectedFrameFaceShape,
   updateSelectedFrameFaceShape,
 }) => {
-  const [faceShapeList, setFaceShapeList] = useState([
-    "Round Face",
-    "Square Face",
-    "Oval Face",
-    "Heart-shaped Face",
-    "Diamond Face",
-    "Rectangle/Long Face",
-  ]);
+  const [faceShapeList, setFaceShapeList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
 
@@ -35,6 +28,10 @@ const FaceShape = ({
     updateSelectedFrameFaceShape(value, event.target.checked);
   };
 
+  useEffect(() => {
+    setFaceShapeList(selectedFrameFaceShape);
+  }, [selectedFrameFaceShape]);
+
   return (
     <>
       <div className="pl-4 py-4">
@@ -51,6 +48,7 @@ const FaceShape = ({
                   className="w-5 h-5 cursor-pointer"
                   id={`faceShape-${index}`}
                   onChange={handleSelectedFaceShapes}
+                  checked={true}
                 />
                 <label
                   htmlFor={`faceShape-${index}`}
