@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { BsX } from "react-icons/bs";
 
@@ -6,11 +6,7 @@ const FrameMaterial = ({
   selectedFrameMaterials,
   updateSelectedFrameMaterials,
 }) => {
-  const [frameMaterialList, setFrameMaterialList] = useState([
-    "Acetate",
-    "Metal",
-    "TR-90",
-  ]);
+  const [frameMaterialList, setFrameMaterialList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
 
@@ -18,10 +14,11 @@ const FrameMaterial = ({
 
   const handleSubmittedFrameMaterial = async () => {
     if (!frameMaterialList.includes(addNewFrameMaterial)) {
-      setFrameMaterialList((prevFrameMaterials) => [
-        ...prevFrameMaterials,
-        addNewFrameMaterial,
-      ]);
+      // setFrameMaterialList((prevFrameMaterials) => [
+      //   ...prevFrameMaterials,
+      //   addNewFrameMaterial,
+      // ]);
+      updateSelectedFrameMaterials(addNewFrameMaterial, true);
     } else {
       console.log("Frame material is already present.");
     }
@@ -31,6 +28,10 @@ const FrameMaterial = ({
     const value = event.target.labels[0].textContent;
     updateSelectedFrameMaterials(value, event.target.checked);
   };
+
+  useEffect(() => {
+    setFrameMaterialList(selectedFrameMaterials);
+  }, [selectedFrameMaterials]);
 
   return (
     <>
@@ -47,6 +48,7 @@ const FrameMaterial = ({
                   type="checkbox"
                   className="w-5 h-5 cursor-pointer"
                   id={`frameMaterial-${index}`}
+                  checked={true}
                   onChange={handleSelectedFrameMaterials}
                 />
                 <label

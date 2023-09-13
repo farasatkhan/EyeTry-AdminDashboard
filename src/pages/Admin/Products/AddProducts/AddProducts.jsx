@@ -64,7 +64,12 @@ const AddProducts = () => {
     "Kids",
   ]);
 
-  const [productFrameMaterials, setProductFrameMaterials] = useState([]);
+  const [productFrameMaterials, setProductFrameMaterials] = useState([
+    "Acetate",
+    "Metal",
+    "TR-90",
+  ]);
+
   const [productFrameSizes, setProductFrameSizes] = useState([]);
   const [productFrameFaceShape, setProductFrameFaceShape] = useState([]);
   const [productFrameGender, setProductFrameGender] = useState([]);
@@ -241,6 +246,10 @@ const AddProducts = () => {
           console.log(fetchedGlasses.categories);
 
           setProductCategories(fetchedGlasses.categories);
+
+          setProductFrameMaterials(
+            fetchedGlasses.frame_information.frame_material
+          );
         }
         fetchData();
       } catch (error) {
