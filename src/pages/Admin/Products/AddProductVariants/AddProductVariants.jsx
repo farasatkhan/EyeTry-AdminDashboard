@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { addProductImages } from "../../../../services/Products/glasses";
@@ -9,7 +9,11 @@ import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Varian
 const AddProductVariants = () => {
   const { glassesId } = useParams();
 
-  const [productFrameColors, setProductFrameColors] = useState([]);
+  const [productFrameColors, setProductFrameColors] = useState([
+    "Black",
+    "White",
+    "Metallic",
+  ]);
 
   const updatedSelectedFrameColors = (updatedColor, checked) => {
     const updatedFrameColors = () => {
@@ -50,6 +54,19 @@ const AddProductVariants = () => {
       console.error("Failed to add product:", error);
     }
   };
+
+  useEffect(() => {
+    if (glassesId) {
+      try {
+        async function fetchData() {
+          const fetchedGlasses = await viewParticularProduct(glassesId);
+        }
+        fetchData();
+      } catch (error) {
+        console.log("error getting particular glasses.");
+      }
+    }
+  }, [glassesId]);
 
   return (
     <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col">

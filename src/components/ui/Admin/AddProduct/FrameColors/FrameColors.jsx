@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
 
 const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
-  const [colorsList, setColorsList] = useState(["Black", "White", "Metallic"]);
+  const [colorsList, setColorsList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
 
@@ -11,7 +11,8 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
 
   const handleSubmittedColor = async () => {
     if (!colorsList.includes(addNewColor)) {
-      setColorsList((prevColors) => [...prevColors, addNewColor]);
+      // setColorsList((prevColors) => [...prevColors, addNewColor]);
+      updateSelectedFrameColors(addNewColor, true);
     } else {
       console.log("color is already present.");
     }
@@ -21,6 +22,10 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
     const value = event.target.labels[0].textContent;
     updateSelectedFrameColors(value, event.target.checked);
   };
+
+  useEffect(() => {
+    setColorsList(selectedFrameColors);
+  }, [selectedFrameColors]);
 
   return (
     <>
@@ -38,6 +43,7 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
                   className="w-5 h-5 cursor-pointer"
                   id={`color-${index}`}
                   onChange={handleSelectedColors}
+                  checked={true}
                 />
                 <label htmlFor={`color-${index}`} className="cursor-pointer">
                   {color}
