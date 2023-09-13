@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
 
 const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
-  const [gendersList, setGendersList] = useState(["Male", "Female", "Kids"]);
+  const [gendersList, setGendersList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
 
@@ -11,7 +11,8 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
 
   const handleSubmittedGenders = async () => {
     if (!gendersList.includes(addNewGender)) {
-      setGendersList((prevGenders) => [...prevGenders, addNewGender]);
+      // setGendersList((prevGenders) => [...prevGenders, addNewGender]);
+      updateSelectedFrameGender(addNewGender, true);
     } else {
       console.log("gender is already present.");
     }
@@ -21,6 +22,10 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
     const value = event.target.labels[0].textContent;
     updateSelectedFrameGender(value, event.target.checked);
   };
+
+  useEffect(() => {
+    setGendersList(selectedFrameGender);
+  }, [selectedFrameGender]);
 
   return (
     <>
@@ -38,6 +43,7 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
                   className="w-5 h-5 cursor-pointer"
                   id={`gender-${index}`}
                   onChange={handleSelectedGenders}
+                  checked={true}
                 />
                 <label htmlFor={`gender-${index}`} className="cursor-pointer">
                   {gender}

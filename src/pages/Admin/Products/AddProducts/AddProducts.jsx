@@ -85,7 +85,12 @@ const AddProducts = () => {
     "Rectangle/Long Face",
   ]);
 
-  const [productFrameGender, setProductFrameGender] = useState([]);
+  const [productFrameGender, setProductFrameGender] = useState([
+    "Male",
+    "Female",
+    "Kids",
+  ]);
+
   const [productFrameColors, setProductFrameColors] = useState([]);
 
   const [responseGlassesId, setResponseGlassesId] = useState(null);
@@ -269,6 +274,8 @@ const AddProducts = () => {
           setProductFrameFaceShape(
             fetchedGlasses.person_information.face_shape
           );
+
+          setProductFrameGender(fetchedGlasses.person_information.genders);
         }
         fetchData();
       } catch (error) {

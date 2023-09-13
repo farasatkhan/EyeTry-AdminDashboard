@@ -14,10 +14,11 @@ const FaceShape = ({
 
   const handleSubmittedFaceShape = async () => {
     if (!faceShapeList.includes(addNewFaceShape)) {
-      setFaceShapeList((prevFaceShapeList) => [
-        ...prevFaceShapeList,
-        addNewFaceShape,
-      ]);
+      // setFaceShapeList((prevFaceShapeList) => [
+      //   ...prevFaceShapeList,
+      //   addNewFaceShape,
+      // ]);
+      updateSelectedFrameFaceShape(addNewFaceShape, true);
     } else {
       console.log("Face shape is already present.");
     }
