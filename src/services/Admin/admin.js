@@ -46,3 +46,21 @@ export const getAllOrders = async () => {
         throw error;
     }
 }
+
+export const banUser = async (userId, banned_until, banned_reason) => {
+    try {
+        const response = await axios.put('/admin/user/ban', {userId, banned_until, banned_reason});
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const unbanUser = async (userId) => {
+    try {
+        const response = await axios.put('/admin/user/unban', {userId});
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
