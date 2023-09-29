@@ -63,7 +63,7 @@ const Categories = ({ selectedCategories, updateSelectedCategories }) => {
               New category
             </label>
             <input
-              id="category"
+              id="new_category"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"
               value={addCategory}

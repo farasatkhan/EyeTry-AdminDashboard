@@ -24,12 +24,13 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
       <div className="px-5 py-5">
         <div className="flex mb-4 gap-20">
           <div className="flex flex-grow flex-col">
-            <label htmlFor="subcategory" className="text-sm mb-1 w-2/3">
+            <label htmlFor="measurement_type" className="text-sm mb-1 w-2/3">
               Measurement in
             </label>
             <div className="flex flex-grow mt-2">
               <select
                 value={lensInformation.measurement_type}
+                id="measurement_type"
                 onChange={(event) =>
                   updateLensInformation({
                     ...lensInformation,
@@ -47,11 +48,12 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
             </div>
           </div>
           <div className="flex flex-grow flex-col">
-            <label htmlFor="subcategory" className="text-sm mb-1 w-2/3">
+            <label htmlFor="is_multifocal" className="text-sm mb-1 w-2/3">
               Is multifocal
             </label>
             <div className="flex flex-grow mt-2">
               <select
+                id="is_multifocal"
                 value={lensInformation.is_multifocal}
                 onChange={(event) =>
                   updateLensInformation({

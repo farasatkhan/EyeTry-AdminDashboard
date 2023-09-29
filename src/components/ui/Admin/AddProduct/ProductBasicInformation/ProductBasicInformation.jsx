@@ -89,6 +89,7 @@ const ProductBasicInformation = ({
           </label>
           <div className="flex flex-grow mt-2">
             <select
+              id="subcategory"
               value={basicProductInformation.type}
               onChange={(e) =>
                 updateBasicProductInformation({

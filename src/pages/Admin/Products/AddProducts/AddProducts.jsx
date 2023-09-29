@@ -47,10 +47,14 @@ const AddProducts = () => {
   const [stockStatus, setStockStatus] = useState("");
 
   const [metaDetails, setMetaDetails] = useState({
-    title: "",
-    keywords: "",
-    description: "",
+    meta_title: "",
+    meta_keywords: "",
+    meta_description: "",
   });
+
+  useEffect(() => {
+    console.log(metaDetails);
+  }, [metaDetails]);
 
   const [productPricing, setProductPricing] = useState({
     price: 0,

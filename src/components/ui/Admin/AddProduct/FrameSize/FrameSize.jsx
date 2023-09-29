@@ -73,11 +73,11 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
             <span className="text-sm">Add a new frame size</span>
           </div>
           <div className={`${toggleInputbox ? "block" : "hidden"} mt-4`}>
-            <label htmlFor="new_category" className="text-sm">
+            <label htmlFor="frame_size" className="text-sm">
               New frame size
             </label>
             <input
-              id="category"
+              id="frame_size"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"
               value={addNewFrameSize}

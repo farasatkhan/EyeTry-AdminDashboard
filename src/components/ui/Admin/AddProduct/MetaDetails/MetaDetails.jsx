@@ -29,11 +29,11 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={metaDetails.title}
+            value={metaDetails.meta_title}
             onChange={(event) =>
               updateMetaDetails({
                 ...metaDetails,
-                title: event.target.value,
+                meta_title: event.target.value,
               })
             }
           />
@@ -47,11 +47,11 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={metaDetails.keywords}
+            value={metaDetails.meta_keywords}
             onChange={(event) =>
               updateMetaDetails({
                 ...metaDetails,
-                keywords: event.target.value,
+                meta_keywords: event.target.value,
               })
             }
           />
@@ -65,11 +65,11 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             rows={3}
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
-            value={metaDetails.description}
+            value={metaDetails.meta_description}
             onChange={(event) =>
               updateMetaDetails({
                 ...metaDetails,
-                description: event.target.value,
+                meta_description: event.target.value,
               })
             }
           />
