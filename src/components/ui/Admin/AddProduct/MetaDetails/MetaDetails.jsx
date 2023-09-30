@@ -25,6 +25,7 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             Title
           </label>
           <input
+            maxLength={70}
             id="meta_title"
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
@@ -43,6 +44,7 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             Keywords Separated by Comma
           </label>
           <input
+            maxLength={100}
             id="meta_keywords"
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
@@ -61,8 +63,9 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
             Description
           </label>
           <textarea
+            maxLength={750}
             id="meta_description"
-            rows={3}
+            rows={10}
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
             value={metaDetails.meta_description}

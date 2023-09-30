@@ -78,17 +78,35 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               Lens Width
             </label>
             <input
+              min={0}
+              max={999}
               id="lens_width"
-              type="text"
+              type="number"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
               value={lensInformation.lens_width}
-              onChange={(event) =>
-                updateLensInformation({
-                  ...lensInformation,
-                  lens_width: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                let value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 999)
+                ) {
+                  updateLensInformation({
+                    ...lensInformation,
+                    lens_width: result,
+                  });
+                }
+              }}
             />
           </div>
           <div className="flex flex-col">
@@ -96,17 +114,35 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               Lens Height
             </label>
             <input
+              min={0}
+              max={999}
               id="lens_height"
-              type="text"
+              type="number"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
               value={lensInformation.lens_height}
-              onChange={(event) =>
-                updateLensInformation({
-                  ...lensInformation,
-                  lens_height: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                const value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 999)
+                ) {
+                  updateLensInformation({
+                    ...lensInformation,
+                    lens_height: result,
+                  });
+                }
+              }}
             />
           </div>
           <div className="flex flex-col">
@@ -114,17 +150,35 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               Total Width
             </label>
             <input
+              min={0}
+              max={999}
               id="total_width"
-              type="text"
+              type="number"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
               value={lensInformation.total_width}
-              onChange={(event) =>
-                updateLensInformation({
-                  ...lensInformation,
-                  total_width: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                const value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 999)
+                ) {
+                  updateLensInformation({
+                    ...lensInformation,
+                    total_width: result,
+                  });
+                }
+              }}
             />
           </div>
         </div>
@@ -134,17 +188,35 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               Template Length
             </label>
             <input
+              min={0}
+              max={999}
               id="temple_length"
-              type="text"
+              type="number"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
               value={lensInformation.temple_length}
-              onChange={(event) =>
-                updateLensInformation({
-                  ...lensInformation,
-                  temple_length: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                const value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 999)
+                ) {
+                  updateLensInformation({
+                    ...lensInformation,
+                    temple_length: result,
+                  });
+                }
+              }}
             />
           </div>
           <div className="flex flex-col">
@@ -152,17 +224,35 @@ const LensInformation = ({ lensInformation, updateLensInformation }) => {
               Bridge Width
             </label>
             <input
+              min={0}
+              max={999}
               id="bridge_width"
-              type="text"
+              type="number"
               className="border p-2 rounded-md w-full outline-none text-sm"
               autoComplete="off"
               value={lensInformation.bridge_width}
-              onChange={(event) =>
-                updateLensInformation({
-                  ...lensInformation,
-                  bridge_width: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                const value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 999)
+                ) {
+                  updateLensInformation({
+                    ...lensInformation,
+                    bridge_width: result,
+                  });
+                }
+              }}
             />
           </div>
         </div>

@@ -24,8 +24,10 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
           <label htmlFor="price">Price</label>
           <div className="flex">
             <input
+              min={0}
+              max={99999}
               id="price"
-              type="text"
+              type="number"
               className="border p-2 rounded-s-md w-full outline-none text-sm"
               placeholder="0.00"
               value={productPricing.price}
@@ -60,8 +62,10 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
           <label htmlFor="discount">Discount in percentage</label>
           <div className="flex">
             <input
+              min={0}
+              max={100}
               id="discount"
-              type="text"
+              type="number"
               className="border p-2 rounded-md w-full outline-none text-sm"
               placeholder="0%"
               value={productPricing.discount}

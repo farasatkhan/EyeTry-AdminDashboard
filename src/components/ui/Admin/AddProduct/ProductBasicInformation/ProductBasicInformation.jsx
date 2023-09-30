@@ -34,6 +34,7 @@ const ProductBasicInformation = ({
             Product Name
           </label>
           <input
+            maxLength={70}
             id="product_name"
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
@@ -52,6 +53,7 @@ const ProductBasicInformation = ({
             SKU
           </label>
           <input
+            maxLength={50}
             id="sku"
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
@@ -70,6 +72,7 @@ const ProductBasicInformation = ({
             Manufacturer
           </label>
           <input
+            maxLength={50}
             id="manufacturer"
             type="text"
             className="border p-2 rounded-md w-full outline-none text-sm"
@@ -116,7 +119,8 @@ const ProductBasicInformation = ({
           </label>
           <textarea
             id="description"
-            rows={3}
+            maxLength={750}
+            rows={15}
             className="border p-2 rounded-md w-full outline-none text-sm"
             autoComplete="off"
             value={basicProductInformation.description}
