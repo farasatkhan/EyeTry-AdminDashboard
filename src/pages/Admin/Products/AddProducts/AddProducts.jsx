@@ -79,6 +79,15 @@ const AddProducts = () => {
 
   const [stockStatus, setStockStatus] = useState("");
 
+  const [stockStatusError, setStockStatusError] = useState("");
+
+  useEffect(() => {
+    if (stockStatus) {
+      setStockStatusError("");
+      return;
+    }
+  }, [stockStatus]);
+
   const [metaDetails, setMetaDetails] = useState({
     meta_title: "",
     meta_keywords: "",
@@ -123,17 +132,45 @@ const AddProducts = () => {
     "Kids",
   ]);
 
+  const [productCategoriesError, setProductCategoriesError] = useState("");
+
+  useEffect(() => {
+    if (productCategories.length > 0) {
+      setProductCategoriesError("");
+      return;
+    }
+  }, [productCategories]);
+
   const [productFrameMaterials, setProductFrameMaterials] = useState([
     "Acetate",
     "Metal",
     "TR-90",
   ]);
 
+  const [productFrameMaterialsError, setProductFrameMaterialsError] =
+    useState("");
+
+  useEffect(() => {
+    if (productFrameMaterials.length > 0) {
+      setProductFrameMaterialsError("");
+      return;
+    }
+  }, [productFrameMaterials]);
+
   const [productFrameSizes, setProductFrameSizes] = useState([
     "Small",
     "Medium",
     "Large",
   ]);
+
+  const [productFrameSizesError, setProductFrameSizesError] = useState("");
+
+  useEffect(() => {
+    if (productFrameSizes.length > 0) {
+      setProductFrameSizesError("");
+      return;
+    }
+  }, [productFrameSizes]);
 
   const [productFrameFaceShape, setProductFrameFaceShape] = useState([
     "Round Face",
@@ -144,11 +181,30 @@ const AddProducts = () => {
     "Rectangle/Long Face",
   ]);
 
+  const [productFrameFaceShapeError, setProductFrameFaceShapeError] =
+    useState("");
+
+  useEffect(() => {
+    if (productFrameFaceShape.length > 0) {
+      setProductFrameFaceShapeError("");
+      return;
+    }
+  }, [productFrameFaceShape]);
+
   const [productFrameGender, setProductFrameGender] = useState([
     "Male",
     "Female",
     "Kids",
   ]);
+
+  const [productFrameGenderError, setProductFrameGenderError] = useState("");
+
+  useEffect(() => {
+    if (productFrameGender.length > 0) {
+      setProductFrameGenderError("");
+      return;
+    }
+  }, [productFrameGender]);
 
   const [productFrameColors, setProductFrameColors] = useState([]);
 
@@ -285,6 +341,38 @@ const AddProducts = () => {
       setProductPricingError("Please fill out all required fields.");
       return;
     }
+
+    if (productCategories.length === 0) {
+      setProductCategoriesError("Select atleast one category.");
+      return;
+    }
+
+    if (productFrameMaterials.length === 0) {
+      setProductFrameMaterialsError("Select atleast one frame material.");
+      return;
+    }
+
+    if (productFrameSizes.length === 0) {
+      setProductFrameSizesError("Select atleast one frame size.");
+      return;
+    }
+
+    if (productFrameFaceShape.length === 0) {
+      setProductFrameFaceShapeError("Select atleast one face shape.");
+      return;
+    }
+
+    if (productFrameGender.length === 0) {
+      setProductFrameGenderError("Select atleast one frame gender category.");
+      return;
+    }
+
+    if (!stockStatus) {
+      setStockStatusError("Select one from the following.");
+      return;
+    }
+
+    console.log("product categories are: ", productCategories);
 
     const productInformation = {
       ...productBasicInformation,
@@ -463,30 +551,35 @@ const AddProducts = () => {
               <Categories
                 selectedCategories={productCategories}
                 updateSelectedCategories={updatedProductCategories}
+                categoriesError={productCategoriesError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <FrameMaterial
                 selectedFrameMaterials={productFrameMaterials}
                 updateSelectedFrameMaterials={updatedProductFrameMaterials}
+                materialError={productFrameMaterialsError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <FrameSize
                 selectedFrameSizes={productFrameSizes}
                 updateSelectedFrameSizes={updatedSelectedFrameSize}
+                sizeError={productFrameSizesError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <FaceShape
                 selectedFrameFaceShape={productFrameFaceShape}
                 updateSelectedFrameFaceShape={updatedSelectedFrameFaceShape}
+                shapeError={productFrameFaceShapeError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <Gender
                 selectedFrameGender={productFrameGender}
                 updateSelectedFrameGender={updatedSelectedFrameGenders}
+                genderError={productFrameGenderError}
               />
             </div>
             {/* <div className="bg-white border shadow mb-10 rounded-lg">
@@ -499,6 +592,7 @@ const AddProducts = () => {
               <StockStatus
                 currentStockStatus={stockStatus}
                 updateStockStatus={updateStockStatus}
+                stockStatusError={stockStatusError}
               />
             </div>
           </div>

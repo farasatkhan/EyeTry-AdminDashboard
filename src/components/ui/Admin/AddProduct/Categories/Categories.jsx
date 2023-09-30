@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const Categories = ({ selectedCategories, updateSelectedCategories }) => {
+import { BiSolidErrorCircle } from "react-icons/bi";
+
+const Categories = ({
+  selectedCategories,
+  updateSelectedCategories,
+  categoriesError,
+}) => {
   const [categoriesList, setCategoriesList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
@@ -83,6 +89,14 @@ const Categories = ({ selectedCategories, updateSelectedCategories }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="mb-4">
+          {categoriesError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{categoriesError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>

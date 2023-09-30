@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
+import { BiSolidErrorCircle } from "react-icons/bi";
 
-const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
+const FrameSize = ({
+  selectedFrameSizes,
+  updateSelectedFrameSizes,
+  sizeError,
+}) => {
   const [frameSizeList, setFrameSizeList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
@@ -97,6 +102,14 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="mb-4">
+          {sizeError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{sizeError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>

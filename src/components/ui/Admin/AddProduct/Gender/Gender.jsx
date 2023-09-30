@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
+import { BiSolidErrorCircle } from "react-icons/bi";
 
-const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
+const Gender = ({
+  selectedFrameGender,
+  updateSelectedFrameGender,
+  genderError,
+}) => {
   const [gendersList, setGendersList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
@@ -94,6 +99,14 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="mb-4">
+          {genderError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{genderError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>

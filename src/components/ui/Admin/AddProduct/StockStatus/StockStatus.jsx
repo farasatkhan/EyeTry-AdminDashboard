@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
+import { BiSolidErrorCircle } from "react-icons/bi";
+
+const StockStatus = ({
+  currentStockStatus,
+  updateStockStatus,
+  stockStatusError,
+}) => {
   // const [stockStatus, setStockStatus] = useState(currentStockStatus);
 
   // useEffect(() => {
@@ -65,6 +71,14 @@ const StockStatus = ({ currentStockStatus, updateStockStatus }) => {
           <label htmlFor="low_stock" className="mr-4 cursor-pointer">
             Low stock
           </label>
+        </div>
+        <div className="mb-3">
+          {stockStatusError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{stockStatusError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>

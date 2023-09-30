@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
+import { BiSolidErrorCircle } from "react-icons/bi";
 
 const FaceShape = ({
   selectedFrameFaceShape,
   updateSelectedFrameFaceShape,
+  shapeError,
 }) => {
   const [faceShapeList, setFaceShapeList] = useState([]);
 
@@ -103,6 +105,14 @@ const FaceShape = ({
               </div>
             </div>
           </div>
+        </div>
+        <div className="mb-4">
+          {shapeError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{shapeError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>
