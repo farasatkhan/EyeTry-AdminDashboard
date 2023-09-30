@@ -31,12 +31,28 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
               className="border p-2 rounded-s-md w-full outline-none text-sm"
               placeholder="0.00"
               value={productPricing.price}
-              onChange={(event) =>
-                updateProductPricing({
-                  ...productPricing,
-                  price: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                const value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 99999)
+                ) {
+                  updateProductPricing({
+                    ...productPricing,
+                    price: result,
+                  });
+                }
+              }}
             />
             <select
               id="currency"
@@ -69,12 +85,28 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
               className="border p-2 rounded-md w-full outline-none text-sm"
               placeholder="0%"
               value={productPricing.discount}
-              onChange={(event) =>
-                updateProductPricing({
-                  ...productPricing,
-                  discount: event.target.value,
-                })
-              }
+              onChange={(event) => {
+                const value = event.target.value;
+
+                const formattedValue = value.replace(/[^0-9.]/g, "");
+                const parts = formattedValue.split(".");
+
+                if (parts.length > 1) {
+                  parts[1] = parts[1].slice(0, 2);
+                }
+
+                const result = parts.join(".");
+
+                if (
+                  result === "" ||
+                  (parseFloat(result) >= 0 && parseFloat(result) <= 100)
+                ) {
+                  updateProductPricing({
+                    ...productPricing,
+                    discount: result,
+                  });
+                }
+              }}
             />
           </div>
         </div>
