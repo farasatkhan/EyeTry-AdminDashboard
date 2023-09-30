@@ -52,7 +52,7 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
                   {frameSize}
                 </label>
               </div>
-              <div
+              {/* <div
                 className="flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setFrameSizeList(
@@ -61,7 +61,7 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
                 }}
               >
                 <BsX size={25} />
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -70,13 +70,16 @@ const FrameSize = ({ selectedFrameSizes, updateSelectedFrameSizes }) => {
             className="cursor-pointer text-blue-500 underline select-none"
             onClick={() => setToggleInputbox(!toggleInputbox)}
           >
-            <span className="text-sm">Add a new frame size</span>
+            <span className="text-sm">
+              {toggleInputbox ? "Hide frame size" : "Add frame size"}
+            </span>
           </div>
           <div className={`${toggleInputbox ? "block" : "hidden"} mt-4`}>
             <label htmlFor="frame_size" className="text-sm">
               New frame size
             </label>
             <input
+              maxLength={25}
               id="frame_size"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"

@@ -60,7 +60,12 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
         </div>
         <div className="mb-3">
           <label htmlFor="meta_description" className="text-sm">
-            Description
+            <div className="flex justify-between mb-2">
+              <span>Description</span>
+              <span className="text-gray-400 text-xs">
+                Max 750 characters are allowed
+              </span>
+            </div>
           </label>
           <textarea
             maxLength={750}

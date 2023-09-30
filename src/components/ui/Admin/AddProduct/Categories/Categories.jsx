@@ -56,13 +56,16 @@ const Categories = ({ selectedCategories, updateSelectedCategories }) => {
             className="cursor-pointer text-blue-500 underline select-none"
             onClick={() => setToggleInputbox(!toggleInputbox)}
           >
-            <span className="text-sm">Add a new category</span>
+            <span className="text-sm">
+              {toggleInputbox ? "Hide input category" : "Add a new category"}
+            </span>
           </div>
           <div className={`${toggleInputbox ? "block" : "hidden"} mt-4`}>
             <label htmlFor="new_category" className="text-sm">
               New category
             </label>
             <input
+              maxLength={25}
               id="new_category"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"

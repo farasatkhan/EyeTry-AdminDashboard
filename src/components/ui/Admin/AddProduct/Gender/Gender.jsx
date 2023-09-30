@@ -49,7 +49,7 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
                   {gender}
                 </label>
               </div>
-              <div
+              {/* <div
                 className="flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setGendersList(
@@ -58,7 +58,7 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
                 }}
               >
                 <BsX size={25} />
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -67,13 +67,16 @@ const Gender = ({ selectedFrameGender, updateSelectedFrameGender }) => {
             className="cursor-pointer text-blue-500 underline select-none"
             onClick={() => setToggleInputbox(!toggleInputbox)}
           >
-            <span className="text-sm">Add a new gender type</span>
+            <span className="text-sm">
+              {toggleInputbox ? "Hide gender type" : "Add gender type"}
+            </span>
           </div>
           <div className={`${toggleInputbox ? "block" : "hidden"} mt-4`}>
             <label htmlFor="gender_type" className="text-sm">
               New gender
             </label>
             <input
+              maxLength={10}
               id="gender_type"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"

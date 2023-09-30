@@ -58,7 +58,7 @@ const FrameMaterial = ({
                   {frameMaterial}
                 </label>
               </div>
-              <div
+              {/* <div
                 className="flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setFrameMaterialList(
@@ -69,7 +69,7 @@ const FrameMaterial = ({
                 }}
               >
                 <BsX size={25} />
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -78,13 +78,16 @@ const FrameMaterial = ({
             className="cursor-pointer text-blue-500 underline select-none"
             onClick={() => setToggleInputbox(!toggleInputbox)}
           >
-            <span className="text-sm">Add a new frame material</span>
+            <span className="text-sm">
+              {toggleInputbox ? "Hide frame material" : "Add frame material"}
+            </span>
           </div>
           <div className={`${toggleInputbox ? "block" : "hidden"} mt-4`}>
             <label htmlFor="frame_material" className="text-sm">
               New frame material
             </label>
             <input
+              maxLength={25}
               id="frame_material"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"

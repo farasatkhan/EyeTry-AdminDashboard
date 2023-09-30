@@ -115,7 +115,12 @@ const ProductBasicInformation = ({
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="text-sm">
-            Product Description
+            <div className="flex justify-between mb-2">
+              <span>Product Description</span>
+              <span className="text-gray-400 text-xs">
+                Max 750 characters are allowed
+              </span>
+            </div>
           </label>
           <textarea
             id="description"

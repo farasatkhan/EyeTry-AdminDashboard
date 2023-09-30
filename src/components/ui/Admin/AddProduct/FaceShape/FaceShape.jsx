@@ -58,7 +58,7 @@ const FaceShape = ({
                   {faceShape}
                 </label>
               </div>
-              <div
+              {/* <div
                 className="flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setFaceShapeList(
@@ -67,7 +67,7 @@ const FaceShape = ({
                 }}
               >
                 <BsX size={25} />
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -76,13 +76,16 @@ const FaceShape = ({
             className="cursor-pointer text-blue-500 underline select-none"
             onClick={() => setToggleInputbox(!toggleInputbox)}
           >
-            <span className="text-sm">Add a new face shape</span>
+            <span className="text-sm">
+              {toggleInputbox ? "Hide face shape" : "Add face shape"}
+            </span>
           </div>
           <div className={`${toggleInputbox ? "block" : "hidden"} mt-4`}>
             <label htmlFor="face_shape" className="text-sm">
               New face shape
             </label>
             <input
+              maxLength={25}
               id="face_shape"
               type="text"
               className="w-full p-2 border outline-none text-sm mt-2"
