@@ -34,6 +34,22 @@ const AddProducts = () => {
     type: "",
   });
 
+  const [productBasicInformationError, setProductBasicInformationError] =
+    useState("");
+
+  useEffect(() => {
+    if (
+      productBasicInformation.name &&
+      productBasicInformation.sku &&
+      productBasicInformation.description &&
+      productBasicInformation.manufacturer &&
+      productBasicInformation.type
+    ) {
+      setProductBasicInformationError("");
+      return;
+    }
+  }, [productBasicInformation]);
+
   const [productLensInformation, setProductLensInformation] = useState({
     measurement_type: "",
     lens_width: 0,
@@ -44,6 +60,23 @@ const AddProducts = () => {
     is_multifocal: false,
   });
 
+  const [productLensError, setProductLensError] = useState("");
+
+  useEffect(() => {
+    if (
+      productLensInformation.measurement_type &&
+      productLensInformation.lens_width &&
+      productLensInformation.lens_height &&
+      productLensInformation.total_width &&
+      productLensInformation.bridge_width &&
+      productLensInformation.temple_length &&
+      productLensInformation.is_multifocal
+    ) {
+      setProductLensError("");
+      return;
+    }
+  }, [productLensInformation]);
+
   const [stockStatus, setStockStatus] = useState("");
 
   const [metaDetails, setMetaDetails] = useState({
@@ -52,15 +85,37 @@ const AddProducts = () => {
     meta_description: "",
   });
 
+  const [metaDetailsError, setMetaDetailsError] = useState("");
+
+  useEffect(() => {
+    if (
+      metaDetails.meta_title &&
+      metaDetails.meta_keywords &&
+      metaDetails.meta_description
+    ) {
+      setMetaDetailsError("");
+      return;
+    }
+  }, [metaDetails]);
+
   useEffect(() => {
     console.log(metaDetails);
   }, [metaDetails]);
 
   const [productPricing, setProductPricing] = useState({
     price: 0,
-    currency: "",
+    currency: "USD",
     discount: 0.0,
   });
+
+  const [productPricingError, setProductPricingError] = useState("");
+
+  useEffect(() => {
+    if (productPricing.price && productPricing.currency) {
+      setProductPricingError("");
+      return;
+    }
+  }, [productPricing]);
 
   const [productCategories, setProductCategories] = useState([
     "Men",
@@ -192,6 +247,44 @@ const AddProducts = () => {
 
   const handleSubmittedProducts = async (e) => {
     e.preventDefault();
+
+    if (
+      !productBasicInformation.name ||
+      !productBasicInformation.sku ||
+      !productBasicInformation.description ||
+      !productBasicInformation.manufacturer ||
+      !productBasicInformation.type
+    ) {
+      setProductBasicInformationError("Please fill out all required fields.");
+      return;
+    }
+
+    if (
+      !metaDetails.meta_title ||
+      !metaDetails.meta_keywords ||
+      !metaDetails.meta_description
+    ) {
+      setMetaDetailsError("Please fill out all required fields.");
+      return;
+    }
+
+    if (
+      !productLensInformation.measurement_type ||
+      !productLensInformation.lens_width ||
+      !productLensInformation.lens_height ||
+      !productLensInformation.total_width ||
+      !productLensInformation.bridge_width ||
+      !productLensInformation.temple_length ||
+      !productLensInformation.is_multifocal
+    ) {
+      setProductLensError("Please fill out all required fields.");
+      return;
+    }
+
+    if (!productPricing.price || !productPricing.currency) {
+      setProductPricingError("Please fill out all required fields.");
+      return;
+    }
 
     const productInformation = {
       ...productBasicInformation,
@@ -328,18 +421,21 @@ const AddProducts = () => {
               <ProductBasicInformation
                 basicProductInformation={productBasicInformation}
                 updateBasicProductInformation={updateBasicProductInformation}
+                productError={productBasicInformationError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <MetaDetails
                 metaDetails={metaDetails}
                 updateMetaDetails={updateProductMetaDetails}
+                metaError={metaDetailsError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">
               <LensInformation
                 lensInformation={productLensInformation}
                 updateLensInformation={updateLensInformation}
+                lensError={productLensError}
               />
             </div>
             {/* <div className="bg-white border shadow mb-10 rounded-lg">
@@ -360,6 +456,7 @@ const AddProducts = () => {
               <Pricing
                 productPricing={productPricing}
                 updateProductPricing={updateProductPricing}
+                pricingError={productPricingError}
               />
             </div>
             <div className="bg-white border shadow mb-10 rounded-lg">

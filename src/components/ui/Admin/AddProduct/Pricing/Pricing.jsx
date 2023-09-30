@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-const Pricing = ({ productPricing, updateProductPricing }) => {
+import { BiSolidErrorCircle } from "react-icons/bi";
+
+const Pricing = ({ productPricing, updateProductPricing, pricingError }) => {
   // const [price, setPrice] = useState(productPricing.price);
   // const [currency, setCurrency] = useState(productPricing.currency);
   // const [discount, setDiscount] = useState(productPricing.discount);
@@ -108,6 +110,16 @@ const Pricing = ({ productPricing, updateProductPricing }) => {
                 }
               }}
             />
+          </div>
+        </div>
+        <div>
+          <div className="mb-3">
+            {pricingError && (
+              <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+                <BiSolidErrorCircle className="text-red-800" size={20} />
+                <div className="text-red-800">{pricingError}</div>
+              </div>
+            )}
           </div>
         </div>
       </div>

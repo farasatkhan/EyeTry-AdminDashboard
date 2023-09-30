@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
+import { BiSolidErrorCircle } from "react-icons/bi";
+
+const MetaDetails = ({ metaDetails, updateMetaDetails, metaError }) => {
   // const [title, setTitle] = useState(metaDetails.meta_title);
   // const [keywords, setKeywords] = useState(metaDetails.meta_keywords);
   // const [description, setDescription] = useState(metaDetails.meta_description);
@@ -81,6 +83,14 @@ const MetaDetails = ({ metaDetails, updateMetaDetails }) => {
               })
             }
           />
+        </div>
+        <div className="mb-3">
+          {metaError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{metaError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>
