@@ -22,6 +22,25 @@ const Variants = ({ productFrameColors, updateVariants }) => {
     console.log(productVariantsMultiple);
   };
 
+  const handleRemovingSelectedImage = (color, imageIndex) => {
+    setProductVariantsMultiple((prevVariants) => {
+      const updatedVariants = [...prevVariants];
+      const variantIndex = updatedVariants.findIndex(
+        (variant) => variant.color === color
+      );
+
+      if (
+        variantIndex !== -1 &&
+        imageIndex >= 0 &&
+        imageIndex < updatedVariants[variantIndex].images.length
+      ) {
+        updatedVariants[variantIndex].images.splice(imageIndex, 1);
+      }
+
+      return updatedVariants;
+    });
+  };
+
   const handleProductVariantQuantity = (color) => {
     const variant = productVariantsMultiple.find(
       (variant) => variant.color === color
@@ -126,9 +145,13 @@ const Variants = ({ productFrameColors, updateVariants }) => {
                         />
                       </div>
                     </div>
-                    <div className="flex justify-between items-center py-2 px-5">
-                      <AiOutlineStar size={20} className="cursor-pointer" />
-                      <div onClick={() => handleRemovingSelectedImage()}>
+                    <div className="flex justify-end items-center py-2 px-5">
+                      {/* <AiOutlineStar size={20} className="cursor-pointer" /> */}
+                      <div
+                        onClick={() =>
+                          handleRemovingSelectedImage(variant.color, imageIndex)
+                        }
+                      >
                         <BsTrash
                           size={20}
                           className="text-danger-900 cursor-pointer"
