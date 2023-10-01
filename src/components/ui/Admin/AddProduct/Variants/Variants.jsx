@@ -5,11 +5,7 @@ import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 import SelectImageIcon from "../../../../../assets/icons/select_image.svg";
 
-const Variants = ({
-  productFrameColors,
-  updateVariants,
-  handleRemovingSelectedImage,
-}) => {
+const Variants = ({ productFrameColors, updateVariants }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
   const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
@@ -132,7 +128,7 @@ const Variants = ({
                     </div>
                     <div className="flex justify-between items-center py-2 px-5">
                       <AiOutlineStar size={20} className="cursor-pointer" />
-                      <div>
+                      <div onClick={() => handleRemovingSelectedImage()}>
                         <BsTrash
                           size={20}
                           className="text-danger-900 cursor-pointer"
