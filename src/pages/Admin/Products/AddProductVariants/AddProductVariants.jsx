@@ -75,6 +75,12 @@ const AddProductVariants = () => {
     }
   };
 
+  const isImagesUploaded =
+    productVariant.length === 0 ||
+    productVariant.some(
+      (variant) => variant.color && variant.images.length === 0
+    );
+
   // useEffect(() => {
   //   if (glassesId) {
   //     try {
@@ -143,9 +149,12 @@ const AddProductVariants = () => {
             <div className="flex justify-end mb-10">
               <button
                 type="submit"
-                className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
+                disabled={isImagesUploaded}
+                className={`w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none ${
+                  isImagesUploaded ? "bg-gray-300" : "bg-blue-600"
+                }`}
               >
-                <p className="">Save Changes</p>
+                <p className="">Create Product</p>
               </button>
             </div>
           </div>
