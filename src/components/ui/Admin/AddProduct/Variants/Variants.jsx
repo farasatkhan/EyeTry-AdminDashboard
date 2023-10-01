@@ -10,6 +10,7 @@ const Variants = ({ productFrameColors, updateVariants }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
   const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
+    console.log(`${color} and ${totalImages}`);
     setProductVariantsMultiple((prevProductVariants) => {
       const updatedVariants = [...prevProductVariants];
 
@@ -114,6 +115,7 @@ const Variants = ({ productFrameColors, updateVariants }) => {
                 type="file"
                 accept="image/*"
                 multiple
+                key={Math.random()}
                 onChange={(event) => {
                   const selectedFiles = event.target.files;
                   const totalImages = selectedFiles.length;
