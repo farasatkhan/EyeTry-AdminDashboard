@@ -9,6 +9,13 @@ import SelectImageIcon from "../../../../../assets/icons/select_image.svg";
 const Variants = ({ productFrameColors, updateVariants }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
+  useEffect(() => {
+    const filteredVariants = productVariantsMultiple.filter((variant) =>
+      productFrameColors.includes(variant.color)
+    );
+    setProductVariantsMultiple(filteredVariants);
+  }, [productFrameColors]);
+
   const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
     console.log(`${color} and ${totalImages}`);
     setProductVariantsMultiple((prevProductVariants) => {
