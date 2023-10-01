@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { BsX } from "react-icons/bs";
+import { BiSolidErrorCircle } from "react-icons/bi";
 
-const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
+const FrameColors = ({
+  selectedFrameColors,
+  updateSelectedFrameColors,
+  colorsError,
+}) => {
   const [colorsList, setColorsList] = useState([]);
 
   const [toggleInputbox, setToggleInputbox] = useState(false);
@@ -10,6 +15,7 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
   const [addNewColor, setAddNewColor] = useState("");
 
   const handleSubmittedColor = async () => {
+    if (addNewColor === "") return;
     if (!colorsList.includes(addNewColor)) {
       // setColorsList((prevColors) => [...prevColors, addNewColor]);
       updateSelectedFrameColors(addNewColor, true);
@@ -49,7 +55,7 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
                   {color}
                 </label>
               </div>
-              <div
+              {/* <div
                 className="flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setColorsList(
@@ -58,7 +64,7 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
                 }}
               >
                 <BsX size={25} />
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -81,16 +87,32 @@ const FrameColors = ({ selectedFrameColors, updateSelectedFrameColors }) => {
               onChange={(e) => setAddNewColor(e.target.value)}
             />
             <div className="mt-2">
-              <div
-                className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
-                onClick={handleSubmittedColor}
-              >
-                <span className="text-center text-sm text-white">
-                  Add New Color
-                </span>
-              </div>
+              {addNewColor === "" ? (
+                <div className="flex justify-center items-center w-full py-2 border bg-gray-300 cursor-pointer">
+                  <span className="text-center text-sm text-white select-none">
+                    Add New Color
+                  </span>
+                </div>
+              ) : (
+                <div
+                  className="flex justify-center items-center w-full py-2 border bg-blue-500 cursor-pointer"
+                  onClick={handleSubmittedColor}
+                >
+                  <span className="text-center text-sm text-white">
+                    Add New Color
+                  </span>
+                </div>
+              )}
             </div>
           </div>
+        </div>
+        <div className="mb-4">
+          {colorsError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{colorsError}</div>
+            </div>
+          )}
         </div>
       </div>
     </>

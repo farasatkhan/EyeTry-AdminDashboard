@@ -171,7 +171,8 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
                           alt="Person"
                           className="object-cover h-full w-full"
                         /> */}
-                        {productImage(product)}
+                        {product.frame_information.frame_variants[0] &&
+                          productImage(product)}
                       </div>
                       <div className="mt-1">
                         <p className="text-sm">{product.name}</p>

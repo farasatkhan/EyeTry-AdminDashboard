@@ -17,7 +17,20 @@ const AddProductVariants = () => {
     "Metallic",
   ]);
 
+  const [productFrameColorsError, setProductFrameColorsError] = useState("");
+
+  useEffect(() => {
+    if (productFrameColors.length > 0) {
+      setProductFrameColorsError("");
+      return;
+    }
+  }, [productFrameColors]);
+
   const [productVariant, setProductVaraint] = useState([]);
+
+  useEffect(() => {
+    console.log(productVariant);
+  }, [productVariant]);
 
   const updatedSelectedFrameColors = (updatedColor, checked) => {
     const updatedFrameColors = () => {
@@ -32,6 +45,11 @@ const AddProductVariants = () => {
 
   const handleSubmittedProductsVariant = async (e) => {
     e.preventDefault();
+
+    if (productFrameColors.length === 0) {
+      setProductFrameColorsError("Select atleast one color.");
+      return;
+    }
 
     const formData = new FormData();
 
@@ -57,24 +75,24 @@ const AddProductVariants = () => {
     }
   };
 
-  useEffect(() => {
-    if (glassesId) {
-      try {
-        async function fetchData() {
-          const fetchedGlasses = await viewParticularProduct(glassesId);
+  // useEffect(() => {
+  //   if (glassesId) {
+  //     try {
+  //       async function fetchData() {
+  //         const fetchedGlasses = await viewParticularProduct(glassesId);
 
-          const colors = fetchedGlasses.frame_information.frame_variants.map(
-            (variant) => variant.color
-          );
+  //         const colors = fetchedGlasses.frame_information.frame_variants.map(
+  //           (variant) => variant.color
+  //         );
 
-          setProductFrameColors(colors);
-        }
-        fetchData();
-      } catch (error) {
-        console.log("error getting particular glasses.");
-      }
-    }
-  }, [glassesId]);
+  //         setProductFrameColors(colors);
+  //       }
+  //       fetchData();
+  //     } catch (error) {
+  //       console.log("error getting particular glasses.");
+  //     }
+  //   }
+  // }, [glassesId]);
 
   return (
     <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col">
@@ -90,17 +108,22 @@ const AddProductVariants = () => {
         </div>
         <div className="flex flex-grow md:flex-grow-0 gap-4">
           <div className="flex w-full">
-            <Link to="/products/new">
+            <Link to={`/products/${glassesId}/`}>
               <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border">
                 <p className="text-black">Go Back</p>
               </button>
             </Link>
+            {/* <Link to="/products/new">
+              <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border">
+                <p className="text-black">Go Back</p>
+              </button>
+            </Link> */}
           </div>
-          <div className="flex w-full">
+          {/* <div className="flex w-full">
             <button className="w-full md:w-36 h-10 rounded-md text-white focus:outline-none bg-white border">
               <p className="text-black">Publish</p>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={`h-0.5 bg-slate-100 ml-7 mr-7 mt-7`}></div>
@@ -132,6 +155,7 @@ const AddProductVariants = () => {
               <FrameColors
                 selectedFrameColors={productFrameColors}
                 updateSelectedFrameColors={updatedSelectedFrameColors}
+                colorsError={productFrameColorsError}
               />
             </div>
           </div>
