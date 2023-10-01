@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { BsTrash, BsX } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
+import { BiSolidErrorCircle } from "react-icons/bi";
 
 import SelectImageIcon from "../../../../../assets/icons/select_image.svg";
 
@@ -9,18 +10,45 @@ const Variants = ({ productFrameColors, updateVariants }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
   const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
-    setProductVariantsMultiple((prevProductVariant) => [
-      ...prevProductVariant,
-      {
-        color: color,
-        quantity: quantity,
-        image_count: totalImages,
-        images: Array.from(images),
-      },
-    ]);
+    setProductVariantsMultiple((prevProductVariants) => {
+      const updatedVariants = [...prevProductVariants];
 
-    console.log(productVariantsMultiple);
+      const existingVariantIndex = updatedVariants.findIndex(
+        (variant) => variant.color === color
+      );
+
+      if (existingVariantIndex !== -1) {
+        updatedVariants[existingVariantIndex].images.push(
+          ...Array.from(images)
+        );
+      } else {
+        const newVariant = {
+          color: color,
+          quantity: quantity,
+          image_count: totalImages,
+          images: Array.from(images),
+        };
+
+        updatedVariants.push(newVariant);
+      }
+
+      return updatedVariants;
+    });
   };
+
+  // const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
+  //   setProductVariantsMultiple((prevProductVariant) => [
+  //     ...prevProductVariant,
+  //     {
+  //       color: color,
+  //       quantity: quantity,
+  //       image_count: totalImages,
+  //       images: Array.from(images),
+  //     },
+  //   ]);
+
+  //   console.log(productVariantsMultiple);
+  // };
 
   const handleRemovingSelectedImage = (color, imageIndex) => {
     setProductVariantsMultiple((prevVariants) => {
@@ -54,6 +82,22 @@ const Variants = ({ productFrameColors, updateVariants }) => {
     console.log(productVariantsMultiple);
   }, [productVariantsMultiple]);
 
+  const handleDisablingQuantity = (color) => {
+    const VariantIndex = productVariantsMultiple.findIndex(
+      (variant) => variant.color === color
+    );
+
+    console.log(productVariantsMultiple);
+
+    console.log("color: " + color + " " + VariantIndex);
+
+    // if (productVariantsMultiple[VariantIndex].images.length === 0) return true;
+
+    return false;
+  };
+
+  const [imagesFormatError, setImageFormatError] = useState("");
+
   return (
     <>
       <div className="pl-4 py-4">
@@ -71,13 +115,31 @@ const Variants = ({ productFrameColors, updateVariants }) => {
                 accept="image/*"
                 multiple
                 onChange={(event) => {
-                  const totalImages = event.target.files.length;
+                  const selectedFiles = event.target.files;
+                  const totalImages = selectedFiles.length;
+
+                  for (let i = 0; i < totalImages; i++) {
+                    const file = selectedFiles[i];
+                    const fileType = file.type;
+
+                    if (fileType !== "image/jpeg" && fileType !== "image/png") {
+                      setImageFormatError(
+                        "Invalid file format. Please select only JPEG or PNG images."
+                      );
+                      return;
+                    }
+                  }
+
+                  if (totalImages === 0) return;
+
                   handleImageChangeMultiple(
                     color,
                     0,
-                    event.target.files,
+                    selectedFiles,
                     totalImages
                   );
+
+                  setImageFormatError("");
                 }}
                 className="hidden"
               ></input>
@@ -124,6 +186,14 @@ const Variants = ({ productFrameColors, updateVariants }) => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="">
+          {imagesFormatError && (
+            <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+              <BiSolidErrorCircle className="text-red-800" size={20} />
+              <div className="text-red-800">{imagesFormatError}</div>
+            </div>
+          )}
         </div>
         <div className="mt-10">
           {productVariantsMultiple.map((variant, index) => (
