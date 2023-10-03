@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useFetcher } from "react-router-dom";
+
+import { BiSolidErrorCircle } from "react-icons/bi";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -28,6 +30,14 @@ const IssueGiftcard = () => {
     note: "No Note",
   });
 
+  const [giftcardError, setGiftcardError] = useState("");
+
+  useEffect(() => {
+    if (giftcard.code && giftcard.amount.price !== 0) {
+      setGiftcardError("");
+    }
+  }, [giftcard]);
+
   const [giftcardChangeStatus, setGiftcardChangeStatus] = useState({
     status: "",
     error: "",
@@ -35,6 +45,11 @@ const IssueGiftcard = () => {
 
   const handleGiftcardSubmission = async (event) => {
     event.preventDefault();
+
+    if (!giftcard.code || giftcard.amount.price === 0) {
+      setGiftcardError("Please fill out all required fields.");
+      return;
+    }
 
     try {
       if (giftcardId) {
@@ -109,6 +124,14 @@ const IssueGiftcard = () => {
         <span className="text-lg">
           {giftcardId ? "Update" : "Issue"} Gift card
         </span>
+      </div>
+      <div className="mb-3">
+        {giftcardError && (
+          <div className="mb-3 flex bg-red-300 py-2 px-2 gap-2 rounded">
+            <BiSolidErrorCircle className="text-red-800" size={20} />
+            <div className="text-red-800">{giftcardError}</div>
+          </div>
+        )}
       </div>
       <form onSubmit={handleGiftcardSubmission}>
         <div className="flex flex-col md:flex-row flex-grow gap-5">
