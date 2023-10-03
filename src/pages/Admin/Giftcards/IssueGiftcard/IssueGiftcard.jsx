@@ -236,6 +236,7 @@ const IssueGiftcard = () => {
                 <div className="flex flex-col">
                   <span className="mb-2 text-sm">Expiration Date</span>
                   <DatePicker
+                    id="expiration_date"
                     selected={expirationDate}
                     onChange={(date) => setExpirationDate(date)}
                     className="border rounded-md px-2 py-1.5 text-gray-800 w-full outline-none cursor-pointer"
@@ -255,7 +256,7 @@ const IssueGiftcard = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <input
-                    id="giftcard_code"
+                    id="customer_email"
                     type="text"
                     value={giftcard.customerEmail}
                     onChange={(event) =>
@@ -280,7 +281,7 @@ const IssueGiftcard = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <input
-                    id="giftcard_code"
+                    id="giftcard_note"
                     type="text"
                     value={giftcard.note}
                     onChange={(event) =>
