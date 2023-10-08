@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { loginAdmin } from "../../../services/Admin/admin";
 
 import { saveDataToLocalStorage } from "../../../utils/LocalStorage";
+import { isAccessTokenExpired } from "../../../auth/authUtils";
 // import { setAccessTokenHeader } from "../../../auth/authUtils";
 
 const Login = () => {
@@ -37,10 +38,10 @@ const Login = () => {
   };
 
   // Check if a user is already logged in and if so then redirect him to home page.
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem("accessToken");
-  //   if (accessToken) redirectToHomePage();
-  // }, []);
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) redirectToHomePage();
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen">

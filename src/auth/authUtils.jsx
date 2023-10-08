@@ -32,13 +32,13 @@ const refreshAccessToken = async (refreshToken) => {
     const response = await unauthenticatedAxiosInstance.post(
       "/admin/auth/token/",
       {
-        refreshToken,
+        token: refreshToken,
       }
     );
 
     const newAccessToken = response.data.accessToken;
-    setAccessTokenHeader(newAccessToken);
-    // saveDataToLocalStorage("accessToken", newAccessToken);
+    // setAccessTokenHeader(newAccessToken);
+    saveDataToLocalStorage("accessToken", newAccessToken);
 
     return newAccessToken;
   } catch (error) {
