@@ -167,7 +167,8 @@ const ReviewsTable = ({ data, query, handleDeleteReview }) => {
                       <div className="flex">
                         <div className="mt-1">
                           <p className="whitespace-nowrap text-blue-500 cursor-pointer">
-                            #{review.order.order_no}
+                            {/* {console.log(review)} */}#
+                            {review.order.order_no}
                           </p>
                         </div>
                       </div>
