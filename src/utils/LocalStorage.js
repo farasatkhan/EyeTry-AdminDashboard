@@ -22,6 +22,10 @@ function removeDataFromLocalStorage(key) {
     } catch (error) {
       console.error("Error removing data from local storage:", error);
     }
-  }
+}
+
+function clearLocalStorage() {
+  localStorage.clear();
+}
   
-export { saveDataToLocalStorage, getDataFromLocalStorage, removeDataFromLocalStorage };
+export { saveDataToLocalStorage, getDataFromLocalStorage, removeDataFromLocalStorage, clearLocalStorage };

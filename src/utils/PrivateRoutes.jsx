@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { authenticatedAxiosInstance } from "../api/config";
-import { getDataFromLocalStorage } from "./LocalStorage";
+import { getDataFromLocalStorage, clearLocalStorage } from "./LocalStorage";
 
 const PrivateRoutes = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -9,8 +9,9 @@ const PrivateRoutes = () => {
   useEffect(() => {
     const verifyToken = async () => {
       const accessToken = getDataFromLocalStorage("accessToken");
+      const refreshToken = getDataFromLocalStorage("refreshToken");
 
-      if (accessToken) {
+      if (accessToken && refreshToken) {
         try {
           const response = await authenticatedAxiosInstance.post(
             "/admin/auth/verify_token"
@@ -18,17 +19,20 @@ const PrivateRoutes = () => {
 
           if (response.status === 200) {
             setIsAuthenticated(true);
-            console.log("your token is valid");
+          } else if (response.status === 403) {
+            setIsAuthenticated(false);
+            clearLocalStorage();
           } else {
             setIsAuthenticated(false);
-            console.log("your token is not valid");
+            clearLocalStorage();
           }
         } catch (error) {
           setIsAuthenticated(false);
-          console.log("your token is not valid");
+          clearLocalStorage();
         }
       } else {
         setIsAuthenticated(false);
+        clearLocalStorage();
       }
     };
 
