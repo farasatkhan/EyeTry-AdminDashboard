@@ -1,8 +1,8 @@
-import axios from '../../api/config';
+import { unauthenticatedAxiosInstance, authenticatedAxiosInstance  } from '../../api/config';
 
 export const newGiftcard = async (data) => {
     try {
-        const response = await axios.post('/admin/giftcard', data);
+        const response = await authenticatedAxiosInstance.post('/admin/giftcard', data);
         return response;
     } catch (error) {
         throw error;
@@ -11,7 +11,7 @@ export const newGiftcard = async (data) => {
 
 export const viewGiftcard = async () => {
     try {
-        const response = await axios.get('/admin/giftcard');
+        const response = await authenticatedAxiosInstance.get('/admin/giftcard');
         return response.data;
     } catch (error) {
         console.error('Error while viewing giftcards', error);
@@ -21,7 +21,7 @@ export const viewGiftcard = async () => {
 
 export const viewParticularGiftcard = async (giftcardId) => {
     try {
-        const response = await axios.get(`/admin/giftcard/${giftcardId}`);
+        const response = await authenticatedAxiosInstance.get(`/admin/giftcard/${giftcardId}`);
         return response.data;
     } catch (error) {
         console.error('Error while viewing giftcards', error);
@@ -31,7 +31,7 @@ export const viewParticularGiftcard = async (giftcardId) => {
 
 export const updateGiftcard = async (giftcardId, data) => {
     try {
-        const response = await axios.put(`/admin/giftcard/${giftcardId}`, data);
+        const response = await authenticatedAxiosInstance.put(`/admin/giftcard/${giftcardId}`, data);
         return response.data;
     } catch (error) {
         console.error('Error while updating giftcards', error);
@@ -41,7 +41,7 @@ export const updateGiftcard = async (giftcardId, data) => {
 
 export const deleteGiftcard = async (giftcardId) => {
     try {
-        const response = await axios.delete(`/admin/giftcard/${giftcardId}`);
+        const response = await authenticatedAxiosInstance.delete(`/admin/giftcard/${giftcardId}`);
         return response.data;
     } catch (error) {
         console.error('Error while deleting giftcards', error);

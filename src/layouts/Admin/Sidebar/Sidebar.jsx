@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { TbArrowBarLeft } from "react-icons/tb";
 import { TbArrowBarRight } from "react-icons/tb";
@@ -16,7 +17,23 @@ import { BiLogOut } from "react-icons/bi";
 
 import Logo from "../../../assets/images/logo_placeholder.png";
 
+import { removeDataFromLocalStorage } from "../../../utils/LocalStorage";
+// import { setAccessTokenHeader } from "../../../auth/authUtils";
+
 const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
+  const navigate = useNavigate();
+
+  const redirectToLoginPage = () => {
+    navigate("/login");
+  };
+
+  const handleLogout = () => {
+    removeDataFromLocalStorage("refreshToken");
+    removeDataFromLocalStorage("accessToken");
+    // setAccessTokenHeader(); // delete the access token from subsequent axios requests
+    redirectToLoginPage();
+  };
+
   return (
     <>
       <div
@@ -130,7 +147,10 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
               </p>
             </div>
           </NavLink>
-          <div className="flex justify-start items-center cursor-pointer mt-5">
+          <div
+            onClick={handleLogout}
+            className="flex justify-start items-center cursor-pointer mt-5"
+          >
             <div className="h-7 pt-1">
               <BiLogOut size={20} />
             </div>

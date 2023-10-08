@@ -39,9 +39,17 @@ import BlankLayout from "./layouts/Admin/BlankLayout";
 
 import "./index.css";
 import AddProductVariants from "./pages/Admin/Products/AddProductVariants/AddProductVariants";
+import Login from "./pages/Admin/Login/Login";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
+const publicRoutes = (
+  <Route>
+    <Route path="login" element={<Login />} />
+  </Route>
+);
+
+const privateRoutes = (
+  <Route element={<PrivateRoutes />}>
     <Route path="/" element={<RootDashboardLayout />}>
       <Route index element={<Home />} />
       <Route path="settings" element={<Settings />} />
@@ -79,6 +87,15 @@ const router = createBrowserRouter(
         </Route>
       </Route>
     </Route>
+  </Route>
+);
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Fragment>
+      {publicRoutes}
+      {privateRoutes}
+    </Fragment>
   )
 );
 

@@ -1,8 +1,8 @@
-import axios from '../../api/config';
+import { unauthenticatedAxiosInstance, authenticatedAxiosInstance  } from '../../api/config';
 
 export const newProduct = async (data) => {
     try {
-        const response = await axios.post('/products/v1/glasses', data);
+        const response = await authenticatedAxiosInstance.post('/products/v1/glasses', data);
         return response;
     } catch (error) {
         throw error;
@@ -11,7 +11,7 @@ export const newProduct = async (data) => {
 
 export const addProductImages = async (glassesId, formData) => {
     try {
-        const response = await axios.put(`/products/v1/glasses/${glassesId}/images`, formData, { headers: {'Content-Type': 'multipart/form-data'}});
+        const response = await authenticatedAxiosInstance.put(`/products/v1/glasses/${glassesId}/images`, formData, { headers: {'Content-Type': 'multipart/form-data'}});
         return response;
     } catch (error) {
         throw error;
@@ -20,7 +20,7 @@ export const addProductImages = async (glassesId, formData) => {
 
 export const viewProductsList = async () => {
     try {
-        const response = await axios.get('/products/v1/glasses');
+        const response = await authenticatedAxiosInstance.get('/products/v1/glasses');
         return response.data;
     } catch (error) {
         throw error;
@@ -29,7 +29,7 @@ export const viewProductsList = async () => {
 
 export const viewParticularProduct = async (glassesId) => {
     try {
-        const response = await axios.get(`/products/v1/glasses/${glassesId}`);
+        const response = await authenticatedAxiosInstance.get(`/products/v1/glasses/${glassesId}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -38,7 +38,7 @@ export const viewParticularProduct = async (glassesId) => {
 
 export const updateProduct = async (productId, data) => {
     try {
-        const response = await axios.put(`/products/v1/glasses/${productId}`, data);
+        const response = await authenticatedAxiosInstance.put(`/products/v1/glasses/${productId}`, data);
         return response.data;
     } catch (error) {
         console.error('Error while updating product', error);
@@ -48,7 +48,7 @@ export const updateProduct = async (productId, data) => {
 
 export const deleteProduct = async (productId) => {
     try {
-        const response = await axios.delete(`/products/v1/glasses/${productId}`);
+        const response = await authenticatedAxiosInstance.delete(`/products/v1/glasses/${productId}`);
         return response.data;
     } catch (error) {
         console.error('Error while deleting product', error);
