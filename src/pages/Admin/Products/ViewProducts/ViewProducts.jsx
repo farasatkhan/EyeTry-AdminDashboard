@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
+import { jsonDownloader } from "../../../../utils/JSONDownloader";
+
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
 
@@ -51,7 +53,10 @@ const ViewProducts = () => {
           <span className="text-lg">Products</span>
         </div>
         <div className="flex gap-5">
-          <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
+          <button
+            onClick={() => jsonDownloader(productsList, "all_products.json")}
+            className="border px-3 py-0.5 rounded-lg shadow-sm bg-white cursor-pointer"
+          >
             <span className="text-xs">Export</span>
           </button>
           {/* <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">

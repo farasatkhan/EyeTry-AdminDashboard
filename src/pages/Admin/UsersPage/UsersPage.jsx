@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
 
+import { jsonDownloader } from "../../../utils/JSONDownloader";
+
 import Card from "../../../layouts/Admin/Card";
 
 import UserPageStyles from "./UsersPage.module.css";
@@ -115,7 +117,10 @@ const UsersPage = () => {
             </div>
             <div className="flex justify-end">
               {/* export */}
-              <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
+              <div
+                onClick={() => jsonDownloader(users, "users.json")}
+                className="cursor-pointer flex justify-center items-center gap-3 px-5 h-10 text-center m-3 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+              >
                 <div className="flex justify-center items-center">
                   <BsDownload size={20} />
                 </div>

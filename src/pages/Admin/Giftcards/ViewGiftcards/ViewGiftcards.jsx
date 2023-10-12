@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
+import { jsonDownloader } from "../../../../utils/JSONDownloader";
+
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
 
@@ -60,7 +62,10 @@ const ViewGiftcards = () => {
           <span className="text-lg">Gift cards</span>
         </div>
         <div className="flex gap-5">
-          <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
+          <button
+            onClick={() => jsonDownloader(giftcards, "giftcards.json")}
+            className="border px-3 py-0.5 rounded-lg shadow-sm bg-white cursor-pointer"
+          >
             <span className="text-xs">Export</span>
           </button>
           <NavLink to="/giftcards/issue">
