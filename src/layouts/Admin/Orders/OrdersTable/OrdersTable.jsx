@@ -48,8 +48,13 @@ const OrdersTable = ({ data, query }) => {
           data
             .filter(
               (order) =>
-                order.order_no.toLowerCase().includes(query.toLowerCase()) ||
-                order.user.toLowerCase().includes(query.toLowerCase())
+                String(order.order_no)
+                  .toLowerCase()
+                  .includes(query.toLowerCase()) ||
+                order.user.firstName
+                  .toLowerCase()
+                  .includes(query.toLowerCase()) ||
+                order.user.lastName.toLowerCase().includes(query.toLowerCase())
             )
             .slice(0, 10)
           // Max Items to be displayed will be 10.
