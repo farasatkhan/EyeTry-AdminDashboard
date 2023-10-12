@@ -92,12 +92,12 @@ const ViewGiftcards = () => {
           </div>
           <div className="flex justify-center items-center mr-5">
             {/* filter */}
-            <div className="px-3 py-1 flex justify-center items-center gap-3 border shadow-sm rounded-lg">
+            {/* <div className="px-3 py-1 flex justify-center items-center gap-3 border shadow-sm rounded-lg">
               <div className="flex justify-center items-center">
                 <BsFilter size={16} />
               </div>
               <p className="text-sm">Filter</p>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* table */}

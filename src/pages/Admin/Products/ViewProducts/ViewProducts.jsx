@@ -54,9 +54,9 @@ const ViewProducts = () => {
           <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
             <span className="text-xs">Export</span>
           </button>
-          <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
+          {/* <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
             <span className="text-xs">Import</span>
-          </button>
+          </button> */}
           <NavLink to="/products/new">
             <button className="border px-3 py-0.5 rounded-lg shadow-sm bg-white">
               <span className="text-xs">Add Product</span>
@@ -86,12 +86,12 @@ const ViewProducts = () => {
           </div>
           <div className="flex justify-center items-center mr-5">
             {/* filter */}
-            <div className="px-3 py-1 flex justify-center items-center gap-3 border shadow-sm rounded-lg">
+            {/* <div className="px-3 py-1 flex justify-center items-center gap-3 border shadow-sm rounded-lg">
               <div className="flex justify-center items-center">
                 <BsFilter size={16} />
               </div>
               <p className="text-sm">Filter</p>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* table */}

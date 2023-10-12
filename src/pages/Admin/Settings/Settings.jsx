@@ -148,7 +148,7 @@ const Settings = () => {
             <li className="li my-5 cursor-pointer">Basic Information</li>
             <li className="li my-5 cursor-pointer">Email</li>
             <li className="li my-5 cursor-pointer">Password</li>
-            <li className="li my-5 cursor-pointer">Delete account</li>
+            {/* <li className="li my-5 cursor-pointer">Delete account</li> */}
           </ul>
         </div>
         <div className="w-full md:w-3/4">
@@ -238,9 +238,9 @@ const Settings = () => {
               <div className="flex justify-end cursor-pointer">
                 <button
                   type="submit"
-                  className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600"
+                  className="w-full sm:w-36 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 >
-                  <p>Save Changes</p>
+                  <p>Update Profile</p>
                 </button>
               </div>
             </form>
@@ -346,17 +346,17 @@ const Settings = () => {
                   </div>
                 </div>
               )}
-              <div className="flex justify-end">
+              <div className="flex justify-end cursor-pointer">
                 <button
                   type="submit"
-                  className="w-full sm:w-36 h-12 rounded-md text-white focus:outline-none bg-blue-600"
+                  className="w-full sm:w-36 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 >
-                  <p>Save Changes</p>
+                  <p>Save</p>
                 </button>
               </div>
             </form>
           </SettingsCard>
-          <SettingsCard title="Delete your account">
+          {/* <SettingsCard title="Delete your account">
             <form action="" onSubmit={handleDeleteAccount}>
               <div className="text-sm">
                 When you delete your account, you lose access to the account
@@ -386,7 +386,7 @@ const Settings = () => {
                 </button>
               </div>
             </form>
-          </SettingsCard>
+          </SettingsCard> */}
         </div>
       </div>
       {closeModal && (

@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { NavLink } from "react-router-dom";
 
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { BiTrash } from "react-icons/bi";
 
 import StatusPill from "../../../../components/ui/Admin/StatusPill";
 import Person from "../../../../assets/images/test/person.jpg";
@@ -212,11 +213,9 @@ const ReviewsTable = ({ data, query, handleDeleteReview }) => {
                   <td className="px-2 py-3 whitespace-nowrap">
                     <div
                       onClick={() => handleDeleteReview(review._id)}
-                      className="flex justify-center items-center gap-1 bg-slate-200 rounded-xl h-5 w-12 cursor-pointer"
+                      className="flex justify-center items-center gap-1 cursor-pointer"
                     >
-                      <span className="w-1 h-1 rounded-full bg-slate-900"></span>
-                      <span className="w-1 h-1 rounded-full bg-slate-900"></span>
-                      <span className="w-1 h-1 rounded-full bg-slate-900"></span>
+                      <BiTrash size={20} />
                     </div>
                   </td>
                 </tr>

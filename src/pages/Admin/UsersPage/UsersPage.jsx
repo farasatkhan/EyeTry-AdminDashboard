@@ -60,14 +60,14 @@ const UsersPage = () => {
               <p className="text-2xl">Users</p>
             </div>
           </div>
-          <div className="flex">
+          {/* <div className="flex">
             <button
               className="w-36 h-10 rounded-md text-white focus:outline-none bg-blue-600"
               onClick={() => changeModalHandle("Add new user", "add")}
             >
               <p className="">Add User</p>
             </button>
-          </div>
+          </div> */}
         </div>
         <div
           className={`${UserPageStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
@@ -122,12 +122,12 @@ const UsersPage = () => {
                 <p>Export</p>
               </div>
               {/* filter */}
-              <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
+              {/* <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
                 <div className="flex justify-center items-center">
                   <BsFilter size={20} />
                 </div>
                 <p>Filter</p>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* table */}

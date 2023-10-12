@@ -10,7 +10,7 @@ import { BiSearch } from "react-icons/bi";
 const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
   return (
     <>
-      <nav className="bg-white border-b-2 border-slate-100 flex justify-between">
+      <nav className="bg-white border-b-2 border-slate-100 flex justify-end">
         <div className="md:hidden flex justify-center place-items-center cursor-pointer">
           <AiOutlineMenuUnfold
             size={25}
@@ -20,7 +20,7 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
           <BiSearch size={25} className="ml-3  md:hidden" />
         </div>
         {/* Search Box */}
-        <div className="hidden md:flex bg-slate-100 rounded-md my-3 md:ml-7">
+        {/* <div className="hidden md:flex bg-slate-100 rounded-md my-3 md:ml-7">
           <div className="flex justify-center items-center p-3">
             <BiSearch size={20} />
           </div>
@@ -29,7 +29,7 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
             placeholder="Search"
             className="w-30 sm:w-60 md:w-80 p-2 bg-transparent focus:outline-none"
           />
-        </div>
+        </div> */}
         {/* Profile Details */}
         <div className="flex justify-between p-3 sm:mr-7">
           {/* Bell Icon */}

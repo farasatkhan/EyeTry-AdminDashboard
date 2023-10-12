@@ -60,12 +60,12 @@ const ViewParticularCustomerOrder = () => {
               <p>Export</p>
             </div>
             {/* filter */}
-            <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
+            {/* <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
               <div className="flex justify-center items-center">
                 <BsFilter size={20} />
               </div>
               <p>Filter</p>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* table */}
