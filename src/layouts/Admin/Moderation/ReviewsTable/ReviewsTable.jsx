@@ -58,8 +58,20 @@ const ReviewsTable = ({ data, query, handleDeleteReview }) => {
     !!query
       ? setModifiedData(
           data
-            .filter((order) =>
-              order.order_no.toLowerCase().includes(query.toLowerCase())
+            .filter(
+              (reviews) =>
+                (reviews.order.order_no &&
+                  String(reviews.order.order_no)
+                    .toLowerCase()
+                    .includes(query.toLowerCase())) ||
+                (reviews.user.firstName &&
+                  String(reviews.user.firstName)
+                    .toLowerCase()
+                    .includes(query.toLowerCase())) ||
+                (reviews.user.lastName &&
+                  String(reviews.user.lastName)
+                    .toLowerCase()
+                    .includes(query.toLowerCase()))
             )
             .slice(0, 10)
           // Max Items to be displayed will be 10.
