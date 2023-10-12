@@ -70,7 +70,7 @@ const privateRoutes = (
       </Route>
       <Route path="orders">
         <Route index element={<ViewAllOrders />} />
-        <Route path="customer" element={<ViewCustomerOrders />} />
+        <Route path="customer/:customerId" element={<ViewCustomerOrders />} />
         <Route path="order" element={<ViewParticularCustomerOrder />} />
       </Route>
       <Route path="moderation">

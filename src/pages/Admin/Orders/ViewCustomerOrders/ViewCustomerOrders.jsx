@@ -1,19 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import { jsonDownloader } from "../../../../utils/JSONDownloader";
 
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
 
 import OrdersTable from "../../../../layouts/Admin/Orders/OrdersTable";
 
-import data from "../../../../data/Admin/viewAllOrdersData";
+// import data from "../../../../data/Admin/viewAllOrdersData";
 import CustomerInformation from "../../../../layouts/Admin/Orders/CustomerInformation/CustomerInformation";
 
+import { viewParticularCustomersOrders } from "../../../../services/Orders/orders";
+
 const ViewParticularCustomerOrder = () => {
+  const { customerId } = useParams();
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchQuery = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    try {
+      const fetchedOrders = await viewParticularCustomersOrders(customerId);
+      setOrders(fetchedOrders);
+    } catch (error) {
+      console.error("Error fetching orders", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -29,7 +51,7 @@ const ViewParticularCustomerOrder = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row border rounded-md mx-5 my-5">
-        <CustomerInformation />
+        <CustomerInformation customerId={customerId} customerOrders={orders} />
       </div>
       <div className="border border-slate-100 m-3 rounded-lg">
         <div className="flex justify-between m-3">
@@ -54,7 +76,10 @@ const ViewParticularCustomerOrder = () => {
           </div>
           <div className="flex justify-end">
             {/* export */}
-            <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
+            <div
+              onClick={() => jsonDownloader(orders, "customer_orders.json")}
+              className="cursor-pointer flex justify-center items-center gap-3 px-5 h-10 text-center m-3 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+            >
               <div className="flex justify-center items-center">
                 <BsDownload size={20} />
               </div>
@@ -71,7 +96,7 @@ const ViewParticularCustomerOrder = () => {
         </div>
         {/* table */}
         <div className="mx-4">
-          <OrdersTable data={data} query={searchQuery} />
+          <OrdersTable data={orders} query={searchQuery} />
         </div>
       </div>
     </div>

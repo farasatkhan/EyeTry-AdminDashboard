@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { BiDollarCircle, BiHomeAlt2 } from "react-icons/bi";
 import { BsFillCartCheckFill, BsTelephone } from "react-icons/bs";
@@ -7,7 +7,37 @@ import { MdOutlineMail, MdPayment } from "react-icons/md";
 
 import Person from "../../../../assets/images/test/person.jpg";
 
-const CustomerInformation = () => {
+import { viewParticularCustomer } from "../../../../services/Customer/customer";
+
+const CustomerInformation = ({ customerId, customerOrders }) => {
+  const [customer, setCustomer] = useState({});
+
+  useEffect(() => {
+    fetchCustomer(customerId);
+  }, []);
+
+  const fetchCustomer = async (customerId) => {
+    try {
+      const fetchedUser = await viewParticularCustomer(customerId);
+      setCustomer(fetchedUser);
+    } catch (error) {
+      console.error("Error fetching reviews", error);
+    }
+  };
+
+  const totalOrders = customerOrders.length;
+
+  const totalPriceSum = customerOrders.reduce((acc, order) => {
+    const orderTotalPrice = parseFloat(order.totalPrice);
+    if (!isNaN(orderTotalPrice)) {
+      return acc + orderTotalPrice;
+    }
+    return acc;
+  }, 0);
+
+  const date = new Date(customer.createdAt);
+  const year = date.getUTCFullYear();
+
   return (
     <>
       {/* left side */}
@@ -23,15 +53,23 @@ const CustomerInformation = () => {
           <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col gap-2">
               <div className="flex gap-5 justify-center items-center">
-                <p className="text-2xl">Roger Kenter</p>
+                <p className="text-2xl">
+                  {customer.firstName + " " + customer.lastName}
+                </p>
                 <div className="hidden sm:flex justify-center items-center gap-2">
                   <SlCalender size={14} className="text-slate-500" />
-                  <p className="text-sm text-slate-500">Customer since 2023</p>
+                  <p className="text-sm text-slate-500">
+                    Customer since {year}
+                  </p>
                 </div>
               </div>
               <div className="flex gap-1">
                 <SlLocationPin size={18} />
-                <p className="text-sm">Texas, USA</p>
+                <p className="text-sm">
+                  {customer.city && customer.country
+                    ? customer.city + " " + customer.country
+                    : "Not Provided"}
+                </p>
               </div>
             </div>
           </div>
@@ -48,7 +86,7 @@ const CustomerInformation = () => {
                   <p className="text-slate-400 text-base md:text-sm mb-2">
                     Email
                   </p>
-                  <p className="text-base md:text-sm">roger@gmail.com</p>
+                  <p className="text-base md:text-sm">{customer.email}</p>
                 </div>
               </div>
               <div className="flex gap-2 w-full md:w-1/2">
@@ -57,11 +95,13 @@ const CustomerInformation = () => {
                   <p className="text-slate-400 text-base md:text-sm mb-2">
                     Phone
                   </p>
-                  <p className="text-base md:text-sm">(+1) 505-999-1234</p>
+                  <p className="text-base md:text-sm">
+                    {customer.phone ? customer.phone : "Not Provided"}
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-5 mb-5">
+            {/* <div className="flex flex-col md:flex-row gap-5 mb-5">
               <div className="flex gap-2 w-full md:w-1/2">
                 <MdPayment size={20} className="w-1/6" />
                 <div className="flex flex-col w-5/6">
@@ -82,7 +122,7 @@ const CustomerInformation = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -96,7 +136,7 @@ const CustomerInformation = () => {
             </p>
           </div>
           <div>
-            <p className="text-4xl text-center">87</p>
+            <p className="text-4xl text-center">{totalOrders}</p>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center w-full lg:w-1/2 mb-5 lg:mb-0">
@@ -107,7 +147,7 @@ const CustomerInformation = () => {
             </p>
           </div>
           <div className="">
-            <p className="text-4xl text-center">$13,217</p>
+            <p className="text-4xl text-center">${totalPriceSum}</p>
           </div>
         </div>
       </div>

@@ -155,7 +155,7 @@ const OrdersTable = ({ data, query }) => {
                     </NavLink>
                   </td>
                   <td className="px-2 py-3 ">
-                    <NavLink to="/orders/customer">
+                    <NavLink to={`/orders/customer/${order.user._id}`}>
                       <div className="flex cursor-pointer">
                         <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                           <img

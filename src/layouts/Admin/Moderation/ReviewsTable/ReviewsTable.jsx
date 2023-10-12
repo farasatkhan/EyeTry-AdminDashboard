@@ -188,7 +188,7 @@ const ReviewsTable = ({ data, query, handleDeleteReview }) => {
                     </NavLink>
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    <NavLink to="/orders/customer">
+                    <NavLink to={`/orders/customer/${review.user._id}`}>
                       <div className="flex items-center cursor-pointer">
                         <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                           <img
