@@ -83,6 +83,7 @@ const ViewGiftcards = () => {
                 <BiSearch size={16} />
               </div>
               <input
+                id="search_products"
                 type="text"
                 placeholder="Search Products"
                 value={searchQuery}

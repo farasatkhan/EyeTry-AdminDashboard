@@ -40,6 +40,7 @@ const BlankLayout = () => {
                   <BiSearch size={20} />
                 </div>
                 <input
+                  id="search_users"
                   type="text"
                   placeholder="Search User"
                   value={searchQuery}

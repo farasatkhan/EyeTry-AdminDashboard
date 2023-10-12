@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { jsonDownloader } from "../../../../utils/JSONDownloader";
 
 import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
@@ -8,6 +10,8 @@ import Card from "../../../../layouts/Admin/Card";
 
 import ViewAllOrdersStyle from "./ViewAllOrders.module.css";
 import OrdersTable from "../../../../layouts/Admin/Orders/OrdersTable";
+
+import { viewAllOrders } from "../../../../services/Orders/orders";
 
 import data from "../../../../data/Admin/viewAllOrdersData";
 
@@ -27,6 +31,21 @@ const ViewAllOrders = () => {
     setCloseModal(!closeModal);
     setModalType({ ...modalType, title: title, action: action });
   };
+
+  const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    try {
+      const fetchedOrders = await viewAllOrders();
+      setOrders(fetchedOrders);
+    } catch (error) {
+      console.error("Error fetching orders", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   return (
     <div className="font-body">
@@ -79,6 +98,7 @@ const ViewAllOrders = () => {
                   <BiSearch size={20} />
                 </div>
                 <input
+                  id="search_orders"
                   type="text"
                   placeholder="Search Orders"
                   value={searchQuery}
@@ -93,7 +113,10 @@ const ViewAllOrders = () => {
             </div>
             <div className="flex justify-end">
               {/* export */}
-              <div className="px-3 flex justify-center items-center gap-3 border border-slate-100 rounded-lg m-3 w-32 h-10">
+              <div
+                onClick={() => jsonDownloader(orders, "all_orders.json")}
+                className="cursor-pointer flex justify-center items-center gap-3 px-5 h-10 text-center m-3 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+              >
                 <div className="flex justify-center items-center">
                   <BsDownload size={20} />
                 </div>
@@ -110,7 +133,7 @@ const ViewAllOrders = () => {
           </div>
           {/* table */}
           <div className="mx-4">
-            <OrdersTable data={data} query={searchQuery} />
+            <OrdersTable data={orders} query={searchQuery} />
           </div>
         </div>
       </div>

@@ -194,6 +194,7 @@ const Settings = () => {
                   Email
                 </label>
                 <input
+                  id="email"
                   type="email"
                   placeholder="john@gmail.com"
                   autoComplete="off"

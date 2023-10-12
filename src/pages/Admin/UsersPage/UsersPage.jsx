@@ -104,7 +104,7 @@ const UsersPage = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Search User"
+                  id="search_users"
                   value={searchQuery}
                   onChange={handleSearchQuery}
                   // w-30 sm:w-60 md:w-80

@@ -39,6 +39,7 @@ const ViewParticularCustomerOrder = () => {
                 <BiSearch size={20} />
               </div>
               <input
+                id="search_orders"
                 type="text"
                 placeholder="Search Orders"
                 value={searchQuery}

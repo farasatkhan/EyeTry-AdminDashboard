@@ -4,10 +4,8 @@ import { jsonDownloader } from "../../../../utils/JSONDownloader";
 import ReviewsInformation from "../../../../layouts/Admin/Moderation/ReviewsInformation";
 import ReviewsTable from "../../../../layouts/Admin/Moderation/ReviewsTable";
 
-import data from "../../../../data/Admin/reviewsData";
-
 import { BiSearch } from "react-icons/bi";
-import { BsDownload, BsFilter, BsGraphUp } from "react-icons/bs";
+import { BsDownload } from "react-icons/bs";
 
 import {
   viewAllReviews,
@@ -70,6 +68,7 @@ const PublishedReviews = () => {
                 <BiSearch size={20} />
               </div>
               <input
+                id="search_reviews"
                 type="text"
                 placeholder="Search Reviews"
                 value={searchQuery}

@@ -93,12 +93,12 @@ const OrdersTable = ({ data, query }) => {
   };
 
   const checkStatus = (status) => {
-    if (status === "Paid") {
-      return <StatusPill text="Paid" type="primary" />;
-    } else if (status === "Declined") {
-      return <StatusPill text="Declined" type="danger" />;
+    if (status === "Delivered") {
+      return <StatusPill text="Delivered" type="primary" />;
     } else if (status === "Pending") {
-      return <StatusPill text="Pending" type="warning" />;
+      return <StatusPill text="Pending" type="danger" />;
+    } else if (status === "In Transit") {
+      return <StatusPill text="In Transit" type="warning" />;
     }
   };
 
@@ -155,17 +155,21 @@ const OrdersTable = ({ data, query }) => {
                           />
                         </div>
                         <div className="mt-1">
-                          <p className="">{order.user}</p>
+                          <p className="">
+                            {order.user.firstName + " " + order.user.lastName}
+                          </p>
                         </div>
                       </div>
                     </NavLink>
                   </td>
-                  <td className="px-2 py-3 ">{order.date}</td>
-                  <td className="px-2 py-3 ">{order.delivery_status}</td>
+                  <td className="px-2 py-3 ">{order.orderDate}</td>
                   <td className="px-2 py-3 ">
-                    {checkStatus(order.payment_status)}
+                    {checkStatus(order.deliveryStatus)}
                   </td>
-                  <td className="px-2 py-3 ">{order.order_amount}</td>
+                  <td className="px-2 py-3 ">
+                    {order.paymentMethod.paymentType}
+                  </td>
+                  <td className="px-2 py-3 ">{order.totalPrice}</td>
                 </tr>
               );
             })}
