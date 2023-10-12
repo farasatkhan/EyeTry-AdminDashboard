@@ -49,8 +49,18 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
     !!query
       ? setModifiedData(
           data
-            .filter((product) =>
-              product.productName.toLowerCase().includes(query.toLowerCase())
+            .filter(
+              (product) =>
+                (product.name &&
+                  product.name.toLowerCase().includes(query.toLowerCase())) ||
+                (product.sku &&
+                  product.sku.toLowerCase().includes(query.toLowerCase())) ||
+                (product.type &&
+                  product.type.toLowerCase().includes(query.toLowerCase())) ||
+                (product.manufacturer &&
+                  product.manufacturer
+                    .toLowerCase()
+                    .includes(query.toLowerCase()))
             )
             .slice(0, 10)
           // Max Items to be displayed will be 10.

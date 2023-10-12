@@ -48,8 +48,12 @@ const GiftcardTable = ({ data, query, handleGiftcardRemoval }) => {
     !!query
       ? setModifiedData(
           data
-            .filter((product) =>
-              product.productName.toLowerCase().includes(query.toLowerCase())
+            .filter(
+              (giftcard) =>
+                (giftcard.code &&
+                  giftcard.code.toLowerCase().includes(query.toLowerCase())) ||
+                (giftcard.status &&
+                  giftcard.status.toLowerCase().includes(query.toLowerCase()))
             )
             .slice(0, 10)
           // Max Items to be displayed will be 10.
