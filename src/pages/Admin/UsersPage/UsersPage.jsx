@@ -109,6 +109,7 @@ const UsersPage = () => {
                   onChange={handleSearchQuery}
                   // w-30 sm:w-60 md:w-80
                   className="p-2 bg-transparent focus:outline-none"
+                  placeholder="Search Users"
                 />
               </div>
               <div className="md:hidden p-3">

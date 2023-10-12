@@ -49,9 +49,12 @@ const InformationTable = ({ data, query, onCloseModal }) => {
           data
             .filter(
               (user) =>
-                user.email.toLowerCase().includes(query.toLowerCase()) ||
-                user.name.toLowerCase().includes(query.toLowerCase()) ||
-                user.phone.toLowerCase().includes(query.toLowerCase())
+                (user.email &&
+                  user.email.toLowerCase().includes(query.toLowerCase())) ||
+                (user.name &&
+                  user.name.toLowerCase().includes(query.toLowerCase())) ||
+                (user.phone &&
+                  user.phone.toLowerCase().includes(query.toLowerCase()))
             )
             .slice(0, 10)
           // Max Items to be displayed will be 10.
