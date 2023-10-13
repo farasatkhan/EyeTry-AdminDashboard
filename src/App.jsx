@@ -71,7 +71,10 @@ const privateRoutes = (
       <Route path="orders">
         <Route index element={<ViewAllOrders />} />
         <Route path="customer/:customerId" element={<ViewCustomerOrders />} />
-        <Route path="order" element={<ViewParticularCustomerOrder />} />
+        <Route
+          path="/orders/order/:orderId/customer/:customerId"
+          element={<ViewParticularCustomerOrder />}
+        />
       </Route>
       <Route path="moderation">
         <Route index element={<PublishedReviews />} />

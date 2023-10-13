@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import Product from "../../../../assets/images/products/product_1.jfif";
 import RoundedDot from "../../../../assets/icons_alt/rounded_dot.png";
 
 import CustomerInformation from "../../../../layouts/Admin/Orders/CustomerInformation/CustomerInformation";
 
+import { viewParticularCustomerSingleOrder } from "../../../../services/Orders/orders";
+
 const ViewParticularCustomerOrder = () => {
+  const { customerId, orderId } = useParams();
+
+  const [extraPrice, setExtraPrice] = useState({
+    taxes: 0,
+    shipping: 0,
+    totalPriceWithTaxes: 0,
+  });
+
   const [paymentStatus, setPaymentStatus] = useState("paid");
   const [fulfillmentStatus, setFulfillmentStatus] = useState("fulfilled");
 
@@ -17,6 +28,45 @@ const ViewParticularCustomerOrder = () => {
     setFulfillmentStatus(event.target.value);
   };
 
+  const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    try {
+      const fetchedOrders = await viewParticularCustomerSingleOrder(
+        customerId,
+        orderId
+      );
+      setOrders(fetchedOrders);
+    } catch (error) {
+      console.error("Error fetching orders", error);
+    }
+  };
+
+  useEffect(() => {
+    if (orders) {
+      const orderPrice = orders.totalPrice;
+
+      const shipping = 9;
+      const shippingCost = (orderPrice * shipping) / 100;
+
+      const taxes = 18;
+      const taxesCost = (orderPrice * taxes) / 100;
+
+      const totalPriceWithTaxes =
+        Number(orderPrice) + Number(shippingCost) + Number(taxesCost);
+
+      setExtraPrice({
+        shipping: shippingCost,
+        taxes: taxesCost,
+        totalPriceWithTaxes: totalPriceWithTaxes,
+      });
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row flex-grow justify-between ml-7 mr-7 mt-7">
@@ -26,12 +76,12 @@ const ViewParticularCustomerOrder = () => {
             <p className="">Orders details</p>
           </div>
           <div className="mt-2">
-            <p className="text-2xl">Order #30123</p>
+            <p className="text-2xl">Order #{orders.order_no}</p>
           </div>
         </div>
       </div>
       <div className="flex flex-col md:flex-row border rounded-md mx-5 my-5">
-        <CustomerInformation />
+        <CustomerInformation customerId={customerId} customerOrders={orders} />
       </div>
       <div className="mx-5 my-5 flex flex-col lg:flex-row gap-10">
         <div className="flex flex-col gap-5 lg:w-2/3">
@@ -146,19 +196,21 @@ const ViewParticularCustomerOrder = () => {
             <div className="mx-5 my-5">
               <div className="flex justify-between mx-2 my-2">
                 <span>Price</span>
-                <span>$399.99</span>
+                <span>${orders.totalPrice}</span>
               </div>
               <div className="flex justify-between mx-2 my-2">
                 <span>Shipping</span>
-                <span>$9.99</span>
+                <span>${extraPrice.shipping}</span>
               </div>
               <div className="flex justify-between mx-2 my-2">
                 <span>Taxes</span>
-                <span>$18.99</span>
+                <span>${extraPrice.taxes}</span>
               </div>
               <div className="flex justify-between mx-2 my-2 mt-5">
                 <span className="text-xl font-semibold">Total</span>
-                <span className="text-xl font-semibold">$428.97</span>
+                <span className="text-xl font-semibold">
+                  ${extraPrice.totalPriceWithTaxes}
+                </span>
               </div>
             </div>
           </div>

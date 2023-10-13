@@ -56,20 +56,38 @@ export const getAllOrders = async () => {
     }
 }
 
-export const banUser = async (userId, banned_until, banned_reason) => {
+export const banUser = async (customerId, data) => {
     try {
-        const response = await authenticatedAxiosInstance.put('/admin/user/ban', {userId, banned_until, banned_reason});
-        return response.data;
+        const response = await authenticatedAxiosInstance.put(`/admin/user/ban/${customerId}`, data);
+        return response;
     } catch (error) {
         throw error;
     }
 }
 
-export const unbanUser = async (userId) => {
+export const unbanUser = async (customerId) => {
     try {
-        const response = await authenticatedAxiosInstance.put('/admin/user/unban', {userId});
-        return response.data;
+        const response = await authenticatedAxiosInstance.post(`/admin/user/unban/${customerId}`);
+        return response;
     } catch (error) {
         throw error;
     }
 }
+
+// export const banUser = async (userId, banned_until, banned_reason) => {
+//     try {
+//         const response = await authenticatedAxiosInstance.put('/admin/user/ban', {userId, banned_until, banned_reason});
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+// }
+
+// export const unbanUser = async (userId) => {
+//     try {
+//         const response = await authenticatedAxiosInstance.put('/admin/user/unban', {userId});
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+// }

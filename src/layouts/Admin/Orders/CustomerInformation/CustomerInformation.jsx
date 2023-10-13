@@ -25,15 +25,17 @@ const CustomerInformation = ({ customerId, customerOrders }) => {
     }
   };
 
-  const totalOrders = customerOrders.length;
+  const totalOrders = Array.isArray(customerOrders) ? customerOrders.length : 1;
 
-  const totalPriceSum = customerOrders.reduce((acc, order) => {
-    const orderTotalPrice = parseFloat(order.totalPrice);
-    if (!isNaN(orderTotalPrice)) {
-      return acc + orderTotalPrice;
-    }
-    return acc;
-  }, 0);
+  const totalPriceSum = Array.isArray(customerOrders)
+    ? customerOrders.reduce((acc, order) => {
+        const orderTotalPrice = parseFloat(order.totalPrice);
+        if (!isNaN(orderTotalPrice)) {
+          return acc + orderTotalPrice;
+        }
+        return acc;
+      }, 0)
+    : customerOrders.totalPrice;
 
   const date = new Date(customer.createdAt);
   const year = date.getUTCFullYear();

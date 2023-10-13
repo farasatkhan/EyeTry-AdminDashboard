@@ -144,7 +144,9 @@ const OrdersTable = ({ data, query }) => {
               return (
                 <tr key={index}>
                   <td className="px-2 py-3">
-                    <NavLink to="/orders/order">
+                    <NavLink
+                      to={`/orders/order/${order._id}/customer/${order.user._id}`}
+                    >
                       <div className="flex">
                         <div className="mt-1">
                           <p className=" text-blue-500 cursor-pointer">

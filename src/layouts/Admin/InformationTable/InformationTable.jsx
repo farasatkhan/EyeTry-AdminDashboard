@@ -30,6 +30,8 @@ const InformationTable = ({ data, query, onCloseModal }) => {
     )
   );
 
+  useEffect(() => {}, [onCloseModal]);
+
   useEffect(() => {
     setPages({ ...pages, totalPages: Math.ceil(data.length / pages.pageSize) });
   }, [data]);
@@ -200,14 +202,29 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                   <td className="px-2 py-3 whitespace-nowrap">{user.email}</td>
                   <td className="px-2 py-3 whitespace-nowrap">{user.phone}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {checkStatus(user.status)}
+                    {checkStatus(user.status.user_status)}
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">{user.city}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
                     {user.country}
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {checkBanControl(user.status)}
+                    {/* {checkBanControl(user.status)} */}
+                    {user.status.user_status === "Banned" ? (
+                      <BanControl
+                        text="Lift Ban"
+                        type="primary"
+                        onClick={onCloseModal}
+                        user_id={user._id}
+                      />
+                    ) : (
+                      <BanControl
+                        text="Ban User"
+                        type="danger"
+                        onClick={onCloseModal}
+                        user_id={user._id}
+                      />
+                    )}
                   </td>
                 </tr>
               );

@@ -7,11 +7,11 @@ import { BsPersonFillSlash, BsPersonFillCheck } from "react-icons/bs";
     Life Ban - primary
 */
 
-const BanControl = ({ text, type, onClick }) => {
+const BanControl = ({ text, type, onClick, user_id }) => {
   return type === "primary" ? (
     <div
       className={`px-2 cursor-pointer flex bg-primary-100 h-9 justify-center items-center rounded-lg gap-1`}
-      onClick={() => onClick("Lift ban?", "unban")}
+      onClick={() => onClick("Lift ban?", "unban", user_id)}
     >
       <BsPersonFillCheck size={20} className={`text-primary-900`} />
       <p className={`text-primary-900 font-bold whitespace-nowrap`}>{text}</p>
@@ -19,7 +19,7 @@ const BanControl = ({ text, type, onClick }) => {
   ) : (
     <div
       className={`px-2 cursor-pointer flex bg-danger-100 h-9 justify-center items-center rounded-lg gap-1`}
-      onClick={() => onClick("Ban User?", "ban")}
+      onClick={() => onClick("Ban User?", "ban", user_id)}
     >
       <BsPersonFillSlash size={20} className={`text-danger-900`} />
       <p className={`text-danger-900 font-bold whitespace-nowrap`}>{text}</p>

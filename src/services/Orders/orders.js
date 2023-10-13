@@ -17,3 +17,12 @@ export const viewParticularCustomersOrders = async (CustomerID) => {
         throw error;
     }
 }
+
+export const viewParticularCustomerSingleOrder = async (CustomerID, OrderID) => {
+    try {
+        const response = await authenticatedAxiosInstance.get(`/admin/orders/${OrderID}/customer/${CustomerID}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

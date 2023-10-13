@@ -176,11 +176,13 @@ const ReviewsTable = ({ data, query, handleDeleteReview }) => {
               return (
                 <tr key={index}>
                   <td className="px-2 py-3">
-                    <NavLink to="/orders/order">
+                    <NavLink
+                      to={`/orders/order/${review.order._id}/customer/${review.user._id}`}
+                    >
                       <div className="flex">
                         <div className="mt-1">
                           <p className="whitespace-nowrap text-blue-500 cursor-pointer">
-                            {/* {console.log(review)} */}#
+                            {/* {review.order.order_no} */}#
                             {review.order.order_no}
                           </p>
                         </div>

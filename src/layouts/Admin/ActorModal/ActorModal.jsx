@@ -14,7 +14,7 @@ import DeleteAccountModalForm from "../../../components/forms/Admin/DeleteAccoun
   action: ban, unban, delete_account
 */
 
-const ActorModal = ({ title, action, onChangeModal }) => {
+const ActorModal = ({ title, action, onChangeModal, user_id }) => {
   const [modalAction, setModalAction] = useState("");
 
   useEffect(() => {
@@ -37,11 +37,20 @@ const ActorModal = ({ title, action, onChangeModal }) => {
         ></div>
         <div className="mx-5 mb-5">
           {modalAction === "ban" ? (
-            <BanActorModalForm onChangeModal={onChangeModal} />
+            <BanActorModalForm
+              onChangeModal={onChangeModal}
+              user_id={user_id}
+            />
           ) : modalAction === "unban" ? (
-            <UnBanActorModalForm onChangeModal={onChangeModal} />
+            <UnBanActorModalForm
+              onChangeModal={onChangeModal}
+              user_id={user_id}
+            />
           ) : modalAction === "add" ? (
-            <AddActorModalForm onChangeModal={onChangeModal} />
+            <AddActorModalForm
+              onChangeModal={onChangeModal}
+              user_id={user_id}
+            />
           ) : (
             modalAction === "delete_account" && (
               <DeleteAccountModalForm onChangeModal={onChangeModal} />

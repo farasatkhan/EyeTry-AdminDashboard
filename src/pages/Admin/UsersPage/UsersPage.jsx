@@ -23,22 +23,30 @@ const UsersPage = () => {
   const [modalType, setModalType] = useState({
     title: "",
     action: "",
+    user_id: "",
   });
 
   const handleSearchQuery = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const changeModalHandle = (title, action) => {
+  const changeModalHandle = (title, action, user_id) => {
     setCloseModal(!closeModal);
-    setModalType({ ...modalType, title: title, action: action });
+    setModalType({
+      ...modalType,
+      title: title,
+      action: action,
+      user_id: user_id,
+    });
   };
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetchAllUsers();
-  }, []);
+    if (!closeModal) {
+      fetchAllUsers();
+    }
+  }, [closeModal]);
 
   const fetchAllUsers = async () => {
     try {
@@ -151,6 +159,7 @@ const UsersPage = () => {
           title={modalType.title}
           action={modalType.action}
           onChangeModal={changeModalHandle}
+          user_id={modalType.user_id}
         />
       )}
     </div>

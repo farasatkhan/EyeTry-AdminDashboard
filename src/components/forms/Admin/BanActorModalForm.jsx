@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 import ModalButtons from "../../ui/Admin/ModalButtons";
+import { banUser } from "../../../services/Admin/admin";
 
-const BanUserModalForm = ({ onChangeModal }) => {
+const BanUserModalForm = ({ onChangeModal, user_id }) => {
   const [selectedOption, setSelectedOption] = useState("Forever");
 
   const options = [
@@ -25,11 +26,33 @@ const BanUserModalForm = ({ onChangeModal }) => {
     setSelectedOption(e.target.value);
   };
 
+  const handleUserBan = async (event) => {
+    event.preventDefault();
+
+    try {
+      const data = {
+        banned_until: selectedOption,
+        banned_reason: banReason,
+      };
+
+      const bannedUser = await banUser(user_id, data);
+
+      if (bannedUser.status === 200) {
+        console.log("User is banned");
+        onChangeModal();
+      } else {
+        console.log("User is not banned");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <>
+    <form onSubmit={handleUserBan}>
       <p className="mt-5 text-sm">
         This user is currently not banned. This means the user is alowed to take
-        normal actions. Would you like to ban this user?
+        normal actions. Would you like to ban this user? {user_id}
       </p>
       <div className="flex items-center mt-4">
         <label className="mr-3 text-sm">Banned Until: </label>
@@ -57,8 +80,22 @@ const BanUserModalForm = ({ onChangeModal }) => {
           onChange={handleBanReasonChange}
         />
       </div>
-      <ModalButtons type="ban" onClick={onChangeModal} />
-    </>
+      {/* <ModalButtons type="ban" onClick={onChangeModal} /> */}
+      <div className="flex justify-end gap-4 mt-4">
+        <button
+          onClick={onChangeModal}
+          className="text-white font-bold px-2 py-1 sm:py-2 sm:px-4 rounded border"
+        >
+          <p className="text-tertiary-100 text-sm font-light">Cancel</p>
+        </button>
+        <button
+          type="submit"
+          className={`bg-danger-900 text-white font-bold px-2 py-1 sm:py-2 sm:px-4 rounded`}
+        >
+          <p className="text-white text-sm font-light">Ban User</p>
+        </button>
+      </div>
+    </form>
   );
 };
 

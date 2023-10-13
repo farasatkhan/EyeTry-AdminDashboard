@@ -8,3 +8,4 @@ export const viewParticularCustomer = async (customerId) => {
         throw error;
     }
 }
+
