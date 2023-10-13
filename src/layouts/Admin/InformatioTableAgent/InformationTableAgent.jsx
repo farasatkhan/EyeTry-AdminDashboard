@@ -4,9 +4,7 @@ import Person from "../../../assets/images/test/person.jpg";
 import StatusPill from "../../../components/ui/Admin/StatusPill";
 import BanControl from "../../../components/ui/Admin/BanControl";
 
-import InformationTableStyles from "./InformationTable.module.css";
-
-const InformationTable = ({ data, query, onCloseModal }) => {
+const InformationTableAgent = ({ data, query, onCloseModal }) => {
   const [pages, setPages] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -132,7 +130,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                 scope="col"
                 className="px-2 py-3 font-normal whitespace-nowrap"
               >
-                User
+                Agents
               </th>
               <th
                 scope="col"
@@ -174,12 +172,12 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                 scope="col"
                 className="px-2 py-3 font-normal whitespace-nowrap"
               >
-                Ban User
+                Ban Agent
               </th>
             </tr>
           </thead>
           <tbody className="">
-            {modifiedData.map((user, index) => {
+            {modifiedData.map((agent, index) => {
               return (
                 <tr key={index}>
                   <td className="px-2 py-3 whitespace-nowrap">
@@ -192,39 +190,39 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                         />
                       </div>
                       <div className="mt-1">
-                        <p className="">{user.name}</p>
+                        <p className="">{agent.name}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {user.firstName + " " + user.lastName}
+                    {agent.firstName + " " + agent.lastName}
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">{user.email}</td>
-                  <td className="px-2 py-3 whitespace-nowrap">{user.phone}</td>
+                  <td className="px-2 py-3 whitespace-nowrap">{agent.email}</td>
+                  <td className="px-2 py-3 whitespace-nowrap">{agent.phone}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {checkStatus(user.status.user_status)}
+                    {checkStatus(agent.status.user_status)}
                   </td>
-                  <td className="px-2 py-3 whitespace-nowrap">{user.city}</td>
+                  <td className="px-2 py-3 whitespace-nowrap">{agent.city}</td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {user.country}
+                    {agent.country}
                   </td>
                   <td className="px-2 py-3 whitespace-nowrap">
-                    {/* {checkBanControl(user.status)} */}
-                    {user.status.user_status === "Banned" ? (
+                    {/* {checkBanControl(agent.status)} */}
+                    {agent.status.user_status === "Banned" ? (
                       <BanControl
                         text="Lift Ban"
                         type="primary"
                         onClick={onCloseModal}
-                        user_id={user._id}
-                        user_role="user"
+                        user_id={agent._id}
+                        user_role="agent"
                       />
                     ) : (
                       <BanControl
-                        text="Ban User"
+                        text="Ban Agent"
                         type="danger"
                         onClick={onCloseModal}
-                        user_id={user._id}
-                        user_role="user"
+                        user_id={agent._id}
+                        user_role="agent"
                       />
                     )}
                   </td>
@@ -276,4 +274,4 @@ const InformationTable = ({ data, query, onCloseModal }) => {
   );
 };
 
-export default InformationTable;
+export default InformationTableAgent;

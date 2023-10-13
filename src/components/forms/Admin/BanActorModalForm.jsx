@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import ModalButtons from "../../ui/Admin/ModalButtons";
-import { banUser } from "../../../services/Admin/admin";
+import { banUser, banAgent } from "../../../services/Admin/admin";
 
-const BanUserModalForm = ({ onChangeModal, user_id }) => {
+const BanUserModalForm = ({ onChangeModal, user_id, user_role }) => {
   const [selectedOption, setSelectedOption] = useState("Forever");
 
   const options = [
@@ -35,13 +35,26 @@ const BanUserModalForm = ({ onChangeModal, user_id }) => {
         banned_reason: banReason,
       };
 
-      const bannedUser = await banUser(user_id, data);
+      if (user_role === "user") {
+        const bannedUser = await banUser(user_id, data);
 
-      if (bannedUser.status === 200) {
-        console.log("User is banned");
-        onChangeModal();
+        if (bannedUser.status === 200) {
+          console.log("User is banned");
+          onChangeModal();
+        } else {
+          console.log("User is not banned");
+        }
+      } else if (user_role === "agent") {
+        const bannedAgent = await banAgent(user_id, data);
+
+        if (bannedAgent.status === 200) {
+          console.log("Agent is banned");
+          onChangeModal();
+        } else {
+          console.log("Agent is not banned");
+        }
       } else {
-        console.log("User is not banned");
+        console.log("user role not found. user_role is set to: ", user_role);
       }
     } catch (error) {
       console.log(error);

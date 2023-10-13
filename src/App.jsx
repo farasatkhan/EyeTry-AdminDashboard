@@ -2,6 +2,7 @@ import { Fragment } from "react";
 
 import Home from "./pages/Admin/Home";
 import UsersPage from "./pages/Admin/UsersPage";
+import Support from "./pages/Admin/Support";
 import Settings from "./pages/Admin/Settings";
 import ErrorPage from "./pages/Admin/ErrorPage";
 
@@ -54,6 +55,7 @@ const privateRoutes = (
       <Route index element={<Home />} />
       <Route path="settings" element={<Settings />} />
       <Route path="users" element={<UsersPage />} />
+      <Route path="agents" element={<Support />} />
       <Route path="analytics" element={<Analytics />} />
       <Route path="products">
         <Route index element={<ProductsHome />} />

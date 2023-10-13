@@ -8,14 +8,13 @@ import { jsonDownloader } from "../../../utils/JSONDownloader";
 
 import Card from "../../../layouts/Admin/Card";
 
-import UserPageStyles from "./UsersPage.module.css";
-import InformationTable from "../../../layouts/Admin/InformationTable/InformationTable";
+import InformationTableAgent from "../../../layouts/Admin/InformatioTableAgent/InformationTableAgent";
 
 import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
 // import data from "../../../data/Admin/informationTableData";
 
-import { getAllUsers } from "../../../../src/services/Admin/admin";
+import { getAllSupportAgents } from "../../../../src/services/Admin/admin";
 
 const UsersPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,20 +41,20 @@ const UsersPage = () => {
     });
   };
 
-  const [users, setUsers] = useState([]);
+  const [agents, setAgents] = useState([]);
 
   useEffect(() => {
     if (!closeModal) {
-      fetchAllUsers();
+      fetchAllAgents();
     }
   }, [closeModal]);
 
-  const fetchAllUsers = async () => {
+  const fetchAllAgents = async () => {
     try {
-      const fetchAllUsers = await getAllUsers();
-      setUsers(fetchAllUsers);
+      const fetchAllAgents = await getAllSupportAgents();
+      setAgents(fetchAllAgents);
     } catch (error) {
-      console.error("Error fetching giftcards", error);
+      console.error("Error fetching agents", error);
     }
   };
 
@@ -66,10 +65,10 @@ const UsersPage = () => {
           <div className="flex flex-col">
             <div className="flex gap-1">
               <p className="font-light text-slate-500">Management /</p>
-              <p className="">Users</p>
+              <p className="">Agents</p>
             </div>
             <div className="mt-2">
-              <p className="text-2xl">Users</p>
+              <p className="text-2xl">Agents</p>
             </div>
           </div>
           {/* <div className="flex">
@@ -81,18 +80,16 @@ const UsersPage = () => {
             </button>
           </div> */}
         </div>
-        <div
-          className={`${UserPageStyles["line-height"]} bg-slate-100 ml-7 mr-7 mt-7`}
-        ></div>
+        <div className={`h-1/2 bg-slate-100 ml-7 mr-7 mt-7`}></div>
         <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
           <Card
-            title="Total Users"
+            title="Total Agents"
             total={2900}
             percentage={1.7}
             change={29.1}
           />
           <Card
-            title="Active Users"
+            title="Active Agents"
             total={2900}
             percentage={1.7}
             change={29.1}
@@ -114,12 +111,12 @@ const UsersPage = () => {
                 </div>
                 <input
                   type="text"
-                  id="search_users"
+                  id="search_agents"
                   value={searchQuery}
                   onChange={handleSearchQuery}
                   // w-30 sm:w-60 md:w-80
                   className="p-2 bg-transparent focus:outline-none"
-                  placeholder="Search Users"
+                  placeholder="Search Agents"
                 />
               </div>
               <div className="md:hidden p-3">
@@ -129,7 +126,7 @@ const UsersPage = () => {
             <div className="flex justify-end">
               {/* export */}
               <div
-                onClick={() => jsonDownloader(users, "users.json")}
+                onClick={() => jsonDownloader(agents, "agents.json")}
                 className="cursor-pointer flex justify-center items-center gap-3 px-5 h-10 text-center m-3 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
               >
                 <div className="flex justify-center items-center">
@@ -148,8 +145,8 @@ const UsersPage = () => {
           </div>
           {/* table */}
           <div className="">
-            <InformationTable
-              data={users}
+            <InformationTableAgent
+              data={agents}
               query={searchQuery}
               onCloseModal={changeModalHandle}
             />

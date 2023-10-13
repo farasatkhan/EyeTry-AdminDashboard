@@ -56,7 +56,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
             src={Logo}
             className={`${
               toggleSidebar ? "block" : "hidden"
-            } sm:h-1/2 sm:w-1/2`}
+            } sm:h-1/4 sm:w-1/4`}
             alt="logo"
           />
         </div>
@@ -77,7 +77,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
                 <BsPeople size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
-                Management
+                User Management
               </p>
             </div>
           </NavLink>
@@ -135,6 +135,14 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
                 <BiMessageDetail size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Guides</p>
+            </div>
+          </NavLink>
+          <NavLink to="/agents">
+            <div className="flex justify-start items-center cursor-pointer mt-5">
+              <div className="h-7 pt-1">
+                <BsPeople size={18} />
+              </div>
+              <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>Support</p>
             </div>
           </NavLink>
           <NavLink to="/settings">

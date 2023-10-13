@@ -46,6 +46,16 @@ export const getAllUsers = async () => {
     }
 }
 
+export const getAllSupportAgents = async () => {
+    try {
+        const response = await authenticatedAxiosInstance.get('/admin/agents');
+        return response.data;
+    } catch (error) {
+        console.error('Error while fetching agents', error);
+        throw error;
+    }
+}
+
 export const getAllOrders = async () => {
     try {
         const response = await authenticatedAxiosInstance.get('/admin/orders');
@@ -68,6 +78,24 @@ export const banUser = async (customerId, data) => {
 export const unbanUser = async (customerId) => {
     try {
         const response = await authenticatedAxiosInstance.post(`/admin/user/unban/${customerId}`);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const banAgent = async (agentId, data) => {
+    try {
+        const response = await authenticatedAxiosInstance.put(`/admin/agent/ban/${agentId}`, data);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const unbanAgent = async (agentId) => {
+    try {
+        const response = await authenticatedAxiosInstance.post(`/admin/agent/unban/${agentId}`);
         return response;
     } catch (error) {
         throw error;

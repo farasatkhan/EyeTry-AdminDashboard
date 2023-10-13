@@ -55,6 +55,7 @@ const AddProductVariants = () => {
 
     productVariant.forEach((variant, index) => {
       formData.append(`color`, variant.color);
+      formData.append(`color_code`, variant.color_code);
       formData.append(`quantity`, variant.quantity);
       formData.append(`image_count`, variant.image_count);
       variant.images.forEach((image, imageIndex) => {

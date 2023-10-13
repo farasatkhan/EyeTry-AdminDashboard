@@ -85,6 +85,15 @@ const Variants = ({ productFrameColors, updateVariants }) => {
     return quantity;
   };
 
+  const handleProductVariantColorCode = (color) => {
+    const variant = productVariantsMultiple.find(
+      (variant) => variant.color === color
+    );
+    const color_code = variant ? variant.color_code : "";
+
+    return color_code;
+  };
+
   useEffect(() => {
     updateVariants(productVariantsMultiple);
     console.log(productVariantsMultiple);
@@ -113,7 +122,7 @@ const Variants = ({ productFrameColors, updateVariants }) => {
       </div>
       <div className={`h-0.5 bg-slate-100`}></div>
       <div className="px-5 py-5">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-1">
           {productFrameColors.map((color, index) => (
             <div key={index} className="flex gap-5 mb-5">
               <input
@@ -165,32 +174,61 @@ const Variants = ({ productFrameColors, updateVariants }) => {
               </label>
               <div>
                 <div className="text-lg">{color}</div>
-                <div className="flex flex-col gap-2 mt-3">
-                  <label
-                    htmlFor={`color_quantity_${color}`}
-                    className="text-xs"
-                  >
-                    Quantity
-                  </label>
-                  <input
-                    id={`color_quantity_${color}`}
-                    type="text"
-                    className="border p-1 rounded-md w-20 outline-none text-sm"
-                    autoComplete="off"
-                    value={handleProductVariantQuantity(color)}
-                    onChange={(event) => {
-                      const updatedVariant = productVariantsMultiple.map(
-                        (variant) =>
-                          variant.color === color
-                            ? {
-                                ...variant,
-                                quantity: event.target.value,
-                              }
-                            : variant
-                      );
-                      setProductVariantsMultiple(updatedVariant);
-                    }}
-                  />
+                <div className="flex gap-2">
+                  <div className="flex flex-col gap-2 mt-3">
+                    <label
+                      htmlFor={`color_quantity_${color}`}
+                      className="text-xs"
+                    >
+                      Quantity
+                    </label>
+                    <input
+                      id={`color_quantity_${color}`}
+                      type="text"
+                      className="border p-1 rounded-md w-20 outline-none text-sm"
+                      autoComplete="off"
+                      value={handleProductVariantQuantity(color)}
+                      onChange={(event) => {
+                        const updatedVariant = productVariantsMultiple.map(
+                          (variant) =>
+                            variant.color === color
+                              ? {
+                                  ...variant,
+                                  quantity: event.target.value,
+                                }
+                              : variant
+                        );
+                        setProductVariantsMultiple(updatedVariant);
+                      }}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 mt-3">
+                    <label
+                      htmlFor={`color_code_for_${color}`}
+                      className="text-xs"
+                    >
+                      Color Code (in Hex)
+                    </label>
+                    <input
+                      id={`color_code_for_${color}`}
+                      type="text"
+                      className="border p-1 rounded-md w-20 outline-none text-sm"
+                      autoComplete="off"
+                      value={handleProductVariantColorCode(color)}
+                      onChange={(event) => {
+                        const updatedVariant = productVariantsMultiple.map(
+                          (variant) =>
+                            variant.color === color
+                              ? {
+                                  ...variant,
+                                  color_code: event.target.value,
+                                }
+                              : variant
+                        );
+                        setProductVariantsMultiple(updatedVariant);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
