@@ -3,12 +3,19 @@ import React, { useState, useEffect } from "react";
 import SettingsCard from "../../../layouts/Admin/SettingsCard/SettingsCard";
 import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 
+import API_URL from "../../../config/config";
+
+import { BsFillPersonFill, BsPencil } from "react-icons/bs";
+
 import SettingsStyles from "./Settings.module.css";
 import {
   getAdminProfile,
   updateAdminBasicInformation,
   updateAdminPassword,
+  updateAdminProfilePhoto,
+  viewAdminProfilePhoto,
 } from "../../../services/Admin/admin";
+import { getDataFromLocalStorage } from "../../../utils/LocalStorage";
 
 const Settings = () => {
   const [passwordChangeStatus, setPasswordChangeStatus] = useState({
@@ -112,15 +119,42 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    fetchAdmin();
+    const adminId = getDataFromLocalStorage("adminId");
+    fetchAdmin(adminId);
   }, []);
 
-  const fetchAdmin = async () => {
+  const [serverImageLocation, setServerImageLocation] = useState("");
+
+  const fetchAdmin = async (adminId) => {
     try {
-      const fetchedAdminProfile = await getAdminProfile();
+      const fetchedAdminProfile = await getAdminProfile(adminId);
+      const viewImageProfile = await viewAdminProfilePhoto();
       setAdmin(fetchedAdminProfile);
+      const imageURL = API_URL + viewImageProfile.data.location;
+      setServerImageLocation(imageURL);
     } catch (error) {
       console.error("Error fetching admin", error);
+    }
+  };
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    const image = event.target.files[0];
+    setSelectedImage(image);
+    setUploadedImage(URL.createObjectURL(image));
+  };
+
+  const handleImageProfileUpdate = async (selectedImage) => {
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+
+    try {
+      const updatedAdminProfileImage = await updateAdminProfilePhoto(formData);
+      console.log("Admin photo is updated!", updatedAdminProfileImage);
+    } catch (error) {
+      console.error("Failed to update admin photo:", error);
     }
   };
 
@@ -145,6 +179,7 @@ const Settings = () => {
       <div className="flex gap-5 m-5">
         <div className="border shadow-sm rounded-lg hidden md:block  w-1/4 p-5 h-fit bg-white">
           <ul>
+            <li className="li my-5 cursor-pointer">Update Photo</li>
             <li className="li my-5 cursor-pointer">Basic Information</li>
             <li className="li my-5 cursor-pointer">Email</li>
             <li className="li my-5 cursor-pointer">Password</li>
@@ -152,6 +187,58 @@ const Settings = () => {
           </ul>
         </div>
         <div className="w-full md:w-3/4">
+          <SettingsCard title="Upload Profile Image">
+            <>
+              <div className="flex flex-col justify-end cursor-pointer">
+                <label
+                  htmlFor="image-upload"
+                  className="flex justify-center items-center gap-5 cursor-pointer"
+                >
+                  {}
+                  {selectedImage ? (
+                    <div className="flex justify-center items-center relative bg-slate-100 w-24 h-24 rounded-full">
+                      <img
+                        className="max-w-full max-h-full rounded-full"
+                        src={uploadedImage}
+                        alt="Preview"
+                      />
+                    </div>
+                  ) : serverImageLocation ? (
+                    <div className="flex justify-center items-center relative bg-slate-100 w-24 h-24 rounded-full">
+                      <img
+                        className="max-w-full max-h-full rounded-full"
+                        src={serverImageLocation}
+                        alt="Preview"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center relative bg-slate-100 w-24 h-24 rounded-full">
+                      <BsFillPersonFill size={80} className="text-slate-300" />
+                      <div className="flex justify-center items-center absolute bg-white w-6 h-6 rounded-full border ml-20 mt-10">
+                        <BsPencil size={10} />
+                      </div>
+                    </div>
+                  )}
+
+                  <input
+                    type="file"
+                    id="image-upload"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                  />
+                </label>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => handleImageProfileUpdate(selectedImage)}
+                    className="w-full sm:w-36 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  >
+                    <p>Update Image</p>
+                  </button>
+                </div>
+              </div>
+            </>
+          </SettingsCard>
           <SettingsCard title="Basic Information">
             <form onSubmit={handleUpdateAdminBasicInformation}>
               <div className="flex flex-col md:flex-row mb-3">

@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavbarStyles from "./Navbar.module.css";
+
+import { NavLink } from "react-router-dom";
+
+import { getDataFromLocalStorage } from "../../../utils/LocalStorage";
+
+import API_URL from "../../../config/config";
 
 import Person from "../../../assets/images/test/person.jpg";
 
@@ -7,7 +13,38 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 
+import {
+  getAdminProfile,
+  viewAdminProfilePhoto,
+} from "../../../services/Admin/admin";
+
 const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
+  const [admin, setAdmin] = useState({
+    _id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const [serverImageLocation, setServerImageLocation] = useState("");
+
+  useEffect(() => {
+    const adminId = getDataFromLocalStorage("adminId");
+    fetchAdmin(adminId);
+  }, []);
+
+  const fetchAdmin = async (adminId) => {
+    try {
+      const fetchedAdminProfile = await getAdminProfile(adminId);
+      const viewImageProfile = await viewAdminProfilePhoto();
+      setAdmin(fetchedAdminProfile);
+      const imageURL = API_URL + viewImageProfile.data.location;
+      setServerImageLocation(imageURL);
+    } catch (error) {
+      console.error("Error fetching admin", error);
+    }
+  };
+
   return (
     <>
       <nav className="bg-white border-b-2 border-slate-100 flex justify-end">
@@ -39,19 +76,23 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
               className={`${NavbarStyles["bell-icon-dot-color"]} w-2 h-2 rounded-full absolute ml-4`}
             ></div>
           </div>
-          <div className="flex cursor-pointer">
-            <div className="h-10 w-10 rounded-full overflow-hidden mr-2">
-              <img
-                src={Person}
-                alt="user-profile"
-                className="object-cover h-full w-full"
-              />
+          <NavLink to="/settings">
+            <div className="flex cursor-pointer">
+              <div className="h-10 w-10 rounded-full overflow-hidden mr-2">
+                <img
+                  src={serverImageLocation}
+                  alt="user-profile"
+                  className="object-cover h-full w-full"
+                />
+              </div>
+              <div className="hidden lg:block">
+                <p className="text-sm">Hi, Welcome</p>
+                <p className="font-bold text-">
+                  {admin.firstName + " " + admin.lastName}
+                </p>
+              </div>
             </div>
-            <div className="hidden lg:block">
-              <p className="text-sm">Hi, Welcome</p>
-              <p className="font-bold text-">Qasim Malik</p>
-            </div>
-          </div>
+          </NavLink>
         </div>
       </nav>
     </>

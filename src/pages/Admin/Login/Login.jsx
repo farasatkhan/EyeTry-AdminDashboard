@@ -29,6 +29,7 @@ const Login = () => {
         console.log(response.data);
         saveDataToLocalStorage("refreshToken", response.data.refreshToken);
         saveDataToLocalStorage("accessToken", response.data.accessToken);
+        saveDataToLocalStorage("adminId", response.data.user._id);
         // setAccessTokenHeader(response.data.accessToken);
         redirectToHomePage();
       }

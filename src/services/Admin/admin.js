@@ -9,9 +9,9 @@ export const loginAdmin = async (data) => {
     }
 }
 
-export const getAdminProfile = async () => {
+export const getAdminProfile = async (adminId) => {
     try {
-        const response = await authenticatedAxiosInstance.get('/admin/profile');
+        const response = await authenticatedAxiosInstance.get(`/admin/${adminId}/profile`);
         return response.data;
     } catch (error) {
         throw error;
@@ -30,6 +30,24 @@ export const updateAdminBasicInformation = async (adminId, data) => {
 export const updateAdminPassword = async (adminId, data) => {
     try {
         const response = await authenticatedAxiosInstance.put(`/admin/profile/${adminId}/password/`, data);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const updateAdminProfilePhoto = async (formData) => {
+    try {
+        const response = await authenticatedAxiosInstance.post(`/admin/upload_image_server/`, formData, { headers: {'Content-Type': 'multipart/form-data'}});
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const viewAdminProfilePhoto = async () => {
+    try {
+        const response = await authenticatedAxiosInstance.get(`/admin/view_image_server/`);
         return response;
     } catch (error) {
         throw error;
