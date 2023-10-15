@@ -32,6 +32,9 @@ const AddProducts = () => {
     description: "",
     manufacturer: "",
     type: "",
+    sku_model: "",
+    frame_shape: "",
+    rim_shape: "",
   });
 
   const [productBasicInformationError, setProductBasicInformationError] =
@@ -43,7 +46,10 @@ const AddProducts = () => {
       productBasicInformation.sku &&
       productBasicInformation.description &&
       productBasicInformation.manufacturer &&
-      productBasicInformation.type
+      productBasicInformation.type &&
+      productBasicInformation.sku_model &&
+      productBasicInformation.frame_shape &&
+      productBasicInformation.rim_shape
     ) {
       setProductBasicInformationError("");
       return;
@@ -309,7 +315,10 @@ const AddProducts = () => {
       !productBasicInformation.sku ||
       !productBasicInformation.description ||
       !productBasicInformation.manufacturer ||
-      !productBasicInformation.type
+      !productBasicInformation.type ||
+      !productBasicInformation.sku_model ||
+      !productBasicInformation.frame_shape ||
+      !productBasicInformation.rim_shape
     ) {
       setProductBasicInformationError("Please fill out all required fields.");
       return;

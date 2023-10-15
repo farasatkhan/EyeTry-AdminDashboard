@@ -19,6 +19,9 @@ const ProductBasicInformation = ({
     description: "",
     manufacturer: "",
     type: "",
+    sku_model: "",
+    frame_shape: "",
+    rim_shape: "",
   });
 
   useEffect(() => {
@@ -85,6 +88,63 @@ const ProductBasicInformation = ({
               updateBasicProductInformation({
                 ...basicProductInformation,
                 manufacturer: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="sku_model" className="text-sm">
+            SKU Model
+          </label>
+          <input
+            maxLength={50}
+            id="sku_model"
+            type="text"
+            className="border p-2 rounded-md w-full outline-none text-sm"
+            autoComplete="off"
+            value={basicProductInformation.sku_model}
+            onChange={(e) =>
+              updateBasicProductInformation({
+                ...basicProductInformation,
+                sku_model: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="frame_shape" className="text-sm">
+            Frame Shape
+          </label>
+          <input
+            maxLength={50}
+            id="frame_shape"
+            type="text"
+            className="border p-2 rounded-md w-full outline-none text-sm"
+            autoComplete="off"
+            value={basicProductInformation.frame_shape}
+            onChange={(e) =>
+              updateBasicProductInformation({
+                ...basicProductInformation,
+                frame_shape: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="rim_shape" className="text-sm">
+            Rim Shape
+          </label>
+          <input
+            maxLength={50}
+            id="rim_shape"
+            type="text"
+            className="border p-2 rounded-md w-full outline-none text-sm"
+            autoComplete="off"
+            value={basicProductInformation.rim_shape}
+            onChange={(e) =>
+              updateBasicProductInformation({
+                ...basicProductInformation,
+                rim_shape: e.target.value,
               })
             }
           />
