@@ -121,6 +121,8 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
     );
     const totalQuantity = quantities.reduce((acc, curr) => acc + curr, 0);
 
+    if (isNaN(totalQuantity) || totalQuantity === null) return 0;
+
     return totalQuantity;
   };
 
