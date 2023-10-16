@@ -26,3 +26,12 @@ export const viewParticularCustomerSingleOrder = async (CustomerID, OrderID) => 
         throw error;
     }
 }
+
+export const updateOrderDeliveryStatus = async (orderId, data) => {
+    try {
+        const response = await authenticatedAxiosInstance.put(`/products/v1/order/${orderId}`, data);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

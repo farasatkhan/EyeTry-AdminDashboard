@@ -6,7 +6,10 @@ import RoundedDot from "../../../../assets/icons_alt/rounded_dot.png";
 
 import CustomerInformation from "../../../../layouts/Admin/Orders/CustomerInformation/CustomerInformation";
 
-import { viewParticularCustomerSingleOrder } from "../../../../services/Orders/orders";
+import {
+  viewParticularCustomerSingleOrder,
+  updateOrderDeliveryStatus,
+} from "../../../../services/Orders/orders";
 
 const ViewParticularCustomerOrder = () => {
   const { customerId, orderId } = useParams();
@@ -18,14 +21,27 @@ const ViewParticularCustomerOrder = () => {
   });
 
   const [paymentStatus, setPaymentStatus] = useState("paid");
-  const [fulfillmentStatus, setFulfillmentStatus] = useState("fulfilled");
+  const [fulfillmentStatus, setFulfillmentStatus] = useState("Pending");
 
   const handlePaymentStatusChange = (event) => {
     setPaymentStatus(event.target.value);
   };
 
-  const handleFulfillmentStatusChange = (event) => {
-    setFulfillmentStatus(event.target.value);
+  const handleFulfillmentStatusChange = async (event) => {
+    const deliveryStatus = event.target.value;
+
+    try {
+      const data = {
+        deliveryStatus: deliveryStatus,
+      };
+
+      const updatedOrderStatus = await updateOrderDeliveryStatus(orderId, data);
+      console.log("order is updated");
+    } catch (error) {
+      console.error("Error updating order status", error);
+    }
+
+    setFulfillmentStatus(deliveryStatus);
   };
 
   const [orders, setOrders] = useState([]);
@@ -37,9 +53,27 @@ const ViewParticularCustomerOrder = () => {
         orderId
       );
       setOrders(fetchedOrders);
+      setFulfillmentStatus(fetchedOrders.deliveryStatus);
     } catch (error) {
       console.error("Error fetching orders", error);
     }
+  };
+
+  const [orderDate, setOrderDate] = useState({
+    ready: "",
+    shipping: "",
+    delivered: "",
+  });
+
+  const formatDate = (date) => {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  };
+
+  const calculateOffsetDate = (date, offset) => {
+    const newDate = new Date(date);
+    newDate.setDate(date.getDate() + offset);
+    return newDate;
   };
 
   useEffect(() => {
@@ -51,6 +85,15 @@ const ViewParticularCustomerOrder = () => {
 
       const taxes = 18;
       const taxesCost = (orderPrice * taxes) / 100;
+
+      const mongodbDate = orders.orderDate;
+      const originalDate = new Date(mongodbDate);
+
+      setOrderDate({
+        ready: formatDate(originalDate),
+        shipping: formatDate(calculateOffsetDate(originalDate, 3)),
+        delivered: formatDate(calculateOffsetDate(originalDate, 5)),
+      });
 
       const totalPriceWithTaxes =
         Number(orderPrice) + Number(shippingCost) + Number(taxesCost);
@@ -85,7 +128,7 @@ const ViewParticularCustomerOrder = () => {
       </div>
       <div className="mx-5 my-5 flex flex-col lg:flex-row gap-10">
         <div className="flex flex-col gap-5 lg:w-2/3">
-          <div className="border shadow rounded-md">
+          {/* <div className="border shadow rounded-md">
             <div className="px-2 py-2 border-b">
               <span className="text-xl">Order details</span>
             </div>
@@ -124,12 +167,12 @@ const ViewParticularCustomerOrder = () => {
                 <span className="text-3xl">$21.99</span>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="border shadow rounded-md">
             <div className="px-2 py-2 border-b">
               <span className="text-xl">Activities</span>
             </div>
-            <div className="flex mx-10 my-10 gap-5">
+            <div className="flex mx-10 my-14 gap-5">
               <div className="flex flex-grow flex-col">
                 <div className="flex flex-grow justify-between mb-10">
                   <div className="flex gap-5">
@@ -146,7 +189,7 @@ const ViewParticularCustomerOrder = () => {
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <span>27 August, 2023</span>
+                    <span>{orderDate.ready}</span>
                     <span className="text-sm">6:30 AM</span>
                   </div>
                 </div>
@@ -159,12 +202,12 @@ const ViewParticularCustomerOrder = () => {
                     </div>
                     <div className="flex flex-col">
                       <span className="font-bold">Shipped</span>
-                      <span className="text-sm">Pending</span>
+                      <span className="text-sm">{fulfillmentStatus}</span>
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <span>Estimated time</span>
-                    <span className="text-sm">28 August, 2023</span>
+                    <span>{orderDate.shipping}</span>
+                    <span className="text-sm">5:30 PM</span>
                   </div>
                 </div>
                 <div className="flex flex-grow justify-between mb-10">
@@ -176,12 +219,12 @@ const ViewParticularCustomerOrder = () => {
                     </div>
                     <div className="flex flex-col">
                       <span className="font-bold">Delivered</span>
-                      <span className="text-sm">Pending</span>
+                      <span className="text-sm">{fulfillmentStatus}</span>
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <span>Estimated time</span>
-                    <span className="text-sm">29 August, 2023</span>
+                    <span>{orderDate.delivered}</span>
+                    <span className="text-sm">9:30 AM</span>
                   </div>
                 </div>
               </div>
@@ -220,7 +263,7 @@ const ViewParticularCustomerOrder = () => {
             </div>
             <div className="px-5 py-5">
               <form action="">
-                <div className="flex flex-col mb-4">
+                {/* <div className="flex flex-col mb-4">
                   <label className="block mb-2 text-sm">Payment Status:</label>
                   <select
                     className="border rounded p-2 cursor-pointer"
@@ -231,7 +274,7 @@ const ViewParticularCustomerOrder = () => {
                     <option value="declined">Declined</option>
                     <option value="pending">Pending</option>
                   </select>
-                </div>
+                </div> */}
                 <div className="flex flex-col mb-4">
                   <label className="block mb-2 text-sm">
                     Fulfillment Status:
@@ -241,8 +284,8 @@ const ViewParticularCustomerOrder = () => {
                     value={fulfillmentStatus}
                     onChange={handleFulfillmentStatusChange}
                   >
-                    <option value="fulfilled">Fulfilled</option>
-                    <option value="unfulfilled">Unfulfilled</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Delivered">Delivered</option>
                   </select>
                 </div>
               </form>
