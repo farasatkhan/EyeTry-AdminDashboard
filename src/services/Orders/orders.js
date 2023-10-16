@@ -9,6 +9,15 @@ export const viewAllOrders = async () => {
     }
 }
 
+export const viewOrdersAnalytics = async () => {
+    try {
+        const response = await authenticatedAxiosInstance.get('/products/v1/order/analytics');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const viewParticularCustomersOrders = async (CustomerID) => {
     try {
         const response = await authenticatedAxiosInstance.get(`/admin/orders/customer/${CustomerID}`);

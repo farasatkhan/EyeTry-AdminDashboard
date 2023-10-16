@@ -16,7 +16,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Sales = () => {
+const Sales = ({ salesData }) => {
   const customTickFormatter = (tick) => {
     const date = new Date(tick);
     const day = date.getDate();
@@ -26,7 +26,7 @@ const Sales = () => {
 
   return (
     <ResponsiveContainer width="99%" height="100%">
-      <AreaChart data={data}>
+      <AreaChart data={salesData ? salesData : data}>
         <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.1} />
         <XAxis
           dataKey="date"

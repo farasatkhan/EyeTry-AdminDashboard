@@ -5,7 +5,7 @@ import { BiLineChart } from "react-icons/bi";
 import CardStyles from "./Card.module.css";
 import CardGraph from "../../../components/ui/Admin/Graphs/CardGraph";
 
-const Card = ({ title, total, percentage, change }) => {
+const Card = ({ title, total, percentage, change, data }) => {
   return (
     <>
       <div className="border shadow-sm rounded-lg bg-white">
@@ -21,7 +21,7 @@ const Card = ({ title, total, percentage, change }) => {
           <div className="flex w-1/2 pt-5">
             <div>
               <div className="flex">
-                <div
+                {/* <div
                   className={`${CardStyles["secondary-background-green-color"]} flex gap-2 pl-1 pr-1 sm:pl-3 sm:pr-3 pt-1 rounded-sm`}
                 >
                   <div className="mt-1">
@@ -33,7 +33,7 @@ const Card = ({ title, total, percentage, change }) => {
                   <p className={`${CardStyles["primary-green-color"]}`}>
                     {percentage}%
                   </p>
-                </div>
+                </div> */}
                 {/* <div>
                   <p className={`mt-1 font-light whitespace-nowrap`}>
                     from {change}%
@@ -44,7 +44,7 @@ const Card = ({ title, total, percentage, change }) => {
           </div>
         </div>
         <div className="px-1 py-3 h-20">
-          <CardGraph />
+          <CardGraph cardData={data} />
         </div>
       </div>
     </>

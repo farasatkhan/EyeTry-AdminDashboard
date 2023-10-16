@@ -11,9 +11,16 @@ import Card from "../../../../layouts/Admin/Card";
 import ViewAllOrdersStyle from "./ViewAllOrders.module.css";
 import OrdersTable from "../../../../layouts/Admin/Orders/OrdersTable";
 
-import { viewAllOrders } from "../../../../services/Orders/orders";
+import {
+  viewAllOrders,
+  viewOrdersAnalytics,
+} from "../../../../services/Orders/orders";
 
 import data from "../../../../data/Admin/viewAllOrdersData";
+import {
+  generateCardData,
+  generateOrdersDashboardData,
+} from "../../../../utils/generateCardData";
 
 const ViewAllOrders = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,10 +41,18 @@ const ViewAllOrders = () => {
 
   const [orders, setOrders] = useState([]);
 
+  const [ordersAnalytics, setOrderAnalytics] = useState({
+    totalOrders: 0,
+    pendingOrders: 0,
+    deliveredOrders: 0,
+  });
+
   const fetchOrders = async () => {
     try {
       const fetchedOrders = await viewAllOrders();
+      const fetchedOrdersAnalytics = await viewOrdersAnalytics();
       setOrders(fetchedOrders);
+      setOrderAnalytics(fetchedOrdersAnalytics);
     } catch (error) {
       console.error("Error fetching orders", error);
     }
@@ -46,6 +61,8 @@ const ViewAllOrders = () => {
   useEffect(() => {
     fetchOrders();
   }, []);
+
+  const orderData = generateOrdersDashboardData();
 
   return (
     <div className="font-body">
@@ -67,27 +84,31 @@ const ViewAllOrders = () => {
         <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
           <Card
             title="Total Orders"
-            total={106301}
+            total={ordersAnalytics.totalOrders}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
           <Card
             title="Delivered Orders"
-            total={13701}
+            total={ordersAnalytics.deliveredOrders}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
           <Card
             title="Pending Orders"
-            total={512}
+            total={ordersAnalytics.pendingOrders}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
           <Card
             title="Ready Orders"
-            total={219}
+            total={orderData.ready_orders}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
         </div>
         <div className="border shadow-sm m-3 rounded-lg mx-7 mt-7 bg-white">

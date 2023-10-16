@@ -15,6 +15,10 @@ import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 // import data from "../../../data/Admin/informationTableData";
 
 import { getAllSupportAgents } from "../../../../src/services/Admin/admin";
+import {
+  generateAgentsDashboardData,
+  generateCardData,
+} from "../../../utils/generateCardData";
 
 const UsersPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -58,6 +62,8 @@ const UsersPage = () => {
     }
   };
 
+  const supportData = generateAgentsDashboardData();
+
   return (
     <div className="font-body">
       <div className="flex flex-col">
@@ -84,23 +90,32 @@ const UsersPage = () => {
         <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
           <Card
             title="Total Agents"
-            total={2900}
+            total={supportData.total_agents}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
           <Card
             title="Active Agents"
-            total={2900}
+            total={supportData.active_agents}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
           <Card
-            title="Churn Rate"
-            total={2900}
+            title="Total Active Tickets"
+            total={supportData.total_active_tickets}
             percentage={1.7}
             change={29.1}
+            data={generateCardData()}
           />
-          <Card title="ARPU" total={2900} percentage={1.7} change={29.1} />
+          <Card
+            title="Resolved Tickets"
+            total={supportData.resolved_tickets}
+            percentage={1.7}
+            change={29.1}
+            data={generateCardData()}
+          />
         </div>
         <div className="border border-slate-100 m-3 rounded-lg bg-white">
           <div className="flex justify-between m-3">

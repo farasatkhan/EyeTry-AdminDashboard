@@ -14,6 +14,12 @@ import { BiSearch } from "react-icons/bi";
 import { BsDownload, BsFilter } from "react-icons/bs";
 
 import { viewAllOrders } from "../../../services/Orders/orders";
+import {
+  generateCardData,
+  generateDashboardData,
+} from "../../../utils/generateCardData";
+import { generateSalesData } from "../../../utils/generateSalesData";
+import { generateTrafficData } from "../../../utils/generateTrafficData";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,6 +43,8 @@ const Home = () => {
     fetchOrders();
   }, []);
 
+  const dashboardData = generateDashboardData();
+
   return (
     <div className="flex flex-col mt-5 mb-10">
       {/* <div className="flex flex-grow justify-between mx-7 mt-7">
@@ -58,15 +66,34 @@ const Home = () => {
         </div>
       </div> */}
       <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
-        <Card title="Revenue" total={2900} percentage={1.7} change={29.1} />
         <Card
-          title="Transactions"
-          total={2900}
+          title="Revenue"
+          total={dashboardData.revenue}
           percentage={1.7}
           change={29.1}
+          data={generateCardData()}
         />
-        <Card title="Customers" total={2900} percentage={1.7} change={29.1} />
-        <Card title="Orders" total={2900} percentage={1.7} change={29.1} />
+        <Card
+          title="Transactions"
+          total={dashboardData.transactions}
+          percentage={1.7}
+          change={29.1}
+          data={generateCardData()}
+        />
+        <Card
+          title="Customers"
+          total={dashboardData.customers}
+          percentage={1.7}
+          change={29.1}
+          data={generateCardData()}
+        />
+        <Card
+          title="Orders"
+          total={dashboardData.orders}
+          percentage={1.7}
+          change={29.1}
+          data={generateCardData()}
+        />
       </div>
       <div className="flex flex-col lg:flex-row gap-5 mx-7 mt-5">
         <div className="w-full lg:w-9/12 border shadow-sm rounded-lg bg-white">
@@ -76,7 +103,7 @@ const Home = () => {
           </div>
           <div className="w-full h-0.5 bg-slate-100"></div>
           <div className="mt-10 h-80 ">
-            <Sales />
+            <Sales salesData={generateSalesData()} />
           </div>
         </div>
         <div className="w-full lg:w-3/12 border shadow-sm rounded-lg mt-5 lg:mt-0 bg-white">
@@ -85,7 +112,7 @@ const Home = () => {
           </div>
           <div className="w-full h-0.5 bg-slate-100"></div>
           <div className="mt-10 h-80">
-            <Traffic />
+            <Traffic trafficData={generateTrafficData()} />
           </div>
         </div>
       </div>

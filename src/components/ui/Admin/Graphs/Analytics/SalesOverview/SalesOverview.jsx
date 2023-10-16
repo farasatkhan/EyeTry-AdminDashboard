@@ -67,10 +67,13 @@ const formatYAxisTick = (value) => {
   return value;
 };
 
-const SalesOverview = () => {
+const SalesOverview = ({ salesData }) => {
   return (
     <ResponsiveContainer width="99%" height="100%">
-      <LineChart data={data} margin={{ left: -20, right: 10 }}>
+      <LineChart
+        data={salesData ? salesData : data}
+        margin={{ left: -20, right: 10 }}
+      >
         <XAxis
           opacity={0.8}
           dataKey="date"
