@@ -163,9 +163,9 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
               <th scope="col" className="px-2 py-3 font-normal ">
                 Manufacturer
               </th>
-              <th scope="col" className="px-2 py-3 font-normal ">
+              {/* <th scope="col" className="px-2 py-3 font-normal ">
                 Edit
-              </th>
+              </th> */}
               <th scope="col" className="px-2 py-3 font-normal ">
                 Delete
               </th>
@@ -228,11 +228,11 @@ const ProductsTable = ({ data, query, handleProductRemoval }) => {
                   <td className="px-2 py-1">
                     <p>{product.manufacturer}</p>
                   </td>
-                  <td className="px-2 py-1 cursor-pointer">
+                  {/* <td className="px-2 py-1 cursor-pointer">
                     <NavLink to={`/products/${product._id}`}>
                       <BiEdit size={20} />
                     </NavLink>
-                  </td>
+                  </td> */}
                   <td className="px-2 py-1 cursor-pointer">
                     <div onClick={() => handleProductRemoval(product._id)}>
                       <BiTrash size={20} />

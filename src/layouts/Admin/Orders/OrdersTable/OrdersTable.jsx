@@ -150,7 +150,7 @@ const OrdersTable = ({ data, query }) => {
                       <div className="flex">
                         <div className="mt-1">
                           <p className=" text-blue-500 cursor-pointer">
-                            #{order.order_no}
+                            #{order && order.order_no}
                           </p>
                         </div>
                       </div>
@@ -168,7 +168,8 @@ const OrdersTable = ({ data, query }) => {
                         </div>
                         <div className="mt-1">
                           <p className="">
-                            {order.user.firstName + " " + order.user.lastName}
+                            {order.user.firstName + " " + order &&
+                              order.user.lastName}
                           </p>
                         </div>
                       </div>

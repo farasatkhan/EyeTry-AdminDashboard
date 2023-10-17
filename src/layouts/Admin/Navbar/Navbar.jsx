@@ -8,6 +8,7 @@ import { getDataFromLocalStorage } from "../../../utils/LocalStorage";
 import API_URL from "../../../config/config";
 
 import Person from "../../../assets/images/test/person.jpg";
+import DefaultProfileImage from "../../../assets/images/default_img.jfif";
 
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
@@ -79,11 +80,19 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/settings">
             <div className="flex cursor-pointer">
               <div className="h-10 w-10 rounded-full overflow-hidden mr-2">
-                <img
-                  src={serverImageLocation}
-                  alt="user-profile"
-                  className="object-cover h-full w-full"
-                />
+                {serverImageLocation ? (
+                  <img
+                    src={serverImageLocation}
+                    alt="user-profile"
+                    className="object-cover h-full w-full"
+                  />
+                ) : (
+                  <img
+                    src={DefaultProfileImage}
+                    alt="user-profile"
+                    className="object-cover h-full w-full"
+                  />
+                )}
               </div>
               <div className="hidden lg:block">
                 <p className="text-sm">Hi, Welcome</p>

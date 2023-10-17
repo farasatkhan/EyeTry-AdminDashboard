@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Person from "../../../assets/images/test/person.jpg";
+import DefaultPersonImage from "../../../assets/images/default_img.jfif";
 import StatusPill from "../../../components/ui/Admin/StatusPill";
 import BanControl from "../../../components/ui/Admin/BanControl";
 
@@ -186,7 +186,7 @@ const InformationTable = ({ data, query, onCloseModal }) => {
                     <div className="flex">
                       <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                         <img
-                          src={Person}
+                          src={DefaultPersonImage}
                           alt="Person"
                           className="object-cover h-full w-full"
                         />
