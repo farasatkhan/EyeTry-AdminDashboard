@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import StatusPill from "../../../../components/ui/Admin/StatusPill";
-import Person from "../../../../assets/images/test/person.jpg";
+import DefaultPersonImage from "../../../../assets/images/default_img.jfif";
 
 const OrdersTable = ({ data, query }) => {
   const [pages, setPages] = useState({
@@ -161,7 +161,7 @@ const OrdersTable = ({ data, query }) => {
                       <div className="flex cursor-pointer">
                         <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                           <img
-                            src={Person}
+                            src={DefaultPersonImage}
                             alt="Person"
                             className="object-cover h-full w-full"
                           />

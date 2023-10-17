@@ -7,7 +7,7 @@ import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { BiTrash } from "react-icons/bi";
 
 import StatusPill from "../../../../components/ui/Admin/StatusPill";
-import Person from "../../../../assets/images/test/person.jpg";
+import DefaultPersonImage from "../../../../assets/images/default_img.jfif";
 
 import StarFilled from "../../../../assets/icons/star_filled.svg";
 import StarHalfFilled from "../../../../assets/icons/star_halffilled.svg";
@@ -194,7 +194,7 @@ const ReviewsTable = ({ data, query, handleDeleteReview }) => {
                       <div className="flex items-center cursor-pointer">
                         <div className="h-8 w-8 rounded-full overflow-hidden mr-2 shrink-0">
                           <img
-                            src={Person}
+                            src={DefaultPersonImage}
                             alt="Person"
                             className="object-cover h-full w-full"
                           />
