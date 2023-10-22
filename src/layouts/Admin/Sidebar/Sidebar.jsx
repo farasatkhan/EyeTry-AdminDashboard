@@ -6,7 +6,7 @@ import { TbArrowBarLeft } from "react-icons/tb";
 import { TbArrowBarRight } from "react-icons/tb";
 
 import { BsPeople } from "react-icons/bs";
-import { BsBox } from "react-icons/bs";
+import { BsBox, BsGift } from "react-icons/bs";
 import { BiLineChart } from "react-icons/bi";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { BsShieldCheck } from "react-icons/bs";
@@ -94,7 +94,7 @@ const Sidebar = ({ toggleSidebar, onSidebarToggle }) => {
           <NavLink to="/giftcards/view">
             <div className="flex justify-start items-center cursor-pointer mt-5">
               <div className="h-7 pt-1">
-                <BsBox size={18} />
+                <BsGift size={18} />
               </div>
               <p className={`${toggleSidebar ? "" : "hidden"} ml-3`}>
                 Giftcards

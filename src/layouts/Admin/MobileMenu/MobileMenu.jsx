@@ -8,6 +8,7 @@ import {
   BsShieldCheck,
   BsBasket,
   BsGear,
+  BsGift,
 } from "react-icons/bs";
 import {
   BiLineChart,
@@ -17,6 +18,13 @@ import {
 } from "react-icons/bi";
 
 const MobileMenu = ({ onSidebarToggle }) => {
+  const handleLogout = () => {
+    removeDataFromLocalStorage("refreshToken");
+    removeDataFromLocalStorage("accessToken");
+    // setAccessTokenHeader(); // delete the access token from subsequent axios requests
+    redirectToLoginPage();
+  };
+
   return (
     <div className="sm:hidden">
       <div className="flex flex-col mb-5">
@@ -30,52 +38,75 @@ const MobileMenu = ({ onSidebarToggle }) => {
         </div>
         <div className="flex flex-col mt-10 ml-7 mr-7">
           <NavLink to="/">
-            <div className="flex justify-start items-center cursor-pointer mt-8">
+            <div
+              onClick={onSidebarToggle}
+              className="flex justify-start items-center cursor-pointer mt-8"
+            >
               <BiHomeAlt2 size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Dashboard</p>
             </div>
           </NavLink>
-          <NavLink to="/users">
+          <NavLink onClick={onSidebarToggle} to="/users">
             <div className="flex justify-start items-center cursor-pointer mt-8">
               <BsPeople size={25} />
-              <p className={`ml-7 text-lg font-semibold`}>Management</p>
+              <p className={`ml-7 text-lg font-semibold`}>User Management</p>
             </div>
           </NavLink>
-          <NavLink to="/products">
+          <NavLink onClick={onSidebarToggle} to="/products/view">
             <div className="flex justify-start items-center cursor-pointer mt-8">
               <BsBox size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Products</p>
             </div>
           </NavLink>
-          <NavLink to="/orders/">
+          <NavLink onClick={onSidebarToggle} to="/giftcards/view">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BsGift size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Giftcards</p>
+            </div>
+          </NavLink>
+          <NavLink onClick={onSidebarToggle} to="/orders/">
             <div className="flex justify-start items-center cursor-pointer mt-8">
               <BsBasket size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Orders</p>
             </div>
           </NavLink>
-          <NavLink to="/analytics/">
+          <NavLink onClick={onSidebarToggle} to="/analytics/">
             <div className="flex justify-start items-center cursor-pointer mt-8">
               <BiLineChart size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Analytics</p>
             </div>
           </NavLink>
           <NavLink to="/moderation/">
-            <div className="flex justify-start items-center cursor-pointer mt-8">
+            <div
+              onClick={onSidebarToggle}
+              className="flex justify-start items-center cursor-pointer mt-8"
+            >
               <BsShieldCheck size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Moderation</p>
             </div>
           </NavLink>
-          <div className="flex justify-start items-center cursor-pointer mt-8">
-            <BiMessageDetail size={25} />
-            <p className={`ml-7 text-lg font-semibold`}>FAQs & Guides</p>
-          </div>
-          <NavLink to="/settings">
+          <NavLink onClick={onSidebarToggle} to="/guides/faqs">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BiMessageDetail size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Guides</p>
+            </div>
+          </NavLink>
+          <NavLink onClick={onSidebarToggle} to="/agents">
+            <div className="flex justify-start items-center cursor-pointer mt-8">
+              <BsPeople size={25} />
+              <p className={`ml-7 text-lg font-semibold`}>Support</p>
+            </div>
+          </NavLink>
+          <NavLink onClick={onSidebarToggle} to="/settings">
             <div className="flex justify-start items-center cursor-pointer mt-8">
               <BsGear size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Settings</p>
             </div>
           </NavLink>
-          <div className="flex justify-start items-center cursor-pointer mt-8">
+          <div
+            onClick={handleLogout}
+            className="flex justify-start items-center cursor-pointer mt-8"
+          >
             <BiLogOut size={25} />
             <p className={`ml-7 text-lg font-semibold`}>Logout</p>
           </div>
