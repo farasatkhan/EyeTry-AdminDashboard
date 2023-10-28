@@ -246,34 +246,36 @@ const IssueGiftcard = () => {
             </div>
           </div>
           <div className="flex flex-col flex-grow w-full md:w-1/3 gap-5">
-            <div className="flex flex-grow">
-              <div className="w-full bg-white px-5 pt-5 pb-2 border rounded-lg">
-                <div className="mb-5">
-                  <span className="text-sm">
-                    Customer email
-                    <span className="text-xs italic ml-4">(Optional)</span>
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <input
-                    id="customer_email"
-                    type="text"
-                    value={giftcard.customerEmail}
-                    onChange={(event) =>
-                      setGiftcard((oldGiftcard) => ({
-                        ...oldGiftcard,
-                        customerEmail: event.target.value,
-                      }))
-                    }
-                    className="px-2 py-1.5 border shadow-sm rounded-md outline-none text-xs"
-                    placeholder="Customer email"
-                  />
-                  <span className="text-xs italic mt-5">
-                    Send Giftcard to customer directly.
-                  </span>
+            {!giftcardId && (
+              <div className="flex flex-grow">
+                <div className="w-full bg-white px-5 pt-5 pb-2 border rounded-lg">
+                  <div className="mb-5">
+                    <span className="text-sm">
+                      Customer email
+                      <span className="text-xs italic ml-4">(Optional)</span>
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <input
+                      id="customer_email"
+                      type="text"
+                      value={giftcard.customerEmail}
+                      onChange={(event) =>
+                        setGiftcard((oldGiftcard) => ({
+                          ...oldGiftcard,
+                          customerEmail: event.target.value,
+                        }))
+                      }
+                      className="px-2 py-1.5 border shadow-sm rounded-md outline-none text-xs"
+                      placeholder="Customer email"
+                    />
+                    <span className="text-xs italic mt-5">
+                      Send Giftcard to customer directly.
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="flex flex-grow">
               <div className="w-full bg-white px-5 pt-5 pb-2 border rounded-lg">
                 <div className="mb-5">

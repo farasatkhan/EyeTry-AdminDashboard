@@ -433,6 +433,9 @@ const AddProducts = () => {
             description: fetchedGlasses.description,
             manufacturer: fetchedGlasses.manufacturer,
             type: fetchedGlasses.type,
+            sku_model: fetchedGlasses.sku_model,
+            frame_shape: fetchedGlasses.frame_shape,
+            rim_shape: fetchedGlasses.rim_shape,
           });
 
           setProductLensInformation(fetchedGlasses.lens_information);
