@@ -8,6 +8,8 @@ import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Varian
 
 import { viewParticularProduct } from "../../../../services/Products/glasses";
 
+import API_URL from "../../../../config/config";
+
 const AddProductVariants = () => {
   const { glassesId } = useParams();
 
@@ -27,10 +29,6 @@ const AddProductVariants = () => {
   }, [productFrameColors]);
 
   const [productVariant, setProductVaraint] = useState([]);
-
-  useEffect(() => {
-    console.log(productVariant);
-  }, [productVariant]);
 
   const updatedSelectedFrameColors = (updatedColor, checked) => {
     const updatedFrameColors = () => {
@@ -63,8 +61,6 @@ const AddProductVariants = () => {
       });
     });
 
-    console.log(productVariant);
-
     try {
       const addProductImagesResponse = await addProductImages(
         glassesId,
@@ -79,7 +75,8 @@ const AddProductVariants = () => {
   const isImagesUploaded =
     productVariant.length === 0 ||
     productVariant.some(
-      (variant) => variant.color && variant.images.length === 0
+      (variant) =>
+        variant.color && variant.images && variant.images.length === 0
     );
 
   // useEffect(() => {
@@ -100,6 +97,50 @@ const AddProductVariants = () => {
   //     }
   //   }
   // }, [glassesId]);
+
+  const [fetchedData, setFetchedData] = useState([]);
+
+  useEffect(() => {
+    if (glassesId) {
+      try {
+        async function fetchData() {
+          const fetchedGlasses = await viewParticularProduct(glassesId);
+
+          const colors = fetchedGlasses.frame_information.frame_variants.map(
+            (variant) => variant.color
+          );
+
+          setProductFrameColors(colors);
+          // setProductVaraint(fetchedGlasses.frame_information.frame_variants);
+          // setFetchedData(fetchedGlasses.frame_information.frame_variants);
+
+          // fetchedVariantsData fetches the information related to the products variants from database
+          // and the data is then sent to the variants components which is filled with the data.
+          const fetchedVariantsData =
+            fetchedGlasses.frame_information.frame_variants;
+
+          // console.log(fetchedVariantsData);
+
+          setFetchedData(
+            fetchedVariantsData.map((item) => {
+              const { images, _id, ...rest } = item;
+
+              return {
+                ...rest,
+                image_count: images.length,
+                images_urls: images.map(
+                  (image) => `${API_URL + image.replace(/\\/g, "/")}`
+                ),
+              };
+            })
+          );
+        }
+        fetchData();
+      } catch (error) {
+        console.log("error fetching products variants");
+      }
+    }
+  }, [glassesId]);
 
   return (
     <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col">
@@ -145,6 +186,7 @@ const AddProductVariants = () => {
               <Variants
                 productFrameColors={productFrameColors}
                 updateVariants={setProductVaraint}
+                fetchedData={fetchedData}
               />
             </div>
             <div className="flex justify-end mb-10">

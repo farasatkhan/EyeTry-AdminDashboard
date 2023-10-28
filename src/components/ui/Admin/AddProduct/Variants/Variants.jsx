@@ -6,18 +6,41 @@ import { BiSolidErrorCircle } from "react-icons/bi";
 
 import SelectImageIcon from "../../../../../assets/icons/select_image.svg";
 
-const Variants = ({ productFrameColors, updateVariants }) => {
+import { processImages } from "../../../../../utils/urlToFileObject";
+
+const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
 
+  // useEffect(() => {
+  //   const filteredVariants = productVariantsMultiple.filter((variant) =>
+  //     productFrameColors.includes(variant.color)
+  //   );
+  //   setProductVariantsMultiple(filteredVariants);
+  // }, [productFrameColors]);
+
   useEffect(() => {
-    const filteredVariants = productVariantsMultiple.filter((variant) =>
-      productFrameColors.includes(variant.color)
-    );
-    setProductVariantsMultiple(filteredVariants);
-  }, [productFrameColors]);
+    const fetchData = async () => {
+      const updatedData = [];
+      for (const item of fetchedData) {
+        const { images_urls, ...rest } = item;
+        const images = await processImages(images_urls);
+        updatedData.push({
+          ...rest,
+          images,
+        });
+      }
+
+      setProductVariantsMultiple(updatedData);
+    };
+
+    fetchData();
+  }, [fetchedData]);
+
+  useEffect(() => {
+    console.log(productVariantsMultiple);
+  }, [productVariantsMultiple]);
 
   const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
-    console.log(`${color} and ${totalImages}`);
     setProductVariantsMultiple((prevProductVariants) => {
       const updatedVariants = [...prevProductVariants];
 
@@ -29,6 +52,8 @@ const Variants = ({ productFrameColors, updateVariants }) => {
         updatedVariants[existingVariantIndex].images.push(
           ...Array.from(images)
         );
+        updatedVariants[existingVariantIndex].quantity = quantity;
+        updatedVariants[existingVariantIndex].image_count += totalImages;
       } else {
         const newVariant = {
           color: color,
@@ -71,6 +96,7 @@ const Variants = ({ productFrameColors, updateVariants }) => {
         imageIndex < updatedVariants[variantIndex].images.length
       ) {
         updatedVariants[variantIndex].images.splice(imageIndex, 1);
+        updatedVariants[variantIndex].image_count -= 1;
       }
 
       return updatedVariants;
@@ -96,17 +122,12 @@ const Variants = ({ productFrameColors, updateVariants }) => {
 
   useEffect(() => {
     updateVariants(productVariantsMultiple);
-    console.log(productVariantsMultiple);
   }, [productVariantsMultiple]);
 
   const handleDisablingQuantity = (color) => {
     const VariantIndex = productVariantsMultiple.findIndex(
       (variant) => variant.color === color
     );
-
-    console.log(productVariantsMultiple);
-
-    console.log("color: " + color + " " + VariantIndex);
 
     // if (productVariantsMultiple[VariantIndex].images.length === 0) return true;
 
@@ -250,33 +271,37 @@ const Variants = ({ productFrameColors, updateVariants }) => {
                 <span className="text-xs">Quantity: {variant.quantity}</span>
               </div>
               <div className="items-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {variant.images.map((productVariantImage, imageIndex) => (
-                  <div key={imageIndex} className="border h-auto">
-                    <div className="border-b">
-                      <div className="cursor-pointer">
-                        <img
-                          className="object-contain"
-                          src={URL.createObjectURL(productVariantImage)}
-                          alt="product"
-                          loading="lazy"
-                        />
+                {variant.images &&
+                  variant.images.map((productVariantImage, imageIndex) => (
+                    <div key={imageIndex} className="border h-auto">
+                      <div className="border-b">
+                        <div className="cursor-pointer">
+                          <img
+                            className="object-contain"
+                            src={URL.createObjectURL(productVariantImage)}
+                            alt="product"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-end items-center py-2 px-5">
+                        {/* <AiOutlineStar size={20} className="cursor-pointer" /> */}
+                        <div
+                          onClick={() =>
+                            handleRemovingSelectedImage(
+                              variant.color,
+                              imageIndex
+                            )
+                          }
+                        >
+                          <BsTrash
+                            size={20}
+                            className="text-danger-900 cursor-pointer"
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div className="flex justify-end items-center py-2 px-5">
-                      {/* <AiOutlineStar size={20} className="cursor-pointer" /> */}
-                      <div
-                        onClick={() =>
-                          handleRemovingSelectedImage(variant.color, imageIndex)
-                        }
-                      >
-                        <BsTrash
-                          size={20}
-                          className="text-danger-900 cursor-pointer"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           ))}
