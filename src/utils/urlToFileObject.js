@@ -1,6 +1,11 @@
-const toDataURL = async (url) => {
-    const response = await fetch(url);
+import API_URL from "../config/config";
 
+const toDataURL = async (url) => {
+    const parts = url.split('/');
+    const imageName = parts[parts.length - 1];
+    const response = await fetch(`${API_URL}/products/v1/glasses/retrieve/${imageName}`);
+
+    // const response = await fetch(url);
     // console.log(response);
 
     const blob = await response.blob();
