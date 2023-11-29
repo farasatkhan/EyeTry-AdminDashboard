@@ -179,12 +179,12 @@ const AddProducts = () => {
   }, [productFrameSizes]);
 
   const [productFrameFaceShape, setProductFrameFaceShape] = useState([
-    "Round Face",
-    "Square Face",
-    "Oval Face",
-    "Heart-shaped Face",
-    "Diamond Face",
-    "Rectangle/Long Face",
+    "Round",
+    "Square",
+    "Oval",
+    "Heart-Shaped",
+    "Diamond",
+    "Rectangle/Long",
   ]);
 
   const [productFrameFaceShapeError, setProductFrameFaceShapeError] =
