@@ -10,6 +10,8 @@ describe('Login Test', () => {
       cy.get('input[name="email"]').type(validAdminCredentials.email)
       cy.get('input[name="password"]').type(validAdminCredentials.password)
       cy.get('[data-cy="login-button"]').click()
+
+      cy.get('[data-cy="login-error"]').should('not.exist')
   
       cy.url().should('eq', 'http://localhost:5000/')
       cy.get('[data-cy="logged-welcome-header"]').should('contains', /Hi, Welcome/i)
