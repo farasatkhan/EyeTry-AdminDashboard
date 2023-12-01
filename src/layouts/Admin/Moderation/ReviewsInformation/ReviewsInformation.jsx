@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { BsGraphUp } from "react-icons/bs";
 import { GoHorizontalRule } from "react-icons/go";
 
+import { viewReviewsAnalytics } from "../../../../services/Reviews/reviews";
+
 const ReviewsInformation = ({ reviews }) => {
   const [totalReviewsCount, setTotalReviewsCount] = useState(0);
   const [averageReviewRating, setAverageReviewRating] = useState(0);
@@ -15,6 +17,21 @@ const ReviewsInformation = ({ reviews }) => {
     4: 0,
     5: 0,
   });
+
+  const [reviewAnalytics, setReviewsAnalytics] = useState([]);
+
+  const fetchReviewsAnalytics = async () => {
+    try {
+      const fetchReviewAnalytics = await viewReviewsAnalytics();
+      setReviewsAnalytics(fetchReviewAnalytics);
+    } catch (error) {
+      console.error("Error fetching reviews", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchReviewsAnalytics();
+  }, []);
 
   useEffect(() => {
     setTotalReviewsCount(reviews.length);
@@ -54,13 +71,15 @@ const ReviewsInformation = ({ reviews }) => {
   useEffect(() => {
     const newStarsCount = { ...starsCount };
     reviews.forEach((review) => {
-      const stars = review.stars;
+      const stars = Math.ceil(review.stars);
       if (newStarsCount.hasOwnProperty(stars)) {
         newStarsCount[stars]++;
       }
     });
     setStarsCount(newStarsCount);
   }, [reviews]);
+
+  console.log(starsCount);
 
   return (
     <div className="flex flex-col lg:flex-row border rounded-md">
@@ -107,37 +126,72 @@ const ReviewsInformation = ({ reviews }) => {
         <div className="flex flex-grow justify-center items-center gap-5">
           <span className="text-center w-1/6">5 stars</span>
           <div className="w-4/6 h-2 bg-slate-200 rounded-full">
-            <div className="w-2/3 h-2 bg-blue-500 rounded-full"></div>
+            <div
+              style={{
+                width: `${
+                  (reviewAnalytics.star_5 / reviewAnalytics.total_reviews) * 100
+                }%`,
+              }}
+              className="w-2/3 h-2 bg-blue-500 rounded-full"
+            ></div>
           </div>
-          <span className="text-center w-1/6">{starsCount[5]}</span>
+          <span className="text-center w-1/6">{reviewAnalytics.star_5}</span>
         </div>
         <div className="flex flex-grow justify-center items-center gap-5">
           <span className="text-center w-1/6">4 stars</span>
           <div className="w-4/6 h-2 bg-slate-200 rounded-full">
-            <div className="w-1/3 h-2 bg-blue-500 rounded-full"></div>
+            <div
+              style={{
+                width: `${
+                  (reviewAnalytics.star_4 / reviewAnalytics.total_reviews) * 100
+                }%`,
+              }}
+              className="h-2 bg-blue-500 rounded-full"
+            ></div>
           </div>
-          <span className="text-center w-1/6">{starsCount[4]}</span>
+          <span className="text-center w-1/6">{reviewAnalytics.star_4}</span>
         </div>
         <div className="flex flex-grow justify-center items-center gap-5">
           <span className="text-center w-1/6">3 stars</span>
           <div className="w-4/6 h-2 bg-slate-200 rounded-full">
-            <div className="w-3/5 h-2 bg-blue-500 rounded-full"></div>
+            <div
+              style={{
+                width: `${
+                  (reviewAnalytics.star_3 / reviewAnalytics.total_reviews) * 100
+                }%`,
+              }}
+              className="h-2 bg-blue-500 rounded-full"
+            ></div>
           </div>
-          <span className="text-center w-1/6">{starsCount[3]}</span>
+          <span className="text-center w-1/6">{reviewAnalytics.star_3}</span>
         </div>
         <div className="flex flex-grow justify-center items-center gap-5">
           <span className="text-center w-1/6">2 stars</span>
           <div className="w-4/6 h-2 bg-slate-200 rounded-full">
-            <div className="w-2/12 h-2 bg-blue-500 rounded-full"></div>
+            <div
+              style={{
+                width: `${
+                  (reviewAnalytics.star_2 / reviewAnalytics.total_reviews) * 100
+                }%`,
+              }}
+              className="h-2 bg-blue-500 rounded-full"
+            ></div>
           </div>
-          <span className="text-center w-1/6">{starsCount[2]}</span>
+          <span className="text-center w-1/6">{reviewAnalytics.star_2}</span>
         </div>
         <div className="flex flex-grow justify-center items-center gap-5">
           <span className="text-center w-1/6">1 stars</span>
           <div className="w-4/6 h-2 bg-slate-200 rounded-full">
-            <div className="w-1/12 h-2 bg-blue-500 rounded-full"></div>
+            <div
+              style={{
+                width: `${
+                  (reviewAnalytics.star_1 / reviewAnalytics.total_reviews) * 100
+                }%`,
+              }}
+              className="h-2 bg-blue-500 rounded-full"
+            ></div>
           </div>
-          <span className="text-center w-1/6">{starsCount[1]}</span>
+          <span className="text-center w-1/6">{reviewAnalytics.star_1}</span>
         </div>
       </div>
     </div>

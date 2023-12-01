@@ -18,3 +18,12 @@ export const deleteReview = async (reviewId) => {
         throw error;
     }
 }
+
+export const viewReviewsAnalytics = async () => {
+    try {
+        const response = await unauthenticatedAxiosInstance.get('/products/v1/reviews/analytics');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
