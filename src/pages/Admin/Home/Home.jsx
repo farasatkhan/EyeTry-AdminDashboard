@@ -21,6 +21,9 @@ import {
 import { generateSalesData } from "../../../utils/generateSalesData";
 import { generateTrafficData } from "../../../utils/generateTrafficData";
 
+import { viewOrdersAnalytics } from "../../../services/Orders/orders";
+import { viewCustomerAnalytics } from "../../../services/Admin/admin";
+
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -29,11 +32,17 @@ const Home = () => {
   };
 
   const [orders, setOrders] = useState([]);
+  const [ordersAnalytics, setOrderAnalytics] = useState([]);
+  const [customerAnalytics, setCustomerAnalytics] = useState([]);
 
   const fetchOrders = async () => {
     try {
       const fetchedOrders = await viewAllOrders();
+      const fetchOrdersAnalytics = await viewOrdersAnalytics();
+      const fetchCustomerAnalytics = await viewCustomerAnalytics();
       setOrders(fetchedOrders);
+      setOrderAnalytics(fetchOrdersAnalytics);
+      setCustomerAnalytics(fetchCustomerAnalytics);
     } catch (error) {
       console.error("Error fetching orders", error);
     }
@@ -68,31 +77,31 @@ const Home = () => {
       <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
         <Card
           title="Revenue"
-          total={dashboardData.revenue}
+          total={ordersAnalytics.totalRevenue}
           percentage={1.7}
           change={29.1}
-          data={generateCardData()}
+          data={ordersAnalytics.revenueChart}
         />
         <Card
           title="Transactions"
-          total={dashboardData.transactions}
+          total={ordersAnalytics.totalTransactions}
           percentage={1.7}
           change={29.1}
-          data={generateCardData()}
+          data={ordersAnalytics.totalOrderChart}
         />
         <Card
           title="Customers"
-          total={dashboardData.customers}
+          total={customerAnalytics.totalUsers}
           percentage={1.7}
           change={29.1}
-          data={generateCardData()}
+          data={customerAnalytics.totalUsersChart}
         />
         <Card
           title="Orders"
-          total={dashboardData.orders}
+          total={ordersAnalytics.totalOrders}
           percentage={1.7}
           change={29.1}
-          data={generateCardData()}
+          data={ordersAnalytics.totalOrderChart}
         />
       </div>
       <div className="flex flex-col lg:flex-row gap-5 mx-7 mt-5">
@@ -103,7 +112,7 @@ const Home = () => {
           </div>
           <div className="w-full h-0.5 bg-slate-100"></div>
           <div className="mt-10 h-80 ">
-            <Sales salesData={generateSalesData()} />
+            <Sales salesData={ordersAnalytics.salesChart} />
           </div>
         </div>
         <div className="w-full lg:w-3/12 border shadow-sm rounded-lg mt-5 lg:mt-0 bg-white">

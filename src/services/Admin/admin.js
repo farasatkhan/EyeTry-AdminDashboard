@@ -137,3 +137,21 @@ export const unbanAgent = async (agentId) => {
 //         throw error;
 //     }
 // }
+
+export const viewCustomerAnalytics = async () => {
+    try {
+        const response = await authenticatedAxiosInstance.get('/admin/customer/analytics');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const viewAgentsAnalytics = async () => {
+    try {
+        const response = await authenticatedAxiosInstance.get('/admin/agents/analytics');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

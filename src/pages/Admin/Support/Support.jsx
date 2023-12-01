@@ -15,6 +15,8 @@ import ActorModal from "../../../layouts/Admin/ActorModal/ActorModal";
 // import data from "../../../data/Admin/informationTableData";
 
 import { getAllSupportAgents } from "../../../../src/services/Admin/admin";
+import { viewAgentsAnalytics } from "../../../../src/services/Admin/admin";
+
 import {
   generateAgentsDashboardData,
   generateCardData,
@@ -53,10 +55,14 @@ const UsersPage = () => {
     }
   }, [closeModal]);
 
+  const [agentsAnalytics, setAgentsAnalytics] = useState([]);
+
   const fetchAllAgents = async () => {
     try {
       const fetchAllAgents = await getAllSupportAgents();
+      const viewAgentsStats = await viewAgentsAnalytics();
       setAgents(fetchAllAgents);
+      setAgentsAnalytics(viewAgentsStats);
     } catch (error) {
       console.error("Error fetching agents", error);
     }
@@ -90,31 +96,31 @@ const UsersPage = () => {
         <div className="grid grid-cols-1 custom-sm:grid-cols-2 lg:grid-cols-4 mx-7 mt-7 gap-5">
           <Card
             title="Total Agents"
-            total={supportData.total_agents}
+            total={agentsAnalytics.totalAgents}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={agentsAnalytics.totalAgentsChart}
           />
           <Card
             title="Active Agents"
-            total={supportData.active_agents}
+            total={agentsAnalytics.activeAgents}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={agentsAnalytics.ActiveAgentsChart}
           />
           <Card
-            title="Total Active Tickets"
-            total={supportData.total_active_tickets}
+            title="Banned Agents"
+            total={agentsAnalytics.bannedAgents}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={agentsAnalytics.BannedAgentsChart}
           />
           <Card
-            title="Resolved Tickets"
-            total={supportData.resolved_tickets}
+            title="New Agents"
+            total={agentsAnalytics.agentsCurrentMonth}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={agentsAnalytics.totalAgentsChart}
           />
         </div>
         <div className="border border-slate-100 m-3 rounded-lg bg-white">

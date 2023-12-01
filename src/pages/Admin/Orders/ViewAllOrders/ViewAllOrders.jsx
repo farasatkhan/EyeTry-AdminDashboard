@@ -87,28 +87,28 @@ const ViewAllOrders = () => {
             total={ordersAnalytics.totalOrders}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={ordersAnalytics.totalOrderChart}
           />
           <Card
             title="Delivered Orders"
             total={ordersAnalytics.deliveredOrders}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={ordersAnalytics.deliveredOrdersChart}
           />
           <Card
             title="Pending Orders"
             total={ordersAnalytics.pendingOrders}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={ordersAnalytics.pendingOrdersChart}
           />
           <Card
             title="Ready Orders"
-            total={orderData.ready_orders}
+            total={ordersAnalytics.readyOrders}
             percentage={1.7}
             change={29.1}
-            data={generateCardData()}
+            data={ordersAnalytics.pendingOrdersChart}
           />
         </div>
         <div className="border shadow-sm m-3 rounded-lg mx-7 mt-7 bg-white">
