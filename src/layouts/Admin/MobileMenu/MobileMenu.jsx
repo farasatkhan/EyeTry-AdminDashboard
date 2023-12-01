@@ -70,12 +70,12 @@ const MobileMenu = ({ onSidebarToggle }) => {
               <p className={`ml-7 text-lg font-semibold`}>Orders</p>
             </div>
           </NavLink>
-          <NavLink onClick={onSidebarToggle} to="/analytics/">
+          {/* <NavLink onClick={onSidebarToggle} to="/analytics/">
             <div className="flex justify-start items-center cursor-pointer mt-8">
               <BiLineChart size={25} />
               <p className={`ml-7 text-lg font-semibold`}>Analytics</p>
             </div>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/moderation/">
             <div
               onClick={onSidebarToggle}
