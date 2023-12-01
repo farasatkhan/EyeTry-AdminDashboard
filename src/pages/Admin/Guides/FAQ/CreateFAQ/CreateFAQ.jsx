@@ -168,14 +168,17 @@ const CreateFAQ = () => {
         <p className="text-2xl">FAQs</p>
         {allFaqs.slice(0, visibleFaqs).map((faq, index) => (
           <div key={index} className="flex flex-col gap-2 mt-5">
-            <div
-              data-cy={`faq-question-${index}`}
-              id={`question-${index}`}
-              className="flex justify-between"
-            >
-              <p className="text-base font-semibold">{faq.question}</p>
+            <div className="flex justify-between">
+              <p
+                data-cy={`faq-question-${index}`}
+                id={`question-${index}`}
+                className="text-base font-semibold"
+              >
+                {faq.question}
+              </p>
               <div className="flex gap-5">
                 <FaRegEdit
+                  data-cy={`faq-edit-${index}`}
                   onClick={() =>
                     handleEditFAQ(faq._id, faq.question, faq.answer)
                   }
@@ -183,6 +186,7 @@ const CreateFAQ = () => {
                   className="cursor-pointer"
                 />
                 <BsFillTrashFill
+                  data-cy={`faq-trash-${index}`}
                   onClick={() => handleDeleteFAQ(faq._id)}
                   size={20}
                   className="cursor-pointer"
@@ -206,7 +210,11 @@ const CreateFAQ = () => {
             </div>
             {expandedFAQ === index && (
               <div>
-                <span id={`answer-${index}`} className="text-sm">
+                <span
+                  data-cy={`faq-answer-${index}`}
+                  id={`answer-${index}`}
+                  className="text-sm"
+                >
                   {faq.answer}
                 </span>
               </div>
