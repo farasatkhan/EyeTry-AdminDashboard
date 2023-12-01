@@ -55,7 +55,7 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
             onClick={onSidebarToggle}
             className="ml-3 mr-3"
           />
-          <BiSearch size={25} className="ml-3  md:hidden" />
+          {/* <BiSearch size={25} className="ml-3  md:hidden" /> */}
         </div>
         {/* Search Box */}
         {/* <div className="hidden md:flex bg-slate-100 rounded-md my-3 md:ml-7">
@@ -71,12 +71,12 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
         {/* Profile Details */}
         <div className="flex justify-between p-3 sm:mr-7">
           {/* Bell Icon */}
-          <div className="flex h-6 w-6 mt-2 mr-4 sm:mr-12 cursor-pointer relative">
+          {/* <div className="flex h-6 w-6 mt-2 mr-4 sm:mr-12 cursor-pointer relative">
             <BsBell size={25} />
             <div
               className={`${NavbarStyles["bell-icon-dot-color"]} w-2 h-2 rounded-full absolute ml-4`}
             ></div>
-          </div>
+          </div> */}
           <NavLink to="/settings">
             <div className="flex cursor-pointer">
               <div className="h-10 w-10 rounded-full overflow-hidden mr-2">
