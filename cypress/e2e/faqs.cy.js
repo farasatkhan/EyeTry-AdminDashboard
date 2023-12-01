@@ -14,5 +14,4 @@ describe('FAQs Test', () => {
             })
         })
     });
-    it('')
 })
