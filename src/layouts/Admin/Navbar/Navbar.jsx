@@ -94,8 +94,10 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
                   />
                 )}
               </div>
-              <div className="hidden lg:block">
-                <p className="text-sm">Hi, Welcome</p>
+              <div className="hidden md:block">
+                <p data-cy="logged-welcome-header" className="text-sm">
+                  Hi, Welcome
+                </p>
                 <p className="font-bold text-">
                   {admin.firstName + " " + admin.lastName}
                 </p>

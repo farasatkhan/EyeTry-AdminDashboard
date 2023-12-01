@@ -10,6 +10,7 @@ import { isAccessTokenExpired } from "../../../auth/authUtils";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,6 +33,10 @@ const Login = () => {
         saveDataToLocalStorage("adminId", response.data.user._id);
         // setAccessTokenHeader(response.data.accessToken);
         redirectToHomePage();
+      } else if (response.status === 400) {
+        setError(response.data.message);
+      } else {
+        setError("Unknown Error Occurred");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -84,12 +89,23 @@ const Login = () => {
             />
           </div>
           <button
+            data-cy="login-button"
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
           >
             Login
           </button>
         </form>
+        {error && (
+          <div
+            data-cy="login-error"
+            className="flex border rounded-md h-10 my-5 bg-red-500"
+          >
+            <div className="p-2">
+              <span className="text-sm text-white">{error}</span>
+            </div>
+          </div>
+        )}
         <div className="flex flex-col justify-center items-center mt-5">
           <p className="text-xs">demo account:</p>
           <div>
