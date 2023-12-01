@@ -29,4 +29,7 @@ Cypress.Commands.add('login', (email, password) => {
     cy.get('input[name="email"]').type(email)
     cy.get('input[name="password"]').type(password)
     cy.get('[data-cy="login-button"]').click()
+
+    cy.url().should('eq', 'http://localhost:5000/')
+    cy.get('[data-cy="logged-welcome-header"]').should('contains', /Hi, Welcome/i)
 })

@@ -116,6 +116,7 @@ const CreateFAQ = () => {
         <div className="w-full mb-20">
           <form onSubmit={handleSubmittedFAQ} className="flex flex-col gap-5">
             <input
+              data-cy="faq-question-input"
               id="question"
               type="text"
               className="border p-2 rounded-md w-full outline-none text-sm"
@@ -126,6 +127,7 @@ const CreateFAQ = () => {
               }}
             />
             <textarea
+              data-cy="faq-answer-input"
               id="answer"
               className="border p-2 rounded-md w-full outline-none text-sm"
               rows="5"
@@ -146,6 +148,7 @@ const CreateFAQ = () => {
                 </button>
               )}
               <button
+                data-cy="faq-submit"
                 disabled={buttonStatus}
                 className={`${
                   !faq.question || !faq.answer
@@ -165,7 +168,11 @@ const CreateFAQ = () => {
         <p className="text-2xl">FAQs</p>
         {allFaqs.slice(0, visibleFaqs).map((faq, index) => (
           <div key={index} className="flex flex-col gap-2 mt-5">
-            <div id={`question-${index}`} className="flex justify-between">
+            <div
+              data-cy={`faq-question-${index}`}
+              id={`question-${index}`}
+              className="flex justify-between"
+            >
               <p className="text-base font-semibold">{faq.question}</p>
               <div className="flex gap-5">
                 <FaRegEdit
@@ -182,12 +189,14 @@ const CreateFAQ = () => {
                 />
                 {expandedFAQ === index ? (
                   <IoIosArrowUp
+                    data-cy={`faq-arrow-up-${index}`}
                     size={20}
                     onClick={() => toggleFAQ(index)}
                     className="cursor-pointer transition-transform transform"
                   />
                 ) : (
                   <IoIosArrowDown
+                    data-cy={`faq-arrow-down-${index}`}
                     size={20}
                     onClick={() => toggleFAQ(index)}
                     className="cursor-pointer transition-transform transform"
