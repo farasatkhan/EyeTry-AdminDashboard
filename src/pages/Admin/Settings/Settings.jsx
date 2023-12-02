@@ -381,7 +381,10 @@ const Settings = () => {
               {basicInformationChangeStatus.error && (
                 <div className="flex border rounded-md h-10 mb-5 bg-danger-900">
                   <div className="p-2">
-                    <span className="text-sm text-slate-900">
+                    <span
+                      data-cy="settings-update-profile_status_error"
+                      className="text-sm text-slate-900"
+                    >
                       {basicInformationChangeStatus.error}
                     </span>
                   </div>

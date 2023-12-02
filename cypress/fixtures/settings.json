@@ -1,6 +1,12 @@
 {
     "personal_details": {
         "first_name": "Test",
-        "last_name": "Test"
+        "last_name": "Test",
+        "valid_email": "test@eyetry.com",
+        "valid_password": "ValidPassword$1"
+    },
+    "invalid_personal_details": {
+        "invalid_email": "test@gmail",
+        "invalid_pass": "test"
     }
 }
