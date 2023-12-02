@@ -37,10 +37,13 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
   const fetchAdmin = async (adminId) => {
     try {
       const fetchedAdminProfile = await getAdminProfile(adminId);
-      const viewImageProfile = await viewAdminProfilePhoto();
       setAdmin(fetchedAdminProfile);
-      const imageURL = API_URL + viewImageProfile.data.location;
-      setServerImageLocation(imageURL);
+
+      const viewImageProfile = await viewAdminProfilePhoto();
+      if (viewImageProfile.status === 200) {
+        const imageURL = API_URL + viewImageProfile.data.location;
+        setServerImageLocation(imageURL);
+      }
     } catch (error) {
       console.error("Error fetching admin", error);
     }
