@@ -17,6 +17,8 @@ import {
 } from "../../../services/Admin/admin";
 import { getDataFromLocalStorage } from "../../../utils/LocalStorage";
 
+import { validatePassword } from "../../../utils/validatePassword";
+
 const Settings = () => {
   const [passwordChangeStatus, setPasswordChangeStatus] = useState({
     status: "",
@@ -94,6 +96,34 @@ const Settings = () => {
   const handleUpdateAdminPassword = async (event) => {
     event.preventDefault();
 
+    const { currentPassword, newPassword, confirmPassword } = adminPassword;
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setPasswordChangeStatus((oldStatus) => ({
+        ...oldStatus,
+        error: "Please fill in all password fields.",
+      }));
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordChangeStatus((oldStatus) => ({
+        ...oldStatus,
+        error: "New password and confirm password do not match.",
+      }));
+      return;
+    }
+
+    const isPasswordValid = validatePassword(newPassword);
+
+    if (!isPasswordValid) {
+      setPasswordChangeStatus((oldStatus) => ({
+        ...oldStatus,
+        error: "Password requirements not fullfilled.",
+      }));
+      return;
+    }
+
     try {
       const updatePassword = await updateAdminPassword(
         admin._id,
@@ -137,7 +167,8 @@ const Settings = () => {
         setServerImageLocation(imageURL);
       }
     } catch (error) {
-      console.error("Error fetching admin", error);
+      console.log("error occured in the settings");
+      // console.error("Error fetching admin", error);
     }
   };
 

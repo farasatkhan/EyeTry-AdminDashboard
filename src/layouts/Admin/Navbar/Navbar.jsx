@@ -45,7 +45,8 @@ const Navbar = ({ toggleSidebar, onSidebarToggle }) => {
         setServerImageLocation(imageURL);
       }
     } catch (error) {
-      console.error("Error fetching admin", error);
+      console.log("error occured in the navbar");
+      // console.error("Error fetching admin", error);
     }
   };
 
