@@ -17,7 +17,7 @@ import {
 } from "../../../services/Admin/admin";
 import { getDataFromLocalStorage } from "../../../utils/LocalStorage";
 
-import { validatePassword } from "../../../utils/validatePassword";
+import { validatePassword, validateEmail } from "../../../utils/validation";
 
 const Settings = () => {
   const [passwordChangeStatus, setPasswordChangeStatus] = useState({
@@ -67,6 +67,32 @@ const Settings = () => {
 
   const handleUpdateAdminBasicInformation = async (event) => {
     event.preventDefault();
+
+    const { email } = admin;
+
+    if (!email) {
+      setBasicInformationChangeStatus((oldStatus) => ({
+        status: "",
+        error: "Please fill in the email field.",
+      }));
+      return;
+    }
+
+    const isValidEmail = validateEmail(email);
+
+    if (!isValidEmail) {
+      setBasicInformationChangeStatus((oldStatus) => ({
+        status: "",
+        error: "Email is not valid",
+      }));
+      return;
+    }
+
+    // reset the error if everything is correct.
+    setBasicInformationChangeStatus((oldStatus) => ({
+      status: "",
+      error: "",
+    }));
 
     try {
       const updateAdmin = await updateAdminBasicInformation(admin._id, {
@@ -356,7 +382,7 @@ const Settings = () => {
                 <div className="flex border rounded-md h-10 mb-5 bg-danger-900">
                   <div className="p-2">
                     <span className="text-sm text-slate-900">
-                      {passwordChangeStatus.error}
+                      {basicInformationChangeStatus.error}
                     </span>
                   </div>
                 </div>
