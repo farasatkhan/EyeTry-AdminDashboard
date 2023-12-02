@@ -124,6 +124,12 @@ const Settings = () => {
       return;
     }
 
+    // reset the error if everything is correct.
+    setPasswordChangeStatus((oldStatus) => ({
+      status: "",
+      error: "",
+    }));
+
     try {
       const updatePassword = await updateAdminPassword(
         admin._id,
