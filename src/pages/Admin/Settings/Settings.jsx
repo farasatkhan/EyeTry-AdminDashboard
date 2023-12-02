@@ -100,7 +100,7 @@ const Settings = () => {
 
     if (!currentPassword || !newPassword || !confirmPassword) {
       setPasswordChangeStatus((oldStatus) => ({
-        ...oldStatus,
+        status: "",
         error: "Please fill in all password fields.",
       }));
       return;
@@ -108,7 +108,7 @@ const Settings = () => {
 
     if (newPassword !== confirmPassword) {
       setPasswordChangeStatus((oldStatus) => ({
-        ...oldStatus,
+        status: "",
         error: "New password and confirm password do not match.",
       }));
       return;
@@ -118,7 +118,7 @@ const Settings = () => {
 
     if (!isPasswordValid) {
       setPasswordChangeStatus((oldStatus) => ({
-        ...oldStatus,
+        status: "",
         error: "Password requirements not fullfilled.",
       }));
       return;
