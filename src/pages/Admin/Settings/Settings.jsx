@@ -250,7 +250,9 @@ const Settings = () => {
                 </label>
                 <div className="flex flex-grow gap-2 md:w-4/5">
                   <input
+                    data-cy="settings-update-first_name"
                     id="fname"
+                    name="first_name"
                     type="text"
                     placeholder="First name"
                     autoComplete="off"
@@ -261,7 +263,9 @@ const Settings = () => {
                     className="border h-10 outline-none w-1/2 rounded p-2"
                   />
                   <input
+                    data-cy="settings-update-last_name"
                     id="lname"
+                    name="last_name"
                     type="text"
                     placeholder="Last name"
                     autoComplete="off"
@@ -281,8 +285,10 @@ const Settings = () => {
                   Email
                 </label>
                 <input
+                  data-cy="settings-update-email"
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="john@gmail.com"
                   autoComplete="off"
                   value={admin.email}
@@ -317,7 +323,10 @@ const Settings = () => {
               {basicInformationChangeStatus.status && (
                 <div className="flex border rounded-md h-10 mb-5 bg-primary-900">
                   <div className="p-2">
-                    <span className="text-sm text-slate-900">
+                    <span
+                      data-cy="settings-update-profile_status"
+                      className="text-sm text-slate-900"
+                    >
                       {basicInformationChangeStatus.status}
                     </span>
                   </div>
@@ -325,6 +334,7 @@ const Settings = () => {
               )}
               <div className="flex justify-end cursor-pointer">
                 <button
+                  data-cy="settings-update-profile-button"
                   type="submit"
                   className="w-full sm:w-36 h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 >
