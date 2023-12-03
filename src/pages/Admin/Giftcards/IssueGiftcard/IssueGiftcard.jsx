@@ -12,6 +12,8 @@ import {
   viewParticularGiftcard,
 } from "../../../../services/Giftcards/giftcards";
 
+import { isInteger } from "../../../../utils/validation";
+
 const IssueGiftcard = () => {
   const navigate = useNavigate();
   const { giftcardId } = useParams();
@@ -48,6 +50,11 @@ const IssueGiftcard = () => {
 
     if (!giftcard.code || giftcard.amount.price === 0) {
       setGiftcardError("Please fill out all required fields.");
+      return;
+    }
+
+    if (giftcard.amount.price < 0) {
+      setGiftcardError("Giftcard should have a positive value");
       return;
     }
 
@@ -164,7 +171,7 @@ const IssueGiftcard = () => {
                 <div className="flex flex-row">
                   <input
                     id="value"
-                    type="text"
+                    type="number"
                     value={giftcard.amount.price}
                     onChange={(event) =>
                       setGiftcard((oldGiftcard) => ({
@@ -246,7 +253,7 @@ const IssueGiftcard = () => {
             </div>
           </div>
           <div className="flex flex-col flex-grow w-full md:w-1/3 gap-5">
-            {!giftcardId && (
+            {/* {!giftcardId && (
               <div className="flex flex-grow">
                 <div className="w-full bg-white px-5 pt-5 pb-2 border rounded-lg">
                   <div className="mb-5">
@@ -275,7 +282,7 @@ const IssueGiftcard = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
             <div className="flex flex-grow">
               <div className="w-full bg-white px-5 pt-5 pb-2 border rounded-lg">
                 <div className="mb-5">
