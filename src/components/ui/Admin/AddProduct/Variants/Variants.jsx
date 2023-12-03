@@ -131,16 +131,6 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
     updateVariants(productVariantsMultiple);
   }, [productVariantsMultiple]);
 
-  const handleDisablingQuantity = (color) => {
-    const VariantIndex = productVariantsMultiple.findIndex(
-      (variant) => variant.color === color
-    );
-
-    // if (productVariantsMultiple[VariantIndex].images.length === 0) return true;
-
-    return false;
-  };
-
   const [imagesFormatError, setImageFormatError] = useState("");
 
   return (

@@ -119,10 +119,6 @@ const AddProductVariants = () => {
 
     setVariantStatus((oldStatus) => ({ status: "", error: "" }));
 
-    console.error(productVariant);
-    console.error(productFrameColors);
-    return;
-
     const formData = new FormData();
 
     productVariant.forEach((variant, index) => {
