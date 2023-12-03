@@ -39,7 +39,7 @@ export const viewParticularProduct = async (glassesId) => {
 export const updateProduct = async (productId, data) => {
     try {
         const response = await authenticatedAxiosInstance.put(`/products/v1/glasses/${productId}`, data);
-        return response.data;
+        return response;
     } catch (error) {
         console.error('Error while updating product', error);
         throw error;

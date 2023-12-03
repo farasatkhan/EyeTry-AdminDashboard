@@ -3,6 +3,7 @@ import { Link, useFetcher, useParams } from "react-router-dom";
 
 import {
   newProduct,
+  updateProduct,
   viewParticularProduct,
 } from "../../../../services/Products/glasses";
 
@@ -417,9 +418,9 @@ const AddProducts = () => {
         );
 
         if (updatedProductInformation.status === 200) {
-          setGiftcardChangeStatus((oldStatus) => ({
-            ...oldStatus,
-            status: updatedProductInformation.data.message,
+          setProductStatus((oldStatus) => ({
+            status: "Product is updated successfully!",
+            error: "",
           }));
         }
         setResponseGlassesId(glassesId);
@@ -427,7 +428,7 @@ const AddProducts = () => {
         const addNewProduct = await newProduct(productInformation);
         console.log("Product added successfully!", addNewProduct);
         setProductStatus((oldStatus) => ({
-          status: "Product added successfully!",
+          status: "Product is added successfully to the store!",
           error: "",
         }));
         setResponseGlassesId(addNewProduct.data.GlassesId);
