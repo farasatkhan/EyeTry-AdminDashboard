@@ -4,13 +4,17 @@ import { BiDollarCircle, BiHomeAlt2 } from "react-icons/bi";
 import { BsFillCartCheckFill, BsTelephone } from "react-icons/bs";
 import { SlLocationPin, SlCalender } from "react-icons/sl";
 import { MdOutlineMail, MdPayment } from "react-icons/md";
-
+import { BsFillPersonFill, BsPencil } from "react-icons/bs";
 import Person from "../../../../assets/images/test/person.jpg";
 
-import { viewParticularCustomer } from "../../../../services/Customer/customer";
+import {
+  viewParticularCustomer,
+  viewCustomerImage,
+} from "../../../../services/Customer/customer";
 
 const CustomerInformation = ({ customerId, customerOrders }) => {
   const [customer, setCustomer] = useState({});
+  const [serverImageLocation, setServerImageLocation] = useState(null);
 
   useEffect(() => {
     fetchCustomer(customerId);
@@ -20,6 +24,12 @@ const CustomerInformation = ({ customerId, customerOrders }) => {
     try {
       const fetchedUser = await viewParticularCustomer(customerId);
       setCustomer(fetchedUser);
+
+      const customerImage = await viewCustomerImage(customerId);
+      if (customerImage.data.location) {
+        const imageURL = API_URL + customerImage.data.location;
+        setServerImageLocation(imageURL);
+      }
     } catch (error) {
       console.error("Error fetching reviews", error);
     }
@@ -46,11 +56,20 @@ const CustomerInformation = ({ customerId, customerOrders }) => {
       <div className="w-full md:w-1/2 border-b mb-10 md:mb-0 md:border-b-0 md:border-e">
         <div className="flex flex-col lg:flex-row justify-center items-center lg:justify-start lg:items-start p-5 gap-5">
           <div className="h-24 w-24 rounded-full overflow-hidden mr-2">
-            <img
-              src={Person}
-              alt="person"
-              className="object-cover rounded-full h-full w-full"
-            />
+            {serverImageLocation ? (
+              <img
+                src={serverImageLocation}
+                alt="person"
+                className="object-cover rounded-full h-full w-full"
+              />
+            ) : (
+              <div>
+                <BsFillPersonFill size={80} className="text-slate-300" />
+                <div className="flex justify-center items-center absolute bg-white w-6 h-6 rounded-full border ml-20 mt-10">
+                  <BsPencil size={10} />
+                </div>
+              </div>
+            )}
           </div>
           <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col gap-2">
