@@ -69,9 +69,7 @@ const LensInformation = ({
                 }
                 className="w-full h-10 border px-1 sm:px-3 py-1 rounded-md outline-none text-sm cursor-pointer"
               >
-                <option value="" disabled>
-                  Select
-                </option>
+                <option disabled>Select</option>
                 <option value="true">True</option>
                 <option value="false">False</option>
               </select>

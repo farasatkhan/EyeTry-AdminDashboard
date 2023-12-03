@@ -126,7 +126,11 @@ const AddProducts = () => {
   const [productPricingError, setProductPricingError] = useState("");
 
   useEffect(() => {
-    if (productPricing.price && productPricing.currency) {
+    if (
+      productPricing.price &&
+      productPricing.price > 0 &&
+      productPricing.currency
+    ) {
       setProductPricingError("");
       return;
     }
@@ -339,8 +343,7 @@ const AddProducts = () => {
       !productLensInformation.lens_height ||
       !productLensInformation.total_width ||
       !productLensInformation.bridge_width ||
-      !productLensInformation.temple_length ||
-      !productLensInformation.is_multifocal
+      !productLensInformation.temple_length
     ) {
       setProductLensError("Please fill out all required fields.");
       return;
@@ -348,6 +351,11 @@ const AddProducts = () => {
 
     if (!productPricing.price || !productPricing.currency) {
       setProductPricingError("Please fill out all required fields.");
+      return;
+    }
+
+    if (productPricing.price < 1) {
+      setProductPricingError("Price should be greater than 0");
       return;
     }
 
