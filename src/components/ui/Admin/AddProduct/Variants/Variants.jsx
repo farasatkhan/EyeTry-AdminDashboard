@@ -202,7 +202,8 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
                     </label>
                     <input
                       id={`color_quantity_${color}`}
-                      type="text"
+                      type="number"
+                      min={0}
                       className="border p-1 rounded-md w-20 outline-none text-sm"
                       autoComplete="off"
                       value={handleProductVariantQuantity(color)}
