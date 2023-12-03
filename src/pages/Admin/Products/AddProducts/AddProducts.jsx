@@ -311,6 +311,11 @@ const AddProducts = () => {
     setProductFrameColors(updatedFrameColors());
   };
 
+  const [productStatus, setProductStatus] = useState({
+    status: "",
+    error: "",
+  });
+
   const handleSubmittedProducts = async (e) => {
     e.preventDefault();
 
@@ -421,10 +426,18 @@ const AddProducts = () => {
       } else {
         const addNewProduct = await newProduct(productInformation);
         console.log("Product added successfully!", addNewProduct);
+        setProductStatus((oldStatus) => ({
+          status: "Product added successfully!",
+          error: "",
+        }));
         setResponseGlassesId(addNewProduct.data.GlassesId);
       }
     } catch (error) {
       console.error("Failed to add product:", error);
+      setProductStatus((oldStatus) => ({
+        status: "",
+        error: "Error occured while adding product to the store.",
+      }));
     }
   };
 
@@ -517,6 +530,17 @@ const AddProducts = () => {
           </div>
         </div>
       </div>
+      {productStatus.status && (
+        <div className="flex flex-col justify-center items-center bg-green-500 h-10 rounded-sm my-2">
+          <span className="text-white text-sm">{productStatus.status}</span>
+        </div>
+      )}
+      {productStatus.error && (
+        <div className="flex flex-col justify-center items-center bg-red-500 h-10 rounded-sm my-2">
+          <span className="text-white text-sm">{productStatus.error}</span>
+        </div>
+      )}
+
       {/* <div className={`h-0.5 bg-slate-100 ml-7 mr-7 mt-7`}></div> */}
       <div className="flex mx-5 mt-5">
         <form
