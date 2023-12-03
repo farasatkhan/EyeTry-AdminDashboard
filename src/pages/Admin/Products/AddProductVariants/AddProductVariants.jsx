@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 
 import { addProductImages } from "../../../../services/Products/glasses";
@@ -11,6 +12,12 @@ import { viewParticularProduct } from "../../../../services/Products/glasses";
 import API_URL from "../../../../config/config";
 
 const AddProductVariants = () => {
+  const navigate = useNavigate();
+
+  const redirectToProductsPage = () => {
+    navigate("/products/view");
+  };
+
   const { glassesId } = useParams();
 
   const [productFrameColors, setProductFrameColors] = useState([
@@ -18,6 +25,20 @@ const AddProductVariants = () => {
     "White",
     "Metallic",
   ]);
+
+  // useEffect(() => {
+  //   const variants = [];
+  //   productFrameColors.map((color, index) => {
+  //     const newVariant = {
+  //       color: color,
+  //       quantity: 0,
+  //       image_count: 0,
+  //       images: [{}],
+  //     };
+  //     variants.push(newVariant);
+  //   });
+  //   setProductVaraint(variants);
+  // }, [productFrameColors]);
 
   const [productFrameColorsError, setProductFrameColorsError] = useState("");
 
@@ -30,6 +51,24 @@ const AddProductVariants = () => {
 
   const [productVariant, setProductVaraint] = useState([]);
 
+  const [disableCreateProduct, setDisableCreateProduct] = useState(true);
+
+  useEffect(() => {
+    const isEveryVariantImagePresent = productVariant.every((variant) => {
+      return variant.images && variant.images.length > 0;
+    });
+
+    if (
+      productFrameColors.length === productVariant.length &&
+      productVariant.length > 0 &&
+      isEveryVariantImagePresent
+    ) {
+      setDisableCreateProduct(false);
+    } else {
+      setDisableCreateProduct(true);
+    }
+  }, [productVariant, productFrameColors]);
+
   const updatedSelectedFrameColors = (updatedColor, checked) => {
     const updatedFrameColors = () => {
       if (checked) {
@@ -41,6 +80,11 @@ const AddProductVariants = () => {
     setProductFrameColors(updatedFrameColors());
   };
 
+  const [variantStatus, setVariantStatus] = useState({
+    status: "",
+    error: "",
+  });
+
   const handleSubmittedProductsVariant = async (e) => {
     e.preventDefault();
 
@@ -48,6 +92,36 @@ const AddProductVariants = () => {
       setProductFrameColorsError("Select atleast one color.");
       return;
     }
+
+    const isValidQuantity = productVariant.every((variant) => {
+      return variant.quantity > 0;
+    });
+
+    if (!isValidQuantity) {
+      setVariantStatus((oldStatus) => ({
+        status: "",
+        error: "Each Variant must have quantity greater than 0.",
+      }));
+      return;
+    }
+
+    const isColorCodePresent = productVariant.every((variant) => {
+      return variant.color_code && variant.color_code[0] === "#";
+    });
+
+    if (!isColorCodePresent) {
+      setVariantStatus((oldStatus) => ({
+        status: "",
+        error: "Color Code must be added and should be in the format #fffff.",
+      }));
+      return;
+    }
+
+    setVariantStatus((oldStatus) => ({ status: "", error: "" }));
+
+    console.error(productVariant);
+    console.error(productFrameColors);
+    return;
 
     const formData = new FormData();
 
@@ -66,18 +140,12 @@ const AddProductVariants = () => {
         glassesId,
         formData
       );
+      redirectToProductsPage();
       console.log("Product added successfully!", addProductImagesResponse);
     } catch (error) {
       console.error("Failed to add product:", error);
     }
   };
-
-  const isImagesUploaded =
-    productVariant.length === 0 ||
-    productVariant.some(
-      (variant) =>
-        variant.color && variant.images && variant.images.length === 0
-    );
 
   // useEffect(() => {
   //   if (glassesId) {
@@ -188,13 +256,27 @@ const AddProductVariants = () => {
                 updateVariants={setProductVaraint}
                 fetchedData={fetchedData}
               />
+              {variantStatus.error && (
+                <div className="flex flex-col justify-center items-center h-10 bg-red-500 rounded-sm my-2 mx-2">
+                  <span className="text-white text-sm">
+                    {variantStatus.error}
+                  </span>
+                </div>
+              )}
+              {variantStatus.status && (
+                <div className="flex flex-col justify-center items-center h-10 bg-red-500 rounded-sm my-2 mx-2">
+                  <span className="text-white text-sm">
+                    {variantStatus.status}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex justify-end mb-10">
               <button
                 type="submit"
-                disabled={isImagesUploaded}
+                disabled={disableCreateProduct}
                 className={`w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none ${
-                  isImagesUploaded ? "bg-gray-300" : "bg-blue-600"
+                  disableCreateProduct ? "bg-gray-300" : "bg-blue-600"
                 }`}
               >
                 <p className="">Create Product</p>

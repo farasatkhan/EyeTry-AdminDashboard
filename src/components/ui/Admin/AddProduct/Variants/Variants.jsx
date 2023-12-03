@@ -19,6 +19,13 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
   // }, [productFrameColors]);
 
   useEffect(() => {
+    const newProductVariantsMultiple = productVariantsMultiple.filter((item) =>
+      productFrameColors.includes(item.color)
+    );
+    setProductVariantsMultiple(newProductVariantsMultiple);
+  }, [productFrameColors]);
+
+  useEffect(() => {
     const fetchData = async () => {
       const updatedData = [];
       for (const item of fetchedData) {
