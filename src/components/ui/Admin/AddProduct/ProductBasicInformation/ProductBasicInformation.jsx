@@ -7,11 +7,7 @@ const ProductBasicInformation = ({
   updateBasicProductInformation,
   productError,
 }) => {
-  const [ProductType, setProductType] = useState([
-    "Sunglasses",
-    "Eyeglasses",
-    "Lens",
-  ]);
+  const [ProductType, setProductType] = useState(["Sunglasses", "Eyeglasses"]);
 
   const [basicInformation, setBasicInformation] = useState({
     name: "",

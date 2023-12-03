@@ -29,5 +29,5 @@ export const isExpirationDateValid = (expirationDate) => {
   const today = new Date();
   const expDate = new Date(expirationDate);
 
-  return expDate > today;
+  return expDate >= today;
 }
