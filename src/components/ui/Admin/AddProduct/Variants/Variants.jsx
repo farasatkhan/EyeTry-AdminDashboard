@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { BsTrash, BsX } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineStar, AiFillStar } from "react-icons/ai";
@@ -10,13 +10,6 @@ import { processImages } from "../../../../../utils/urlToFileObject";
 
 const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
   const [productVariantsMultiple, setProductVariantsMultiple] = useState([]);
-
-  // useEffect(() => {
-  //   const filteredVariants = productVariantsMultiple.filter((variant) =>
-  //     productFrameColors.includes(variant.color)
-  //   );
-  //   setProductVariantsMultiple(filteredVariants);
-  // }, [productFrameColors]);
 
   useEffect(() => {
     const newProductVariantsMultiple = productVariantsMultiple.filter((item) =>
@@ -42,10 +35,6 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
 
     fetchData();
   }, [fetchedData]);
-
-  useEffect(() => {
-    console.log(productVariantsMultiple);
-  }, [productVariantsMultiple]);
 
   const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
     setProductVariantsMultiple((prevProductVariants) => {
@@ -75,20 +64,6 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
       return updatedVariants;
     });
   };
-
-  // const handleImageChangeMultiple = (color, quantity, images, totalImages) => {
-  //   setProductVariantsMultiple((prevProductVariant) => [
-  //     ...prevProductVariant,
-  //     {
-  //       color: color,
-  //       quantity: quantity,
-  //       image_count: totalImages,
-  //       images: Array.from(images),
-  //     },
-  //   ]);
-
-  //   console.log(productVariantsMultiple);
-  // };
 
   const handleRemovingSelectedImage = (color, imageIndex) => {
     setProductVariantsMultiple((prevVariants) => {
@@ -133,6 +108,12 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
 
   const [imagesFormatError, setImageFormatError] = useState("");
 
+  const inputRef = useRef(null);
+
+  const handleOpenFileInput = () => {
+    inputRef.current.click();
+  };
+
   return (
     <>
       <div className="pl-4 py-4">
@@ -144,6 +125,7 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
           {productFrameColors.map((color, index) => (
             <div key={index} className="flex gap-5 mb-5">
               <input
+                ref={inputRef}
                 name="product_images"
                 id={`image-${index}`}
                 type="file"
@@ -152,7 +134,9 @@ const Variants = ({ productFrameColors, updateVariants, fetchedData }) => {
                 key={Math.random()}
                 onChange={(event) => {
                   const selectedFiles = event.target.files;
-                  const totalImages = selectedFiles.length;
+                  const totalImages = selectedFiles ? selectedFiles.length : 0;
+                  // const selectedFiles = event.target.files;
+                  // const totalImages = selectedFiles.length;
 
                   for (let i = 0; i < totalImages; i++) {
                     const file = selectedFiles[i];
