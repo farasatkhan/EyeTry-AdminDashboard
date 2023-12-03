@@ -19,12 +19,22 @@ import StockStatus from "../../../../components/ui/Admin/AddProduct/StockStatus/
 import LensInformation from "../../../../components/ui/Admin/AddProduct/LensInformation/LensInformation";
 import ProductBasicInformation from "../../../../components/ui/Admin/AddProduct/ProductBasicInformation/ProductBasicInformation";
 import Variants from "../../../../components/ui/Admin/AddProduct/Variants/Variants";
-
+import { useNavigate } from "react-router-dom";
 /*
   Bug: Categories, Frame Material, Frame Size, Face Shape, and gender when updated is not working
 */
 
 const AddProducts = () => {
+  const gotoScreenTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
+  const navigate = useNavigate();
+
+  const redirectToVariantsPage = (productId) => {
+    navigate(`/products/${productId}/variant/`);
+  };
+
   const { glassesId } = useParams();
 
   const [productBasicInformation, setProductBasicInformation] = useState({
@@ -424,6 +434,7 @@ const AddProducts = () => {
           }));
         }
         setResponseGlassesId(glassesId);
+        gotoScreenTop();
       } else {
         const addNewProduct = await newProduct(productInformation);
         console.log("Product added successfully!", addNewProduct);
@@ -432,6 +443,9 @@ const AddProducts = () => {
           error: "",
         }));
         setResponseGlassesId(addNewProduct.data.GlassesId);
+
+        // gotoScreenTop();
+        redirectToVariantsPage(addNewProduct.data.GlassesId);
       }
     } catch (error) {
       console.error("Failed to add product:", error);
@@ -439,6 +453,7 @@ const AddProducts = () => {
         status: "",
         error: "Error occured while adding product to the store.",
       }));
+      gotoScreenTop();
     }
   };
 
@@ -579,7 +594,9 @@ const AddProducts = () => {
                 type="submit"
                 className="w-full h-12 md:w-36 md:h-10 rounded-md text-white focus:outline-none bg-blue-600"
               >
-                <p className="">Save Changes</p>
+                <p className="">
+                  {glassesId ? "Update Product" : "Add Product"}
+                </p>
               </button>
             </div>
           </div>
