@@ -103,7 +103,7 @@ const ReviewsInformation = ({ reviews }) => {
         <div className="flex flex-col mb-5 lg:mb-0">
           <div className="flex flex-col">
             <span className="text-sm">Average Rating</span>
-            <span className="text-5xl">{averageReviewRating}</span>
+            <span className="text-5xl">{averageReviewRating.toFixed(1)}</span>
             <div className="flex gap-2 mt-2 mb-5">
               <span>
                 <GoHorizontalRule size={20} />
