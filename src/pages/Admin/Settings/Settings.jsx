@@ -194,7 +194,7 @@ const Settings = () => {
 
       const viewImageProfile = await viewAdminProfilePhoto();
 
-      if (viewAdminProfilePhoto.status === 200) {
+      if (viewImageProfile.data.location) {
         const imageURL = API_URL + viewImageProfile.data.location;
         setServerImageLocation(imageURL);
       }
