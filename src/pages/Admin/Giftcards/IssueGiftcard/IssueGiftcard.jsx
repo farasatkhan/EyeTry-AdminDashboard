@@ -12,7 +12,7 @@ import {
   viewParticularGiftcard,
 } from "../../../../services/Giftcards/giftcards";
 
-import { isInteger } from "../../../../utils/validation";
+import { isInteger, isExpirationDateValid } from "../../../../utils/validation";
 
 const IssueGiftcard = () => {
   const navigate = useNavigate();
@@ -55,6 +55,18 @@ const IssueGiftcard = () => {
 
     if (giftcard.amount.price < 0) {
       setGiftcardError("Giftcard should have a positive value");
+      return;
+    }
+
+    if (!expirationDate) {
+      setGiftcardError("You need to provide giftcard expiration date");
+      return;
+    }
+
+    const isExpirationValid = isExpirationDateValid(expirationDate);
+
+    if (!isExpirationValid) {
+      setGiftcardError("Expiration date should be in the future.");
       return;
     }
 

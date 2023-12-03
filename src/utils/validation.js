@@ -24,3 +24,10 @@ export const validateEmail = (email) => {
 export const isInteger = (value) => {
   return Number.isInteger(value);
 }
+
+export const isExpirationDateValid = (expirationDate) => {
+  const today = new Date();
+  const expDate = new Date(expirationDate);
+
+  return expDate > today;
+}
